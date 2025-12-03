@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>ペルシャ猫の歴史 図解</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-soft: #0f172a;
+      --panel: #0f172a;
+      --panel-soft: #1e293b;
+      --accent: #f97316;
+      --accent-soft: rgba(249, 115, 22, 0.18);
+      --accent-blue: #38bdf8;
+      --accent-purple: #a855f7;
+      --accent-pink: #f472b6;
+      --text-main: #e5e7eb;
+      --text-sub: #9ca3af;
+      --line-soft: rgba(148,163,184,0.35);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Hiragino Sans", sans-serif;
+      color: var(--text-main);
+      background:
+        radial-gradient(circle at top left, rgba(249, 115, 22, 0.12) 0, transparent 40%),
+        radial-gradient(circle at 90% 10%, rgba(168, 85, 247, 0.1) 0, transparent 45%),
+        radial-gradient(circle at bottom, rgba(56, 189, 248, 0.08) 0, transparent 45%),
+        var(--bg);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* パンくずナビ */
+    .breadcrumb {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 12px 20px;
+      background: rgba(2, 6, 23, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    }
+
+    .breadcrumb-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+    }
+
+    .breadcrumb a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .breadcrumb a:hover { color: #fb923c; }
+    .breadcrumb-sep { color: var(--text-sub); opacity: 0.5; }
+    .breadcrumb-current { color: var(--text-sub); }
+
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 60px 16px 80px;
+    }
+
+    /* レール（中央線） */
+    .rail {
+      position: relative;
+      margin: 0 auto;
+    }
+
+    .rail::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 100vh;
+      background: linear-gradient(to bottom, transparent, rgba(249, 115, 22, 0.33), transparent);
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    /* ヒーローセクション */
+    .hero {
+      position: relative;
+      margin-bottom: 40px;
+      padding: 24px 20px;
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at top left, rgba(249, 115, 22, 0.15), transparent 60%),
+        rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      background: rgba(249, 115, 22, 0.15);
+      border: 1px solid rgba(249, 115, 22, 0.4);
+      color: #fb923c;
+      margin-bottom: 12px;
+    }
+
+    .hero-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.4;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero h1 span.cat {
+      font-size: 36px;
+    }
+
+    .hero-sub {
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.7;
+    }
+
+    .hero-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .hero-chip {
+      font-size: 11px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--line-soft);
+    }
+
+    /* タイムラインセクション */
+    .timeline-section {
+      margin-bottom: 40px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-badge {
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(249, 115, 22, 0.15);
+      border: 1px solid rgba(249, 115, 22, 0.4);
+      color: #fb923c;
+    }
+
+    /* タイムラインカード */
+    .timeline-card {
+      position: relative;
+      margin-bottom: 16px;
+      padding: 16px 18px;
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--line-soft);
+      padding-left: 50px;
+    }
+
+    .timeline-card::before {
+      content: "";
+      position: absolute;
+      left: 22px;
+      top: 50px;
+      bottom: -16px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent), rgba(249, 115, 22, 0.3));
+    }
+
+    .timeline-card:last-of-type::before {
+      display: none;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 14px;
+      top: 20px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 3px solid var(--accent);
+      box-shadow: 0 0 12px rgba(249, 115, 22, 0.5);
+    }
+
+    .timeline-era {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+
+    .timeline-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .timeline-body {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.7;
+    }
+
+    .timeline-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .timeline-tag {
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--line-soft);
+    }
+
+    .timeline-tag.orange {
+      border-color: rgba(249, 115, 22, 0.6);
+      color: #fb923c;
+    }
+
+    .timeline-tag.purple {
+      border-color: rgba(168, 85, 247, 0.6);
+      color: #c084fc;
+    }
+
+    .timeline-tag.blue {
+      border-color: rgba(56, 189, 248, 0.6);
+      color: #7dd3fc;
+    }
+
+    /* ポイントセクション */
+    .points-section {
+      margin-bottom: 40px;
+    }
+
+    .points-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 500px) {
+      .points-grid { grid-template-columns: 1fr; }
+    }
+
+    .point-card {
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--line-soft);
+    }
+
+    .point-card-title {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .point-card-title span {
+      font-size: 18px;
+    }
+
+    .point-card ul {
+      margin: 0;
+      padding-left: 16px;
+      font-size: 11px;
+      color: var(--text-sub);
+      line-height: 1.7;
+    }
+
+    .point-card li + li {
+      margin-top: 4px;
+    }
+
+    /* 見た目セクション */
+    .looks-section {
+      margin-bottom: 40px;
+      padding: 18px 20px;
+      border-radius: 16px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--line-soft);
+    }
+
+    .looks-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .looks-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .looks-pill {
+      font-size: 11px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid var(--line-soft);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .looks-pill span {
+      font-size: 14px;
+    }
+
+    .looks-note {
+      font-size: 11px;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+
+    .looks-note strong {
+      color: var(--text-main);
+    }
+
+    /* チェックポイントセクション */
+    .check-section {
+      margin-bottom: 40px;
+      padding: 18px 20px;
+      border-radius: 16px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--line-soft);
+    }
+
+    .check-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .check-list {
+      margin: 0;
+      padding-left: 18px;
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.8;
+    }
+
+    .check-list li + li {
+      margin-top: 6px;
+    }
+
+    /* まとめセクション */
+    .summary {
+      padding: 18px 20px;
+      border-radius: 16px;
+      background:
+        radial-gradient(circle at top left, rgba(249, 115, 22, 0.1), transparent 60%),
+        rgba(30, 41, 59, 0.9);
+      border: 1px solid rgba(249, 115, 22, 0.3);
+    }
+
+    .summary-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .summary-body {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.7;
+    }
+
+    .summary-body strong {
+      color: var(--text-main);
+    }
+
+    /* フッター */
+    .footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line-soft);
+      text-align: center;
+    }
+
+    .footer-note {
+      font-size: 10px;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <nav class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <a href="../index.html">← DIAGRAM LIBRARY</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">ペルシャ猫の歴史</span>
+    </div>
+  </nav>
+
+  <div class="page">
+    <div class="rail">
+      <!-- ヒーロー -->
+      <section class="hero">
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          CAT BREEDS HISTORY
+        </div>
+        <h1><span class="cat">🐱</span>ペルシャ猫の歴史 図解</h1>
+        <p class="hero-sub">
+          いつ・どこで生まれて、どうやって「ゴージャス長毛＋つぶれ顔」の人気猫になったのかを、
+          <strong style="color:var(--text-main);">時間軸</strong> と <strong style="color:var(--text-main);">ポイント</strong> で整理。
+        </p>
+        <div class="hero-chips">
+          <div class="hero-chip">原産：中東（ペルシャ地方・トルコなど）</div>
+          <div class="hero-chip">長毛種の代表格</div>
+          <div class="hero-chip">キャットショー黎明期のスター</div>
+        </div>
+      </section>
+
+      <!-- タイムライン -->
+      <section class="timeline-section">
+        <div class="section-title">
+          ペルシャ猫の時間軸
+          <span class="section-badge">Timeline</span>
+        </div>
+
+        <div class="timeline-card">
+          <div class="timeline-dot"></div>
+          <div class="timeline-era">〜16世紀ごろ</div>
+          <div class="timeline-title">中東の長毛猫として存在</div>
+          <div class="timeline-body">
+            現在のイラン周辺（旧ペルシャ）やトルコなどの地域で、寒冷な気候に適応した長毛の家猫が存在していたと考えられる。
+          </div>
+          <div class="timeline-tags">
+            <span class="timeline-tag orange">地域：ペルシャ・トルコ</span>
+            <span class="timeline-tag">長毛の起源</span>
+          </div>
+        </div>
+
+        <div class="timeline-card">
+          <div class="timeline-dot"></div>
+          <div class="timeline-era">1600年代</div>
+          <div class="timeline-title">ヨーロッパへ持ち込まれる</div>
+          <div class="timeline-body">
+            商人や旅行家が中東から長毛猫を持ち帰り、イタリアやフランスの上流階級の間で「珍しいエキゾチックな猫」として人気が広がる。
+          </div>
+          <div class="timeline-tags">
+            <span class="timeline-tag purple">王侯貴族のペット</span>
+            <span class="timeline-tag">ヨーロッパデビュー</span>
+          </div>
+        </div>
+
+        <div class="timeline-card">
+          <div class="timeline-dot"></div>
+          <div class="timeline-era">1800年代後半</div>
+          <div class="timeline-title">品種として確立 & キャットショーの主役に</div>
+          <div class="timeline-body">
+            イギリスでキャットショー文化が生まれ、長毛猫が「ペルシャ」として品種登録。丸い体型・豊かな被毛・穏やかな性格が好まれ、ショーの花形になる。
+          </div>
+          <div class="timeline-tags">
+            <span class="timeline-tag orange">品種登録</span>
+            <span class="timeline-tag blue">ショーキャット</span>
+          </div>
+        </div>
+
+        <div class="timeline-card">
+          <div class="timeline-dot"></div>
+          <div class="timeline-era">1900年代前半</div>
+          <div class="timeline-title">アメリカで大ブーム</div>
+          <div class="timeline-body">
+            ヨーロッパからアメリカに渡り、家庭猫としても人気に。ここから、より「丸く・短い鼻」の個体が好まれ、選択交配が進んでいく。
+          </div>
+          <div class="timeline-tags">
+            <span class="timeline-tag">家庭猫として普及</span>
+            <span class="timeline-tag purple">短い鼻がトレンドに</span>
+          </div>
+        </div>
+
+        <div class="timeline-card">
+          <div class="timeline-dot"></div>
+          <div class="timeline-era">1900年代後半</div>
+          <div class="timeline-title">極端なつぶれ顔（エクストリーム）の登場</div>
+          <div class="timeline-body">
+            ショー向けに「顔が平たいほど良い」という審査傾向が強まり、非常に鼻の短い"エクストリームタイプ"が主流に。一方で、呼吸・涙やけなど健康面への懸念も指摘され始める。
+          </div>
+          <div class="timeline-tags">
+            <span class="timeline-tag orange">エクストリームタイプ</span>
+            <span class="timeline-tag">健康問題の議論</span>
+          </div>
+        </div>
+
+        <div class="timeline-card">
+          <div class="timeline-dot"></div>
+          <div class="timeline-era">2000年代〜現在</div>
+          <div class="timeline-title">顔つきの多様化と「ウェルフェア」への意識</div>
+          <div class="timeline-body">
+            従来型の穏やかな顔立ち（ドールフェイス）を好む人も増え、「見た目だけでなく健康も重視したブリーディング」を求める流れが強まっている。
+          </div>
+          <div class="timeline-tags">
+            <span class="timeline-tag blue">ドールフェイス</span>
+            <span class="timeline-tag purple">動物福祉への配慮</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ポイントセクション -->
+      <section class="points-section">
+        <div class="section-title">
+          性格・キャラ
+          <span class="section-badge">Character</span>
+        </div>
+
+        <div class="points-grid">
+          <div class="point-card">
+            <div class="point-card-title"><span>🧸</span>ベースの性格</div>
+            <ul>
+              <li>穏やか・おっとり・マイペース</li>
+              <li>大騒ぎより「静かな高級感」タイプ</li>
+              <li>人には慣れやすいが、しつこくされるのは苦手</li>
+            </ul>
+          </div>
+          <div class="point-card">
+            <div class="point-card-title"><span>🏰</span>歴史が作ったキャラ</div>
+            <ul>
+              <li>王侯貴族に可愛がられた「サロンキャット」</li>
+              <li>ショーキャットとして「見た目重視」で改良</li>
+              <li>結果として「優雅にそこにいる存在感」が武器</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 見た目セクション -->
+      <section class="looks-section">
+        <div class="looks-title">👀 見た目のポイント</div>
+        <div class="looks-pills">
+          <div class="looks-pill"><span>🐱</span>丸い頭と大きな目</div>
+          <div class="looks-pill"><span>🧥</span>超もふもふ長毛</div>
+          <div class="looks-pill"><span>👃</span>鼻の長さは幅広い</div>
+        </div>
+        <div class="looks-note">
+          同じ「ペルシャ」でも、<strong>顔立ちはブリーダーの方針でかなり差がある</strong>。
+          最近は「極端につぶれた顔」を避ける流れも強まっている。
+        </div>
+      </section>
+
+      <!-- チェックポイント -->
+      <section class="check-section">
+        <div class="check-title">✅ 飼うときのチェックポイント</div>
+        <ul class="check-list">
+          <li>涙やけ・鼻づまりなど、顔の構造由来のトラブルがないか。</li>
+          <li>ブラッシングなど被毛ケアにどれくらい時間をかけられるか。</li>
+          <li>「ショータイプ」か「ペットタイプ」かで、顔つき・性格傾向が変わる。</li>
+        </ul>
+      </section>
+
+      <!-- まとめ -->
+      <section class="summary">
+        <div class="summary-title">📝 まとめ</div>
+        <div class="summary-body">
+          ペルシャ猫は「長毛の起源種」かつ「ショーキャットの象徴」。
+          歴史的には見た目が追求されてきた分、<strong>これからは健康と暮らしやすさを一緒に見て選ぶ</strong>のが大事。
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="footer-note">
+          この1枚をベースに、別の猫種（メインクーン、ノルウェージャンなど）とも<br>
+          時代軸で比較すると「猫種のキャラの違い」が一気に見えてくる。
+        </div>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>

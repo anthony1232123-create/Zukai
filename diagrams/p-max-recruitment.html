@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>P-MAX × 求人母集団形成｜縦スク図解</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0a0f1e;
+      --bg-soft: #0d1225;
+      --panel: #0f1629;
+      --panel-soft: #151d38;
+      --accent: #4ade80;
+      --accent-soft: rgba(74,222,128,0.18);
+      --accent-blue: #38bdf8;
+      --accent-orange: #fb923c;
+      --accent-purple: #a78bfa;
+      --text-main: #e5e7eb;
+      --text-sub: #9ca3af;
+      --line-soft: rgba(148,163,184,0.35);
+      --google-blue: #4285f4;
+      --google-red: #ea4335;
+      --google-yellow: #fbbc05;
+      --google-green: #34a853;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Hiragino Sans", "ヒラギノ角ゴ ProN W3", "YuGothic", "游ゴシック体",
+        "Yu Gothic", "メイリオ", sans-serif;
+      color: var(--text-main);
+      background:
+        radial-gradient(circle at top left, rgba(74,222,128,0.15) 0, transparent 40%),
+        radial-gradient(circle at 90% 10%, rgba(56,189,248,0.12) 0, transparent 45%),
+        radial-gradient(circle at bottom, rgba(251,146,60,0.1) 0, transparent 45%),
+        var(--bg);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* パンくずナビ */
+    .breadcrumb {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 12px 20px;
+      background: rgba(10, 15, 30, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    }
+
+    .breadcrumb-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+    }
+
+    .breadcrumb a {
+      color: var(--accent);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+
+    .breadcrumb a:hover {
+      color: #86efac;
+    }
+
+    .breadcrumb-sep {
+      color: var(--text-sub);
+      opacity: 0.5;
+    }
+
+    .breadcrumb-current {
+      color: var(--text-sub);
+    }
+
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 60px 14px 80px;
+    }
+
+    @media (min-width: 768px) {
+      .page {
+        padding: 40px 18px 96px;
+      }
+    }
+
+    .rail {
+      position: relative;
+      margin: 0 auto;
+    }
+
+    .rail::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 100vh;
+      background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(74,222,128,0.33),
+        transparent
+      );
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .hero {
+      position: relative;
+      margin-bottom: 32px;
+      padding: 18px 16px 22px;
+      border-radius: 20px;
+      background:
+        linear-gradient(135deg, rgba(15,22,41,0.95), rgba(15,22,41,0.8)),
+        radial-gradient(circle at top left, rgba(74,222,128,0.25), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(56,189,248,0.2), transparent 60%);
+      border: 1px solid rgba(74,222,128,0.4);
+      box-shadow:
+        0 24px 80px rgba(10,15,30,0.85),
+        0 0 0 1px rgba(10,15,30,0.9);
+      overflow: hidden;
+    }
+
+    @media (min-width: 720px) {
+      .hero {
+        padding: 22px 22px 26px;
+        border-radius: 22px;
+      }
+    }
+
+    .hero-topline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      color: var(--text-sub);
+      background: rgba(15,22,41,0.9);
+      border: 1px solid rgba(74,222,128,0.55);
+      backdrop-filter: blur(16px);
+    }
+
+    .hero-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, var(--google-green), var(--google-blue));
+      box-shadow: 0 0 12px rgba(74,222,128,0.8);
+    }
+
+    .hero-title {
+      margin: 10px 0 4px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      font-size: 22px;
+      line-height: 1.3;
+    }
+
+    @media (min-width: 720px) {
+      .hero-title {
+        font-size: 26px;
+      }
+    }
+
+    .hero-sub {
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.7;
+    }
+
+    .hero-sub strong {
+      color: var(--accent);
+    }
+
+    .hero-meta {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--text-sub);
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.5);
+      background: rgba(15,22,41,0.9);
+    }
+
+    .hero-tag span {
+      font-size: 14px;
+    }
+
+    .hero-credit {
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--text-sub);
+      text-align: right;
+    }
+
+    .scroll-hint {
+      margin: 14px auto 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      color: var(--text-sub);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 30px;
+      background: linear-gradient(
+        to bottom,
+        rgba(74,222,128,0),
+        rgba(74,222,128,0.7)
+      );
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scroll-line::after {
+      content: "";
+      position: absolute;
+      top: -40%;
+      left: 0;
+      right: 0;
+      height: 60%;
+      background: linear-gradient(
+        to bottom,
+        rgba(74,222,128,0),
+        rgba(74,222,128,1),
+        rgba(74,222,128,0)
+      );
+      animation: scrollDot 1.6s infinite ease-in-out;
+    }
+
+    @keyframes scrollDot {
+      0% { transform: translateY(-60%); opacity: 0; }
+      20% { opacity: 1; }
+      80% { transform: translateY(150%); opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    .panels {
+      margin-top: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .panel {
+      position: relative;
+      padding: 18px 14px 18px;
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at top left, rgba(74,222,128,0.12), transparent 50%),
+        radial-gradient(circle at bottom right, rgba(248,250,252,0.05), transparent 55%),
+        linear-gradient(135deg, rgba(15,22,41,0.96), rgba(15,22,41,0.96));
+      border: 1px solid rgba(148,163,184,0.45);
+      box-shadow:
+        0 18px 60px rgba(10,15,30,0.85),
+        0 0 0 1px rgba(10,15,30,0.9);
+      overflow: hidden;
+    }
+
+    @media (min-width: 720px) {
+      .panel {
+        padding: 20px 18px 20px;
+        border-radius: 20px;
+      }
+    }
+
+    .panel::before {
+      content: attr(data-label);
+      position: absolute;
+      top: 10px;
+      left: -40px;
+      font-size: 10px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: rgba(148,163,184,0.35);
+      transform: rotate(-90deg);
+      transform-origin: left top;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .panel-index {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(74,222,128,0.6);
+      font-size: 11px;
+      color: var(--text-sub);
+      background: rgba(15,22,41,0.9);
+      backdrop-filter: blur(12px);
+    }
+
+    .panel-index-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #e5e7eb, var(--accent));
+      box-shadow: 0 0 8px rgba(74,222,128,0.9);
+    }
+
+    .panel-title {
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .panel-kicker {
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .panel-main {
+      font-size: 13px;
+      color: var(--text-main);
+      line-height: 1.7;
+      margin-top: 4px;
+    }
+
+    .panel-main strong {
+      color: var(--accent-orange);
+      font-weight: 600;
+    }
+
+    .panel-note {
+      margin-top: 10px;
+      padding: 8px 9px;
+      border-radius: 12px;
+      background: rgba(15,22,41,0.92);
+      border: 1px dashed rgba(74,222,128,0.6);
+      font-size: 11px;
+      color: var(--text-sub);
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      color: var(--text-sub);
+      background: rgba(15,22,41,0.9);
+      border: 1px solid rgba(148,163,184,0.5);
+    }
+
+    .chip-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      box-shadow: 0 0 10px rgba(74,222,128,0.8);
+    }
+
+    .channel-grid {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+    }
+
+    @media (min-width: 640px) {
+      .channel-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .channel-item {
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(148,163,184,0.4);
+      background: rgba(15,22,41,0.92);
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .channel-item span {
+      font-size: 18px;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .compare-table {
+      margin-top: 10px;
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+    }
+
+    .compare-table th,
+    .compare-table td {
+      padding: 6px 8px;
+      border: 1px solid rgba(148,163,184,0.4);
+      text-align: left;
+    }
+
+    .compare-table th {
+      background: rgba(74,222,128,0.15);
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .compare-table td {
+      background: rgba(15,22,41,0.92);
+    }
+
+    .two-cols {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    @media (min-width: 640px) {
+      .two-cols {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      }
+    }
+
+    .mini-card {
+      padding: 8px 9px;
+      border-radius: 12px;
+      border: 1px solid rgba(148,163,184,0.55);
+      background: rgba(15,22,41,0.92);
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    .mini-title {
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px;
+      color: var(--text-main);
+    }
+
+    .mini-title span {
+      font-size: 14px;
+    }
+
+    .list {
+      margin: 4px 0 0;
+      padding-left: 18px;
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    .list li + li {
+      margin-top: 2px;
+    }
+
+    .chance-box {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(251,146,60,0.5);
+      background: rgba(251,146,60,0.08);
+    }
+
+    .chance-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent-orange);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .chance-title span {
+      font-size: 16px;
+    }
+
+    .chance-text {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+
+    .flow {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    @media (min-width: 640px) {
+      .flow {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .flow-step {
+      padding: 8px 9px;
+      border-radius: 12px;
+      border: 1px solid rgba(148,163,184,0.5);
+      background: rgba(12,16,35,0.98);
+      font-size: 12px;
+    }
+
+    .flow-step-label {
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .flow-step-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .warning-box {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(251,146,60,0.4);
+      background: rgba(15,22,41,0.92);
+    }
+
+    .warning-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent-orange);
+      margin-bottom: 4px;
+    }
+
+    .warning-text {
+      font-size: 11px;
+      color: var(--text-sub);
+    }
+
+    .footer-panel {
+      margin-top: 26px;
+      padding: 14px 14px 16px;
+      border-radius: 16px;
+      background: rgba(15,22,41,0.95);
+      border: 1px solid rgba(74,222,128,0.6);
+      font-size: 11px;
+      color: var(--text-sub);
+      text-align: center;
+    }
+
+    .footer-panel strong {
+      color: var(--accent-orange);
+    }
+
+    .footer-panel span {
+      color: var(--accent);
+    }
+
+    .footer-note {
+      margin-top: 10px;
+      font-size: 10px;
+      color: var(--text-sub);
+      text-align: right;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 16px;
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    .back-link:hover {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <!-- パンくずナビ -->
+  <nav class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <a href="../index.html">← DIAGRAM LIBRARY</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">P-MAX × 求人母集団形成</span>
+    </div>
+  </nav>
+
+  <div class="page">
+    <div class="rail">
+
+      <section class="hero">
+        <div class="hero-topline">
+          <span class="hero-dot"></span>
+          Google 広告の最新キャンペーンで採用を変える
+        </div>
+        <h1 class="hero-title">
+          P-MAX × 求人母集団形成<br />
+          <span style="font-size:0.85em;font-weight:500;color:var(--text-sub);">
+            完全ガイド 縦スク図解
+          </span>
+        </h1>
+        <p class="hero-sub">
+          Google の全チャネルに広告を配信できる <strong>P-MAX</strong> を、
+          採用・求人の母集団形成に活用する方法を徹底解説。<br />
+          「Indeed だけでは足りない」を突破する、新しい採用広告戦略。
+        </p>
+        <div class="hero-meta">
+          <div class="hero-tag"><span>🎯</span>採用広告</div>
+          <div class="hero-tag"><span>🤖</span>AI 自動最適化</div>
+          <div class="hero-tag"><span>📺</span>全チャネル配信</div>
+        </div>
+        <div class="hero-credit">
+          作成：Isaac for まいける
+        </div>
+      </section>
+
+      <div class="scroll-hint">
+        <span>SCROLL</span>
+        <div class="scroll-line"></div>
+      </div>
+
+      <div class="panels">
+        <!-- Panel 1 -->
+        <section class="panel" data-label="CHAPTER 01">
+          <div class="panel-header">
+            <div>
+              <div class="panel-kicker">01 / WHAT IS P-MAX</div>
+              <h2 class="panel-title">P-MAX とは何か？</h2>
+            </div>
+            <div class="panel-index">
+              <span class="panel-index-dot"></span>
+              <span>基本を理解</span>
+            </div>
+          </div>
+          <div class="panel-main">
+            <strong>P-MAX（Performance Max）</strong> は、Google が提供する最新の広告キャンペーンタイプ。
+            1つのキャンペーンで、Google の <strong>全6チャネル</strong> に広告を配信できる「統合型キャンペーン」です。
+          </div>
+
+          <div class="channel-grid">
+            <div class="channel-item"><span>🔍</span>Google 検索</div>
+            <div class="channel-item"><span>🖼️</span>ディスプレイ</div>
+            <div class="channel-item"><span>▶️</span>YouTube</div>
+            <div class="channel-item"><span>📧</span>Gmail</div>
+            <div class="channel-item"><span>📍</span>Google マップ</div>
+            <div class="channel-item"><span>📰</span>Discover</div>
+          </div>
+
+          <div class="panel-note">
+            🔑 <strong>ポイント：</strong>
+            従来は「検索広告」「ディスプレイ広告」「YouTube広告」を別々に作っていたのが、
+            <span style="color:var(--accent);">P-MAX なら1つで全部カバー</span>。
+          </div>
+        </section>
+
+        <!-- Panel 2 -->
+        <section class="panel" data-label="CHAPTER 02">
+          <div class="panel-header">
+            <div>
+              <div class="panel-kicker">02 / HOW IT WORKS</div>
+              <h2 class="panel-title">AI が自動で最適化する仕組み</h2>
+            </div>
+            <div class="panel-index">
+              <span class="panel-index-dot"></span>
+              <span>機械学習</span>
+            </div>
+          </div>
+          <div class="panel-main">
+            P-MAX の核心は <strong>Google AI による完全自動最適化</strong>。
+            人間が細かく設定しなくても、AI が最適な配信を見つけてくれます。
+          </div>
+
+          <div class="two-cols">
+            <div class="mini-card">
+              <div class="mini-title"><span>🤖</span>AI が自動で決めること</div>
+              <ul class="list">
+                <li>どのチャネルに出すか</li>
+                <li>どのユーザーに見せるか</li>
+                <li>いくらで入札するか</li>
+                <li>どのクリエイティブを使うか</li>
+              </ul>
+            </div>
+            <div class="mini-card">
+              <div class="mini-title"><span>👤</span>人間が用意すること</div>
+              <ul class="list">
+                <li>広告テキスト（見出し・説明文）</li>
+                <li>画像・動画</li>
+                <li>予算・目標設定</li>
+                <li>オーディエンスのヒント</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="panel-note">
+            ⚡ <strong>つまり：</strong>
+            素材を入れて目標を設定したら、あとは AI におまかせ。
+            運用工数が <span style="color:var(--accent);">大幅に削減</span> できる。
+          </div>
+        </section>
+
+        <!-- Panel 3 -->
+        <section class="panel" data-label="CHAPTER 03">
+          <div class="panel-header">
+            <div>
+              <div class="panel-kicker">03 / VS TRADITIONAL</div>
+              <h2 class="panel-title">従来の広告との違い</h2>
+            </div>
+            <div class="panel-index">
+              <span class="panel-index-dot"></span>
+              <span>比較表</span>
+            </div>
+          </div>
+          <div class="panel-main">
+            「検索広告」「ディスプレイ広告」と P-MAX は何が違うのか？
+            一目でわかる比較表で確認。
+          </div>
+
+          <table class="compare-table">
+            <tr>
+              <th>項目</th>
+              <th>従来のキャンペーン</th>
+              <th>P-MAX</th>
+            </tr>
+            <tr>
+              <td>配信面</td>
+              <td>1種類ずつ管理</td>
+              <td>全チャネル一括</td>
+            </tr>
+            <tr>
+              <td>運用</td>
+              <td>手動で細かく調整</td>
+              <td>AI が自動最適化</td>
+            </tr>
+            <tr>
+              <td>キーワード</td>
+              <td>手動で選定</td>
+              <td>AI が自動拡張</td>
+            </tr>
+            <tr>
+              <td>管理工数</td>
+              <td>高い</td>
+              <td>低い</td>
+            </tr>
+          </table>
+
+          <div class="panel-note">
+            💡 <strong>結論：</strong>
+            P-MAX は「全自動・全チャネル」が特徴。
+            細かい制御より <span style="color:var(--accent);">成果優先</span> の人向け。
+          </div>
+        </section>
+
+        <!-- Panel 4 -->
+        <section class="panel" data-label="CHAPTER 04">
+          <div class="panel-header">
+            <div>
+              <div class="panel-kicker">04 / WHY RECRUITMENT</div>
+              <h2 class="panel-title">なぜ「求人」に P-MAX なのか？</h2>
+            </div>
+            <div class="panel-index">
+              <span class="panel-index-dot"></span>
+              <span>採用の課題</span>
+            </div>
+          </div>
+          <div class="panel-main">
+            従来の求人広告（Indeed・求人ボックス等）だけでは
+            <strong>母集団が足りない</strong> 問題がある。
+            P-MAX はその突破口になりうる。
+          </div>
+
+          <div class="two-cols">
+            <div class="mini-card">
+              <div class="mini-title"><span>😰</span>従来の求人広告の課題</div>
+              <ul class="list">
+                <li>「転職したい」人にしか届かない</li>
+                <li>潜在層にリーチできない</li>
+                <li>複数媒体の運用が煩雑</li>
+                <li>認知とCVが別々</li>
+              </ul>
+            </div>
+            <div class="mini-card">
+              <div class="mini-title"><span>✅</span>P-MAX が解決すること</div>
+              <ul class="list">
+                <li>潜在層（まだ探してない人）に届く</li>
+                <li>YouTube 動画で会社を伝えられる</li>
+                <li>1キャンペーンで全チャネル</li>
+                <li>認知とCVを同時に</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="panel-note">
+            🎯 <strong>核心：</strong>
+            P-MAX は「今すぐ転職したい人」だけでなく、
+            <span style="color:var(--accent);">「いつか転職するかも」の人</span> にも届く。
+          </div>
+        </section>
+
+        <!-- Panel 5 -->
+        <section class="panel" data-label="CHAPTER 05">
+          <div class="panel-header">
+            <div>
+              <div class="panel-kicker">05 / OPPORTUNITIES</div>
+              <h2 class="panel-title">求人 P-MAX の可能性・チャンス</h2>
+            </div>
+            <div class="panel-index">
+              <span class="panel-index-dot"></span>
+              <span>5つのチャンス</span>
+            </div>
+          </div>
+          <div class="panel-main">
+            P-MAX を求人に使うと、どんな可能性が広がるのか？
+            5つの大きなチャンスを解説。
+          </div>
+
+          <div class="chance-box">
+            <div class="chance-title"><span>🚀</span>チャンス1：転職潜在層へのアプローチ</div>
+            <div class="chance-text">
+              YouTube を見ている人、Gmail をチェックしている人、ニュースを読んでいる人…
+              「今すぐ転職」じゃない層にも広告が届く。将来の応募者を育成できる。
+            </div>
+          </div>
+
+          <div class="chance-box">
+            <div class="chance-title"><span>🏢</span>チャンス2：採用ブランディング × 応募獲得</div>
+            <div class="chance-text">
+              動画で会社の雰囲気を伝えながら、検索広告で応募を獲得。
+              「認知」と「CV」を1キャンペーンで両立できる。
+            </div>
+          </div>
+
+          <div class="chance-box">
+            <div class="chance-title"><span>🤝</span>チャンス3：Indeed との併用戦略</div>
+            <div class="chance-text">
+              Indeed・求人ボックスで「今すぐ応募」を刈り取り、
+              P-MAX で「将来の応募者」を開拓。役割分担で母集団を最大化。
+            </div>
+          </div>
+
+          <div class="chance-box">
+            <div class="chance-title"><span>🗺️</span>チャンス4：地方採用・ニッチ職種</div>
+            <div class="chance-text">
+              検索ボリュームが少ない地域でも、YouTube・ディスプレイで露出可能。
+              エンジニア等の専門職も、カスタムセグメントで狙い撃ち。
+            </div>
+          </div>
+
+          <div class="chance-box">
+            <div class="chance-title"><span>💰</span>チャンス5：採用コストの最適化</div>
+            <div class="chance-text">
+              AI が最もコスパの良い配信面を自動選択。
+              目標CPA（応募単価）を設定すれば、それに向けて最適化してくれる。
+            </div>
+          </div>
+        </section>
+
+        <!-- Panel 6 -->
+        <section class="panel" data-label="CHAPTER 06">
+          <div class="panel-header">
+            <div>
+              <div class="panel-kicker">06 / CAUTION</div>
+              <h2 class="panel-title">デメリット・注意点</h2>
+            </div>
+            <div class="panel-index">
+              <span class="panel-index-dot"></span>
+              <span>落とし穴を回避</span>
+            </div>
+          </div>
+          <div class="panel-main">
+            万能に見える P-MAX にも弱点がある。
+            事前に知っておくことで、失敗を防げる。
+          </div>
+
+          <div class="warning-box">
+            <div class="warning-title">⚠️ 配信面の制御が難しい</div>
+            <div class="warning-text">
+              どのチャネルにどれだけ配信されたか詳細が見えにくい。
+              「YouTube だけ」などの指定ができない。
+              → アセットレポートで効果測定 / 除外設定を活用
+            </div>
+          </div>
+
+          <div class="warning-box">
+            <div class="warning-title">⚠️ 学習期間が必要</div>
+            <div class="warning-text">
+              最低2〜4週間のデータ蓄積が必要。初動は CPA が高くなりがち。
+              → 最初の1ヶ月は「学習投資」と割り切る
+            </div>
+          </div>
+
+          <div class="warning-box">
+            <div class="warning-title">⚠️ クリエイティブの品質が命</div>
+            <div class="warning-text">
+              画像・動画・テキストの質が低いと効果が出ない。
+              → 多様なアセットを用意（画像10枚以上、動画2本以上推奨）
+            </div>
+          </div>
+
+          <div class="warning-box">
+            <div class="warning-title">⚠️ 既存キャンペーンとのカニバリ</div>
+            <div class="warning-text">
+              検索広告と P-MAX で同じキーワードを取り合う可能性。
+              → ブランドキーワードは除外 / 役割分担を明確に
+            </div>
+          </div>
+        </section>
+
+        <!-- Panel 7 -->
+        <section class="panel" data-label="CHAPTER 07">
+          <div class="panel-header">
+            <div>
+              <div class="panel-kicker">07 / SETUP</div>
+              <h2 class="panel-title">求人 P-MAX 設定ステップ</h2>
+            </div>
+            <div class="panel-index">
+              <span class="panel-index-dot"></span>
+              <span>実践ガイド</span>
+            </div>
+          </div>
+          <div class="panel-main">
+            実際に P-MAX を求人で使うときの設定ステップを5つに整理。
+          </div>
+
+          <div class="flow">
+            <div class="flow-step">
+              <div class="flow-step-label">STEP 1</div>
+              <div class="flow-step-title">コンバージョン設定</div>
+              <p style="margin:4px 0 0;font-size:12px;color:var(--text-sub);">
+                応募完了ページにタグを設置。
+                コンバージョン値を設定（例：1応募 = 10,000円）。
+              </p>
+            </div>
+            <div class="flow-step">
+              <div class="flow-step-label">STEP 2</div>
+              <div class="flow-step-title">アセット準備</div>
+              <p style="margin:4px 0 0;font-size:12px;color:var(--text-sub);">
+                見出し10個以上、画像10枚以上、動画2本以上を用意。
+                求人の魅力を多角的に表現。
+              </p>
+            </div>
+            <div class="flow-step">
+              <div class="flow-step-label">STEP 3</div>
+              <div class="flow-step-title">オーディエンスシグナル</div>
+              <p style="margin:4px 0 0;font-size:12px;color:var(--text-sub);">
+                「転職」「求人」等のキーワード、
+                Indeed・リクナビ等のURL をヒントとして設定。
+              </p>
+            </div>
+          </div>
+
+          <div class="two-cols" style="margin-top:8px;">
+            <div class="mini-card">
+              <div class="mini-title"><span>💵</span>STEP 4：予算・入札</div>
+              <ul class="list">
+                <li>日予算：最低3,000円〜（推奨1万円以上）</li>
+                <li>入札：コンバージョン数の最大化 or 目標CPA</li>
+                <li>目標CPA例：5,000〜20,000円/応募</li>
+              </ul>
+            </div>
+            <div class="mini-card">
+              <div class="mini-title"><span>🚫</span>STEP 5：除外設定</div>
+              <ul class="list">
+                <li>ブランドキーワードの除外</li>
+                <li>関係ないプレースメントの除外</li>
+                <li>成果の出ない検索語句の除外</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Panel 8 -->
+        <section class="panel" data-label="CHAPTER 08">
+          <div class="panel-header">
+            <div>
+              <div class="panel-kicker">08 / TIPS</div>
+              <h2 class="panel-title">成果を最大化する4つのコツ</h2>
+            </div>
+            <div class="panel-index">
+              <span class="panel-index-dot"></span>
+              <span>プロの技</span>
+            </div>
+          </div>
+          <div class="panel-main">
+            P-MAX で成果を出すために、運用のプロが意識しているポイント。
+          </div>
+
+          <div class="two-cols">
+            <div class="mini-card">
+              <div class="mini-title"><span>📦</span>コツ1：アセットは量と質</div>
+              <ul class="list">
+                <li>見出し：10個以上</li>
+                <li>画像：10枚以上（横長・スクエア・縦長）</li>
+                <li>動画：2本以上（必須！）</li>
+              </ul>
+            </div>
+            <div class="mini-card">
+              <div class="mini-title"><span>👥</span>コツ2：シグナルを充実</div>
+              <ul class="list">
+                <li>既存応募者のメールリストをアップロード</li>
+                <li>自社サイト訪問者のリマケリストを活用</li>
+                <li>競合採用ページのURL を設定</li>
+              </ul>
+            </div>
+            <div class="mini-card">
+              <div class="mini-title"><span>📊</span>コツ3：計測を正確に</div>
+              <ul class="list">
+                <li>拡張コンバージョンの実装</li>
+                <li>オフラインCV（採用決定）のインポート</li>
+                <li>マイクロCVも設定</li>
+              </ul>
+            </div>
+            <div class="mini-card">
+              <div class="mini-title"><span>⏳</span>コツ4：長期視点で運用</div>
+              <ul class="list">
+                <li>最低3ヶ月は継続</li>
+                <li>月単位でレポート分析</li>
+                <li>クリエイティブを定期更新</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Panel 9 -->
+        <section class="panel" data-label="CHAPTER 09">
+          <div class="panel-header">
+            <div>
+              <div class="panel-kicker">09 / CONCLUSION</div>
+              <h2 class="panel-title">まとめ：求人 P-MAX の使いどころ</h2>
+            </div>
+            <div class="panel-index">
+              <span class="panel-index-dot"></span>
+              <span>判断基準</span>
+            </div>
+          </div>
+          <div class="panel-main">
+            P-MAX は万能ではない。向いているケースと向いていないケースを明確に。
+          </div>
+
+          <div class="two-cols">
+            <div class="mini-card">
+              <div class="mini-title"><span>✅</span>P-MAX が向いているケース</div>
+              <ul class="list">
+                <li>母集団を増やしたい</li>
+                <li>潜在層にリーチしたい</li>
+                <li>運用工数を減らしたい</li>
+                <li>複数チャネルでブランディングしたい</li>
+                <li>月10万円以上の予算がある</li>
+              </ul>
+            </div>
+            <div class="mini-card">
+              <div class="mini-title"><span>❌</span>P-MAX が向いていないケース</div>
+              <ul class="list">
+                <li>予算が非常に少ない（月10万円未満）</li>
+                <li>応募数が極端に少ない（月5件未満）</li>
+                <li>配信面を細かくコントロールしたい</li>
+                <li>学習期間を待てない</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="panel-note">
+            🎯 <strong>結論：</strong>
+            P-MAX は「求人広告の第3の柱」になりうる。<br />
+            <span style="color:var(--accent);">Indeed で刈り取り</span> ×
+            <span style="color:var(--accent-blue);">P-MAX で潜在層開拓</span> ×
+            <span style="color:var(--accent-purple);">SNS でピンポイント訴求</span>
+            の3本柱で母集団を最大化。
+          </div>
+        </section>
+      </div>
+
+      <div class="footer-panel">
+        <strong>まとめ：</strong>
+        P-MAX は Google の全チャネルに広告を配信できる最新キャンペーン。<br />
+        <span>転職潜在層へのリーチ</span> と <span>採用ブランディング</span> を同時に実現し、
+        母集団形成を加速させる強力なツール。
+      </div>
+      <div class="footer-note">
+        ※ この図解は一般的な情報提供を目的としています。<br />
+        実際の広告運用は、自社の状況に合わせて専門家に相談することをおすすめします。
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+

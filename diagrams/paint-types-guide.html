@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>絵の具の世界 完全ガイド 〜種類・選び方からプロの技法まで〜</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      /* ベースカラー */
+      --bg: #0f0a1a;
+      --bg-soft: #1a1025;
+      --panel: #1a1025;
+      --panel-soft: #251535;
+      --text-main: #faf5ff;
+      --text-sub: #a78bba;
+      --line-soft: rgba(167,139,186,0.3);
+      
+      /* 絵の具タイプ別カラー */
+      --watercolor: #38bdf8;
+      --watercolor-soft: rgba(56, 189, 248, 0.15);
+      --acrylic: #f472b6;
+      --acrylic-soft: rgba(244, 114, 182, 0.15);
+      --oil: #f59e0b;
+      --oil-soft: rgba(245, 158, 11, 0.15);
+      --water-oil: #14b8a6;
+      --water-oil-soft: rgba(20, 184, 166, 0.15);
+      
+      /* アクセントカラー */
+      --accent-green: #4ade80;
+      --accent-purple: #a855f7;
+      --accent-red: #ef4444;
+      --accent-yellow: #facc15;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Hiragino Sans", sans-serif;
+      color: var(--text-main);
+      background: var(--bg);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ========================================
+       アーティスティックな背景
+    ======================================== */
+    .art-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    /* 絵の具が飛び散ったようなグラデーション */
+    .art-bg::before {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      background:
+        radial-gradient(ellipse 40% 35% at 10% 20%, var(--watercolor-soft) 0%, transparent 50%),
+        radial-gradient(ellipse 35% 30% at 85% 15%, var(--acrylic-soft) 0%, transparent 45%),
+        radial-gradient(ellipse 45% 40% at 70% 70%, var(--oil-soft) 0%, transparent 50%),
+        radial-gradient(ellipse 30% 25% at 20% 80%, var(--water-oil-soft) 0%, transparent 45%),
+        radial-gradient(ellipse 50% 45% at 50% 50%, rgba(168, 85, 247, 0.08) 0%, transparent 60%);
+      animation: paint-drift 30s ease-in-out infinite;
+    }
+
+    .art-bg::after {
+      content: "";
+      position: absolute;
+      inset: -30%;
+      background:
+        radial-gradient(ellipse 30% 25% at 30% 30%, rgba(56, 189, 248, 0.1) 0%, transparent 45%),
+        radial-gradient(ellipse 25% 20% at 60% 80%, rgba(244, 114, 182, 0.08) 0%, transparent 40%),
+        radial-gradient(ellipse 35% 30% at 90% 40%, rgba(245, 158, 11, 0.06) 0%, transparent 50%);
+      animation: paint-drift-2 25s ease-in-out infinite;
+    }
+
+    @keyframes paint-drift {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(2%, -1%) rotate(0.5deg); }
+      50% { transform: translate(-1%, 2%) rotate(-0.5deg); }
+      75% { transform: translate(-2%, -1%) rotate(0.3deg); }
+    }
+
+    @keyframes paint-drift-2 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(-2%, 1%) scale(1.02); }
+      66% { transform: translate(1%, -2%) scale(0.98); }
+    }
+
+    /* 絵の具の滴り */
+    .paint-drip {
+      position: absolute;
+      width: 8px;
+      border-radius: 0 0 50% 50%;
+      animation: drip 8s ease-in infinite;
+      opacity: 0;
+    }
+
+    .paint-drip:nth-child(1) { left: 10%; height: 60px; background: var(--watercolor); animation-delay: 0s; }
+    .paint-drip:nth-child(2) { left: 25%; height: 80px; background: var(--acrylic); animation-delay: 2s; }
+    .paint-drip:nth-child(3) { left: 45%; height: 50px; background: var(--oil); animation-delay: 4s; }
+    .paint-drip:nth-child(4) { left: 65%; height: 70px; background: var(--water-oil); animation-delay: 1s; }
+    .paint-drip:nth-child(5) { left: 85%; height: 55px; background: var(--accent-purple); animation-delay: 3s; }
+    .paint-drip:nth-child(6) { left: 35%; height: 65px; background: var(--watercolor); animation-delay: 5s; }
+    .paint-drip:nth-child(7) { left: 75%; height: 45px; background: var(--acrylic); animation-delay: 6s; }
+
+    @keyframes drip {
+      0% { top: -100px; opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.3; }
+      100% { top: 100vh; opacity: 0; }
+    }
+
+    /* ========================================
+       パンくずナビ
+    ======================================== */
+    .breadcrumb {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 12px 20px;
+      background: rgba(15, 10, 26, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(167, 139, 186, 0.2);
+    }
+
+    .breadcrumb-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+    }
+
+    .breadcrumb a {
+      color: var(--acrylic);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .breadcrumb a:hover { color: #f9a8d4; }
+    .breadcrumb-sep { color: var(--text-sub); opacity: 0.5; }
+    .breadcrumb-current { color: var(--text-sub); }
+
+    /* ========================================
+       メインコンテンツ
+    ======================================== */
+    .page {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 16px 80px;
+    }
+
+    .rail {
+      position: relative;
+      margin: 0 auto;
+    }
+
+    /* レインボーライン */
+    .rail::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 100vh;
+      background: linear-gradient(to bottom, 
+        var(--watercolor), 
+        var(--acrylic), 
+        var(--oil), 
+        var(--water-oil),
+        var(--accent-purple));
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    /* ========================================
+       ヒーローセクション
+    ======================================== */
+    .hero {
+      position: relative;
+      margin-bottom: 40px;
+      padding: 32px 28px;
+      border-radius: 24px;
+      background:
+        linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(244, 114, 182, 0.1), rgba(245, 158, 11, 0.1)),
+        rgba(26, 16, 37, 0.95);
+      border: 1px solid rgba(167, 139, 186, 0.3);
+      overflow: hidden;
+    }
+
+    /* パレットアイコン */
+    .hero::before {
+      content: "🎨";
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 60px;
+      opacity: 0.2;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(5deg); }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 11px;
+      background: linear-gradient(135deg, var(--watercolor-soft), var(--acrylic-soft));
+      border: 1px solid rgba(244, 114, 182, 0.4);
+      color: var(--acrylic);
+      margin-bottom: 16px;
+    }
+
+    .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--watercolor), var(--acrylic));
+      animation: color-rotate 3s ease-in-out infinite;
+    }
+
+    @keyframes color-rotate {
+      0%, 100% { background: var(--watercolor); }
+      25% { background: var(--acrylic); }
+      50% { background: var(--oil); }
+      75% { background: var(--water-oil); }
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.4;
+      background: linear-gradient(90deg, var(--watercolor), var(--acrylic), var(--oil), var(--water-oil));
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gradient-flow 8s ease-in-out infinite;
+    }
+
+    @keyframes gradient-flow {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .hero-sub {
+      margin-top: 14px;
+      font-size: 14px;
+      color: var(--text-sub);
+      line-height: 1.8;
+    }
+
+    /* 絵の具タイプ概要 */
+    .paint-overview {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    @media (max-width: 600px) {
+      .paint-overview { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .paint-badge {
+      padding: 14px;
+      border-radius: 14px;
+      text-align: center;
+      border: 1px solid var(--line-soft);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .paint-badge:hover {
+      transform: translateY(-2px);
+    }
+
+    .paint-badge.watercolor { 
+      background: var(--watercolor-soft); 
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+    .paint-badge.acrylic { 
+      background: var(--acrylic-soft); 
+      border-color: rgba(244, 114, 182, 0.4);
+    }
+    .paint-badge.oil { 
+      background: var(--oil-soft); 
+      border-color: rgba(245, 158, 11, 0.4);
+    }
+    .paint-badge.water-oil { 
+      background: var(--water-oil-soft); 
+      border-color: rgba(20, 184, 166, 0.4);
+    }
+
+    .paint-badge:hover.watercolor { box-shadow: 0 0 20px var(--watercolor-soft); }
+    .paint-badge:hover.acrylic { box-shadow: 0 0 20px var(--acrylic-soft); }
+    .paint-badge:hover.oil { box-shadow: 0 0 20px var(--oil-soft); }
+    .paint-badge:hover.water-oil { box-shadow: 0 0 20px var(--water-oil-soft); }
+
+    .paint-badge-icon {
+      font-size: 28px;
+      margin-bottom: 6px;
+    }
+
+    .paint-badge-label {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .paint-badge.watercolor .paint-badge-label { color: var(--watercolor); }
+    .paint-badge.acrylic .paint-badge-label { color: var(--acrylic); }
+    .paint-badge.oil .paint-badge-label { color: var(--oil); }
+    .paint-badge.water-oil .paint-badge-label { color: var(--water-oil); }
+
+    /* ========================================
+       セクション共通
+    ======================================== */
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .section-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .section-icon.watercolor { background: linear-gradient(135deg, var(--watercolor), #0ea5e9); }
+    .section-icon.acrylic { background: linear-gradient(135deg, var(--acrylic), #ec4899); }
+    .section-icon.oil { background: linear-gradient(135deg, var(--oil), #ea580c); }
+    .section-icon.water-oil { background: linear-gradient(135deg, var(--water-oil), #0d9488); }
+    .section-icon.technique { background: linear-gradient(135deg, var(--accent-purple), #7c3aed); }
+    .section-icon.brand { background: linear-gradient(135deg, var(--accent-green), #16a34a); }
+    .section-icon.support { background: linear-gradient(135deg, var(--accent-yellow), #eab308); }
+    .section-icon.tips { background: linear-gradient(135deg, #ef4444, #dc2626); }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .section-subtitle {
+      font-size: 12px;
+      color: var(--text-sub);
+      margin-top: 2px;
+    }
+
+    /* ========================================
+       カード
+    ======================================== */
+    .card {
+      position: relative;
+      margin-bottom: 16px;
+      padding: 18px 20px;
+      border-radius: 16px;
+      background: rgba(26, 16, 37, 0.9);
+      border: 1px solid var(--line-soft);
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+    }
+
+    .card.watercolor::before { background: linear-gradient(90deg, var(--watercolor), #7dd3fc); }
+    .card.acrylic::before { background: linear-gradient(90deg, var(--acrylic), #f9a8d4); }
+    .card.oil::before { background: linear-gradient(90deg, var(--oil), #fcd34d); }
+    .card.water-oil::before { background: linear-gradient(90deg, var(--water-oil), #5eead4); }
+    .card.technique::before { background: linear-gradient(90deg, var(--accent-purple), #c084fc); }
+
+    .card-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 10px;
+    }
+
+    .card.watercolor .card-label { color: var(--watercolor); }
+    .card.acrylic .card-label { color: var(--acrylic); }
+    .card.oil .card-label { color: var(--oil); }
+    .card.water-oil .card-label { color: var(--water-oil); }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-body {
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.8;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .card-tag {
+      font-size: 10px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: rgba(26, 16, 37, 0.9);
+      border: 1px solid var(--line-soft);
+    }
+
+    .card-tag.blue { border-color: var(--watercolor); color: #7dd3fc; }
+    .card-tag.pink { border-color: var(--acrylic); color: #f9a8d4; }
+    .card-tag.orange { border-color: var(--oil); color: #fcd34d; }
+    .card-tag.teal { border-color: var(--water-oil); color: #5eead4; }
+    .card-tag.purple { border-color: var(--accent-purple); color: #c084fc; }
+    .card-tag.green { border-color: var(--accent-green); color: #86efac; }
+    .card-tag.red { border-color: var(--accent-red); color: #fca5a5; }
+    .card-tag.yellow { border-color: var(--accent-yellow); color: #fde68a; }
+
+    /* ========================================
+       タイプ別グリッド（アクリルの種類）
+    ======================================== */
+    .type-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 550px) {
+      .type-grid { grid-template-columns: 1fr; }
+    }
+
+    .type-card {
+      padding: 16px 18px;
+      border-radius: 14px;
+      background: rgba(37, 21, 53, 0.8);
+      border: 1px solid var(--line-soft);
+    }
+
+    .type-name {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .type-badge {
+      font-size: 9px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: var(--acrylic-soft);
+      color: var(--acrylic);
+      border: 1px solid rgba(244, 114, 182, 0.3);
+    }
+
+    .type-desc {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+
+    /* ========================================
+       テクニックセクション
+    ======================================== */
+    .technique-section {
+      margin: 40px 0;
+      padding: 24px;
+      border-radius: 20px;
+      background:
+        linear-gradient(135deg, rgba(168, 85, 247, 0.1), transparent),
+        rgba(26, 16, 37, 0.95);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+    }
+
+    .technique-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .technique-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .technique-tab {
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+      border: 1px solid var(--line-soft);
+      background: transparent;
+      color: var(--text-sub);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .technique-tab:hover {
+      border-color: var(--accent-purple);
+      color: var(--text-main);
+    }
+
+    .technique-tab.active {
+      background: var(--accent-purple);
+      border-color: var(--accent-purple);
+      color: var(--bg);
+    }
+
+    .technique-tab[data-type="watercolor"].active { background: var(--watercolor); border-color: var(--watercolor); }
+    .technique-tab[data-type="acrylic"].active { background: var(--acrylic); border-color: var(--acrylic); }
+    .technique-tab[data-type="oil"].active { background: var(--oil); border-color: var(--oil); }
+
+    .technique-content {
+      display: none;
+    }
+
+    .technique-content.active {
+      display: block;
+    }
+
+    .technique-item {
+      padding: 14px 16px;
+      border-radius: 12px;
+      background: rgba(15, 10, 26, 0.8);
+      border: 1px solid var(--line-soft);
+      margin-bottom: 12px;
+    }
+
+    .technique-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .technique-name {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .technique-name-icon {
+      font-size: 16px;
+    }
+
+    .technique-detail {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.7;
+    }
+
+    .technique-detail strong {
+      color: var(--text-main);
+    }
+
+    /* ========================================
+       ブランドセクション
+    ======================================== */
+    .brand-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 550px) {
+      .brand-grid { grid-template-columns: 1fr; }
+    }
+
+    .brand-card {
+      padding: 16px 18px;
+      border-radius: 14px;
+      background: rgba(37, 21, 53, 0.8);
+      border: 1px solid var(--line-soft);
+      transition: transform 0.2s;
+    }
+
+    .brand-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .brand-flag {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .brand-country {
+      font-size: 10px;
+      color: var(--text-sub);
+      margin-bottom: 10px;
+    }
+
+    .brand-desc {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+
+    /* ========================================
+       支持体セクション
+    ======================================== */
+    .support-section {
+      margin: 40px 0;
+      padding: 24px;
+      border-radius: 20px;
+      background:
+        linear-gradient(135deg, rgba(250, 204, 21, 0.08), transparent),
+        rgba(26, 16, 37, 0.95);
+      border: 1px solid rgba(250, 204, 21, 0.3);
+    }
+
+    .support-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .support-grid { grid-template-columns: 1fr; }
+    }
+
+    .support-card {
+      padding: 16px;
+      border-radius: 14px;
+      background: rgba(15, 10, 26, 0.8);
+      border: 1px solid var(--line-soft);
+      text-align: center;
+    }
+
+    .support-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .support-name {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .support-desc {
+      font-size: 11px;
+      color: var(--text-sub);
+      line-height: 1.5;
+    }
+
+    /* ========================================
+       Tipsセクション
+    ======================================== */
+    .tips-section {
+      margin: 40px 0;
+    }
+
+    .tip-card {
+      display: flex;
+      gap: 14px;
+      padding: 16px 18px;
+      border-radius: 14px;
+      background: rgba(26, 16, 37, 0.9);
+      border: 1px solid var(--line-soft);
+      margin-bottom: 12px;
+    }
+
+    .tip-icon {
+      flex: 0 0 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(239, 68, 68, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .tip-content {
+      flex: 1;
+    }
+
+    .tip-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .tip-desc {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+
+    .tip-warning {
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--accent-yellow);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ========================================
+       比較テーブル
+    ======================================== */
+    .compare-section {
+      margin: 40px 0;
+      padding: 24px;
+      border-radius: 20px;
+      background: rgba(26, 16, 37, 0.95);
+      border: 1px solid var(--line-soft);
+      overflow-x: auto;
+    }
+
+    .compare-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      min-width: 500px;
+    }
+
+    .compare-table th,
+    .compare-table td {
+      padding: 12px 10px;
+      text-align: center;
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .compare-table th {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .compare-table th:nth-child(2) { color: var(--watercolor); }
+    .compare-table th:nth-child(3) { color: var(--acrylic); }
+    .compare-table th:nth-child(4) { color: var(--oil); }
+    .compare-table th:nth-child(5) { color: var(--water-oil); }
+
+    .compare-table td:first-child {
+      text-align: left;
+      color: var(--text-sub);
+      font-size: 11px;
+    }
+
+    .compare-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* ========================================
+       結論セクション
+    ======================================== */
+    .conclusion {
+      margin: 40px 0;
+      padding: 28px;
+      border-radius: 20px;
+      background:
+        linear-gradient(135deg, var(--watercolor-soft), var(--acrylic-soft), var(--oil-soft)),
+        rgba(26, 16, 37, 0.95);
+      border: 1px solid rgba(244, 114, 182, 0.3);
+    }
+
+    .conclusion-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .conclusion-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 700px) {
+      .conclusion-grid { grid-template-columns: 1fr; }
+    }
+
+    .conclusion-card {
+      padding: 18px;
+      border-radius: 14px;
+      background: rgba(15, 10, 26, 0.8);
+      border: 1px solid var(--line-soft);
+    }
+
+    .conclusion-card-icon {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .conclusion-card-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .conclusion-card-desc {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .conclusion-card-recommend {
+      font-size: 11px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: rgba(168, 85, 247, 0.15);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      color: #c084fc;
+    }
+
+    /* ========================================
+       フッター
+    ======================================== */
+    .footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line-soft);
+      text-align: center;
+    }
+
+    .footer-note {
+      font-size: 10px;
+      color: var(--text-sub);
+    }
+  </style>
+</head>
+<body>
+  <!-- アーティスティックな背景 -->
+  <div class="art-bg">
+    <div class="paint-drip"></div>
+    <div class="paint-drip"></div>
+    <div class="paint-drip"></div>
+    <div class="paint-drip"></div>
+    <div class="paint-drip"></div>
+    <div class="paint-drip"></div>
+    <div class="paint-drip"></div>
+  </div>
+
+  <nav class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <a href="../index.html">← DIAGRAM LIBRARY</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">絵の具の世界 完全ガイド</span>
+    </div>
+  </nav>
+
+  <div class="page">
+    <div class="rail">
+      <!-- ヒーロー -->
+      <section class="hero">
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          ART MATERIALS COMPLETE GUIDE
+        </div>
+        <h1>🎨 絵の具の世界 完全ガイド<br>〜種類・選び方からプロの技法まで〜</h1>
+        <p class="hero-sub">
+          絵を描く世界は奥が深いですが、道具選びで躓くのはもったいない！
+          基本の3大絵の具に加え、近年注目の「第4の選択肢」、そして具体的な技法まで完全網羅。
+        </p>
+
+        <div class="paint-overview">
+          <div class="paint-badge watercolor">
+            <div class="paint-badge-icon">💧</div>
+            <div class="paint-badge-label">水彩</div>
+          </div>
+          <div class="paint-badge acrylic">
+            <div class="paint-badge-icon">🎨</div>
+            <div class="paint-badge-label">アクリル</div>
+          </div>
+          <div class="paint-badge oil">
+            <div class="paint-badge-icon">🖼️</div>
+            <div class="paint-badge-label">油彩</div>
+          </div>
+          <div class="paint-badge water-oil">
+            <div class="paint-badge-icon">🆕</div>
+            <div class="paint-badge-label">水可溶性油</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 1. 水彩 -->
+      <section class="section">
+        <div class="section-header">
+          <div class="section-icon watercolor">💧</div>
+          <div>
+            <div class="section-title">水彩絵の具</div>
+            <div class="section-subtitle">Watercolor - 癒やしの王道</div>
+          </div>
+        </div>
+
+        <div class="card watercolor">
+          <div class="card-label">特徴</div>
+          <div class="card-title">紙の白さを生かした透明感</div>
+          <div class="card-body">
+            水で溶いて使い、紙の白さを生かして明度を表現。「透明水彩」と「不透明水彩（ガッシュ）」があるが、大人の趣味の王道は「透明水彩」。パレットに出したまま固めても、水で溶かせば何度でも使える。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag blue">携帯性No.1</span>
+            <span class="card-tag blue">無臭</span>
+            <span class="card-tag">片付け楽</span>
+          </div>
+        </div>
+
+        <div class="card watercolor">
+          <div class="card-label">注意点</div>
+          <div class="card-body">
+            「白」を使わない（紙の白を残す）ため、塗り残しの計画が必要。修正がほぼ不可能。紙にお金をかけないと失敗しやすい。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag red">修正困難</span>
+            <span class="card-tag yellow">紙が重要</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. アクリル -->
+      <section class="section">
+        <div class="section-header">
+          <div class="section-icon acrylic">🎨</div>
+          <div>
+            <div class="section-title">アクリル絵の具</div>
+            <div class="section-subtitle">Acrylic - 現代アートの主役</div>
+          </div>
+        </div>
+
+        <div class="card acrylic">
+          <div class="card-label">特徴</div>
+          <div class="card-title">乾くと耐水性、表現の幅が無限大</div>
+          <div class="card-body">
+            合成樹脂で顔料を固める、現代アートの主役。水で描けるのに、乾くと耐水性のビニールのような被膜になる。速乾性が最大の特徴であり、最大の敵でもある。キャンバス、石、木、服など何にでも描ける。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag pink">万能</span>
+            <span class="card-tag pink">速乾</span>
+            <span class="card-tag pink">発色良い</span>
+          </div>
+        </div>
+
+        <div class="card acrylic">
+          <div class="card-label">カラーシフト注意</div>
+          <div class="card-body">
+            <strong>乾くと色が少し濃くなる</strong>（濡れ色が乾くと暗くなる）。服につくと一生取れない。筆を放置すると一瞬でダメになる。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag red">乾くと濃くなる</span>
+            <span class="card-tag yellow">紙パレット必須</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- アクリルの種類 -->
+      <section class="section">
+        <div class="section-header">
+          <div class="section-icon acrylic">🔬</div>
+          <div>
+            <div class="section-title">アクリル絵の具の種類</div>
+            <div class="section-subtitle">同じアクリルでもこんなに違う！</div>
+          </div>
+        </div>
+
+        <div class="type-grid">
+          <div class="type-card">
+            <div class="type-name">
+              ガッシュ
+              <span class="type-badge">マット・不透明</span>
+            </div>
+            <div class="type-desc">ポスターカラーのような均一な色面。イラスト・デザイン・アニメ背景に。重ね塗りしても下の色が透けない。</div>
+          </div>
+          <div class="type-card">
+            <div class="type-name">
+              レギュラー
+              <span class="type-badge">ツヤあり・標準</span>
+            </div>
+            <div class="type-desc">最もスタンダード。光沢があり、油絵のような厚塗りも可能。キャンバス作品・抽象画に。</div>
+          </div>
+          <div class="type-card">
+            <div class="type-name">
+              ソフトタイプ
+              <span class="type-badge">サラサラ</span>
+            </div>
+            <div class="type-desc">水彩のようなにじみ表現。エアブラシや細密画にも。水で薄めなくてもサラサラ。</div>
+          </div>
+          <div class="type-card">
+            <div class="type-name">
+              蛍光タイプ
+              <span class="type-badge">光る！</span>
+            </div>
+            <div class="type-desc">鮮やかな蛍光色。ブラックライトで光る。ポップアート・クラブ系アートに。</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. 油彩 -->
+      <section class="section">
+        <div class="section-header">
+          <div class="section-icon oil">🖼️</div>
+          <div>
+            <div class="section-title">油絵の具</div>
+            <div class="section-subtitle">Oil Paint - 本格派の極み</div>
+          </div>
+        </div>
+
+        <div class="card oil">
+          <div class="card-label">特徴</div>
+          <div class="card-title">深み・ツヤ・重厚感は他で再現不可</div>
+          <div class="card-body">
+            顔料を乾性油（リンシードオイル等）で練ったもの。酸化重合で固まるため、乾燥に数日〜数週間かかる。「ツヤ」「透明感」「重厚感」は他の画材では再現不可。画面上でグラデーションを作るのが容易。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag orange">色の深み</span>
+            <span class="card-tag orange">修正自由</span>
+            <span class="card-tag orange">資産価値</span>
+          </div>
+        </div>
+
+        <div class="card oil">
+          <div class="card-label">注意点</div>
+          <div class="card-body">
+            <strong>テレピン（揮発性油）の匂いがキツイ</strong>（換気必須）。部屋が汚れるリスク高い。乾燥待ちのスペースが必要。専用オイル・ブラシクリーナー必須。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag red">匂い注意</span>
+            <span class="card-tag red">換気必須</span>
+            <span class="card-tag yellow">道具大変</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. 水可溶性油 -->
+      <section class="section">
+        <div class="section-header">
+          <div class="section-icon water-oil">🆕</div>
+          <div>
+            <div class="section-title">水可溶性油絵の具</div>
+            <div class="section-subtitle">Water Mixable Oil - 第4の選択肢</div>
+          </div>
+        </div>
+
+        <div class="card water-oil">
+          <div class="card-label">革命的な特徴</div>
+          <div class="card-title">油絵なのに水で洗える！</div>
+          <div class="card-body">
+            「油絵をやりたいけど、匂いと片付けが無理」という人の救世主！描画感や仕上がりは、ほぼ普通の油絵と同じ。溶剤を使わないので無臭。自宅のリビングでも家族に怒られずに油絵ができる。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag teal">無臭</span>
+            <span class="card-tag teal">水で洗える</span>
+            <span class="card-tag teal">仕上がり油絵</span>
+          </div>
+        </div>
+
+        <div class="card water-oil">
+          <div class="card-label">代表商品</div>
+          <div class="card-body">
+            <strong>ホルベイン「デュオ（DUO）」</strong> - 日本製、入手しやすい<br>
+            <strong>ウィンザー＆ニュートン「アーチザン」</strong> - 英国製、高品質
+          </div>
+        </div>
+      </section>
+
+      <!-- テクニックセクション -->
+      <section class="technique-section">
+        <div class="technique-title">🎭 実践テクニック集</div>
+        
+        <div class="technique-tabs">
+          <button class="technique-tab active" data-type="watercolor" onclick="showTechnique('watercolor')">💧 水彩</button>
+          <button class="technique-tab" data-type="acrylic" onclick="showTechnique('acrylic')">🎨 アクリル</button>
+          <button class="technique-tab" data-type="oil" onclick="showTechnique('oil')">🖼️ 油彩</button>
+        </div>
+
+        <!-- 水彩テクニック -->
+        <div class="technique-content active" id="tech-watercolor">
+          <div class="technique-item">
+            <div class="technique-name"><span class="technique-name-icon">🌊</span>ウェット・イン・ウェット</div>
+            <div class="technique-detail">
+              <strong>方法:</strong> 紙を水で湿らせてから、絵の具を置く<br>
+              <strong>効果:</strong> じわ〜っと色が広がり、偶然の美しい「にじみ」ができる。空や背景に最適。
+            </div>
+          </div>
+          <div class="technique-item">
+            <div class="technique-name"><span class="technique-name-icon">✏️</span>ウェット・オン・ドライ</div>
+            <div class="technique-detail">
+              <strong>方法:</strong> 乾いた紙の上に、濡れた筆で描く<br>
+              <strong>効果:</strong> 輪郭がハッキリ出る。細かい描写や影をつける時に使う。
+            </div>
+          </div>
+          <div class="technique-item">
+            <div class="technique-name"><span class="technique-name-icon">🎭</span>マスキング</div>
+            <div class="technique-detail">
+              <strong>方法:</strong> 白く残したい部分に専用のマスキング液を先に塗る<br>
+              <strong>効果:</strong> 剥がすと紙の白がパキッと現れる。光の表現に必須。
+            </div>
+          </div>
+          <div class="technique-item">
+            <div class="technique-name"><span class="technique-name-icon">🧂</span>塩撒き</div>
+            <div class="technique-detail">
+              <strong>方法:</strong> 生乾きの絵の具の上に塩をパラパラ撒く<br>
+              <strong>効果:</strong> 雪の結晶や星空のような複雑な模様ができる。
+            </div>
+          </div>
+        </div>
+
+        <!-- アクリルテクニック -->
+        <div class="technique-content" id="tech-acrylic">
+          <div class="technique-item">
+            <div class="technique-name"><span class="technique-name-icon">📐</span>フラット塗り</div>
+            <div class="technique-detail">
+              <strong>方法:</strong> アクリルガッシュを使用し、ムラなく均一に塗る<br>
+              <strong>効果:</strong> ポスターやアニメ背景のような、デザイン的でマットな仕上がり。
+            </div>
+          </div>
+          <div class="technique-item">
+            <div class="technique-name"><span class="technique-name-icon">🖌️</span>ドライブラシ</div>
+            <div class="technique-detail">
+              <strong>方法:</strong> 筆の水気を極限まで拭き取り、カスカスの状態で描く<br>
+              <strong>効果:</strong> ざらついた質感。動物の毛並みや錆びた金属の表現に。
+            </div>
+          </div>
+          <div class="technique-item">
+            <div class="technique-name"><span class="technique-name-icon">🏔️</span>インパスト（厚塗り）</div>
+            <div class="technique-detail">
+              <strong>方法:</strong> モデリングペーストやジェルメディウムを混ぜて、ナイフや筆で盛るように塗る<br>
+              <strong>効果:</strong> 油絵のような立体感が出る。
+            </div>
+          </div>
+          <div class="technique-item">
+            <div class="technique-name"><span class="technique-name-icon">⚡</span>スクラッチ</div>
+            <div class="technique-detail">
+              <strong>方法:</strong> 下に色を塗り、乾かしてから上に別の色を塗る。上が乾く前に引っ掻く<br>
+              <strong>効果:</strong> 下の色が線として現れる。
+            </div>
+          </div>
+        </div>
+
+        <!-- 油彩テクニック -->
+        <div class="technique-content" id="tech-oil">
+          <div class="technique-item">
+            <div class="technique-name"><span class="technique-name-icon">🌅</span>グラデーション / ブレンディング</div>
+            <div class="technique-detail">
+              <strong>方法:</strong> 乾燥が遅いのを利用し、画面上で隣り合う色を筆で優しく撫でて境界を消す<br>
+              <strong>効果:</strong> 写真のように滑らかな肌や夕暮れの空。<strong>油絵最大の武器！</strong>
+            </div>
+          </div>
+          <div class="technique-item">
+            <div class="technique-name"><span class="technique-name-icon">✨</span>グレージング</div>
+            <div class="technique-detail">
+              <strong>方法:</strong> オイルを多めにして絵の具を薄く溶き、乾いた絵の上に透明な層を重ねる<br>
+              <strong>効果:</strong> ステンドグラスのような、奥深い透明感のある発色。
+            </div>
+          </div>
+          <div class="technique-item">
+            <div class="technique-name"><span class="technique-name-icon">🎬</span>アラプリマ</div>
+            <div class="technique-detail">
+              <strong>方法:</strong> 乾くのを待たず、一気呵成に仕上げる（ボブ・ロス画法など）<br>
+              <strong>効果:</strong> 勢いのあるタッチと、色が混ざり合ったライブ感のある絵。
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ブランドセクション -->
+      <section class="section">
+        <div class="section-header">
+          <div class="section-icon brand">🏭</div>
+          <div>
+            <div class="section-title">主要ブランド</div>
+            <div class="section-subtitle">日本で買える信頼のメーカー</div>
+          </div>
+        </div>
+
+        <div class="brand-grid">
+          <div class="brand-card">
+            <div class="brand-flag">🇯🇵</div>
+            <div class="brand-name">ホルベイン</div>
+            <div class="brand-country">Holbein - 日本</div>
+            <div class="brand-desc">日本の美大・専門学校のスタンダード。品質と価格のバランスが最高。水可溶性油絵具「デュオ」も人気。</div>
+          </div>
+          <div class="brand-card">
+            <div class="brand-flag">🇯🇵</div>
+            <div class="brand-name">ターナー</div>
+            <div class="brand-country">Turner - 日本</div>
+            <div class="brand-desc">「アクリルガッシュ」といえばターナー。色彩の鮮やかさと隠ぺい力が強い。リーズナブル。</div>
+          </div>
+          <div class="brand-card">
+            <div class="brand-flag">🇺🇸</div>
+            <div class="brand-name">リキテックス</div>
+            <div class="brand-country">Liquitex - アメリカ</div>
+            <div class="brand-desc">アクリルのパイオニア。メディウム（添加剤）の種類が異常に多い。プロ御用達。</div>
+          </div>
+          <div class="brand-card">
+            <div class="brand-flag">🇳🇱</div>
+            <div class="brand-name">アムステルダム</div>
+            <div class="brand-country">Royal Talens - オランダ</div>
+            <div class="brand-desc">コスパ最強！大容量チューブがあって、たっぷり使える。</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 支持体セクション -->
+      <section class="support-section">
+        <div class="technique-title">🖼️ 支持体と下地</div>
+        <p style="font-size: 13px; color: var(--text-sub); margin-bottom: 20px; line-height: 1.7;">
+          絵の具と同じくらい、<strong style="color: var(--text-main);">「何に描くか」で仕上がりは8割決まります</strong>。
+        </p>
+
+        <div class="support-grid">
+          <div class="support-card">
+            <div class="support-icon">📄</div>
+            <div class="support-name">紙（Paper）</div>
+            <div class="support-desc">水彩画で最も重要。100均は避ける。<strong>ブロックタイプ</strong>が初心者に最適。</div>
+          </div>
+          <div class="support-card">
+            <div class="support-icon">🖼️</div>
+            <div class="support-name">キャンバス</div>
+            <div class="support-desc">アクリル・油彩の定番。初心者は<strong>キャンバスボード</strong>が安くて収納しやすい。</div>
+          </div>
+          <div class="support-card">
+            <div class="support-icon">🧪</div>
+            <div class="support-name">ジェッソ</div>
+            <div class="support-desc">下地材。これを塗ると何でも「絵を描ける面」に変えられる。</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tipsセクション -->
+      <section class="tips-section">
+        <div class="section-header">
+          <div class="section-icon tips">💡</div>
+          <div>
+            <div class="section-title">実践的なTips</div>
+            <div class="section-subtitle">知っておくと失敗しない</div>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-icon">🎨</div>
+          <div class="tip-content">
+            <div class="tip-title">パレットの選び方</div>
+            <div class="tip-desc">
+              水彩はプラスチックや陶器でOK。<strong>アクリルは紙パレット一択！</strong>油彩は木製または紙パレット。
+            </div>
+            <div class="tip-warning">⚠️ アクリルでプラスチックパレットは危険！乾くとカピカピに固まって取れなくなる</div>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-icon">🖌️</div>
+          <div class="tip-content">
+            <div class="tip-title">筆のお手入れ</div>
+            <div class="tip-desc">
+              水彩・水可溶性油は水洗いでOK。<strong>アクリルはすぐに水洗い</strong>（乾いたらアウト）。油彩は専用ブラシクリーナー必須。
+            </div>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-icon">🌈</div>
+          <div class="tip-content">
+            <div class="tip-title">カラーシフト（色の変化）</div>
+            <div class="tip-desc">
+              水彩は乾くと<strong>薄く</strong>なる。アクリルは乾くと<strong>濃く</strong>なる。油彩・水可溶性油はほぼ変わらない。
+            </div>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-icon">🧪</div>
+          <div class="tip-content">
+            <div class="tip-title">メディウム（混ぜるもの）</div>
+            <div class="tip-desc">
+              <strong>モデリングペースト</strong>（立体感）、<strong>ジェルメディウム</strong>（ツヤ）、<strong>リターダー</strong>（乾燥遅延）、<strong>ワニス</strong>（仕上げ保護）
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 比較テーブル -->
+      <section class="compare-section">
+        <div class="compare-title">📊 最終比較チャート</div>
+        
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>💧 水彩</th>
+              <th>🎨 アクリル</th>
+              <th>🖼️ 油彩</th>
+              <th>🆕 水可溶性油</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>難易度</td>
+              <td>★☆☆</td>
+              <td>★★☆</td>
+              <td>★★★</td>
+              <td>★★☆</td>
+            </tr>
+            <tr>
+              <td>乾燥速度</td>
+              <td>早い</td>
+              <td><strong>爆速</strong></td>
+              <td>遅い</td>
+              <td>遅い</td>
+            </tr>
+            <tr>
+              <td>匂い</td>
+              <td>無臭</td>
+              <td>わずか</td>
+              <td>臭い</td>
+              <td>ほぼ無臭</td>
+            </tr>
+            <tr>
+              <td>色の変化</td>
+              <td>薄くなる</td>
+              <td>濃くなる</td>
+              <td>変わらない</td>
+              <td>変わらない</td>
+            </tr>
+            <tr>
+              <td>耐水性</td>
+              <td>なし</td>
+              <td>あり</td>
+              <td>あり</td>
+              <td>あり</td>
+            </tr>
+            <tr>
+              <td>片付け</td>
+              <td>楽</td>
+              <td>普通</td>
+              <td>大変</td>
+              <td>楽</td>
+            </tr>
+            <tr>
+              <td>おすすめ</td>
+              <td>スケッチ</td>
+              <td>現代アート</td>
+              <td>本格絵画</td>
+              <td>趣味の油絵</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 結論 -->
+      <section class="conclusion">
+        <div class="conclusion-title">📝 結論 - あなたにぴったりの絵の具は？</div>
+
+        <div class="conclusion-grid">
+          <div class="conclusion-card">
+            <div class="conclusion-card-icon">🏆</div>
+            <div class="conclusion-card-title">万能選手なら</div>
+            <div class="conclusion-card-desc">
+              「アクリルガッシュ」でデザイン的に、「レギュラー」で油絵風に。迷ったらこれ！
+            </div>
+            <div class="conclusion-card-recommend">リキテックス or ホルベイン</div>
+          </div>
+
+          <div class="conclusion-card">
+            <div class="conclusion-card-icon">🍃</div>
+            <div class="conclusion-card-title">癒やし重視なら</div>
+            <div class="conclusion-card-desc">
+              水と筆の動きに癒やされる透明水彩。旅先スケッチにも最適。
+            </div>
+            <div class="conclusion-card-recommend">ホルベイン 12色セット + ブロック紙</div>
+          </div>
+
+          <div class="conclusion-card">
+            <div class="conclusion-card-icon">🖼️</div>
+            <div class="conclusion-card-title">家で本格絵画なら</div>
+            <div class="conclusion-card-desc">
+              匂わない、水で洗える、でも仕上がりは油絵。現代の最適解。
+            </div>
+            <div class="conclusion-card-recommend">ホルベイン デュオ（DUO）</div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="footer-note">🎨 A complete guide to the world of art materials</div>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    // テクニックタブ切り替え
+    function showTechnique(type) {
+      // タブのアクティブ状態を切り替え
+      document.querySelectorAll('.technique-tab').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      document.querySelector(`.technique-tab[data-type="${type}"]`).classList.add('active');
+      
+      // コンテンツの表示切り替え
+      document.querySelectorAll('.technique-content').forEach(content => {
+        content.classList.remove('active');
+      });
+      document.getElementById(`tech-${type}`).classList.add('active');
+    }
+  </script>
+</body>
+</html>

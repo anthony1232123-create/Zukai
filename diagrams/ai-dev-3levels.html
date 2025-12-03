@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI開発の3段階 〜バイブコーディングへの道〜</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-soft: #0f172a;
+      --panel: #0f172a;
+      --panel-soft: #1e293b;
+      --accent: #a855f7;
+      --accent-soft: rgba(168, 85, 247, 0.18);
+      --accent-blue: #38bdf8;
+      --accent-pink: #f472b6;
+      --accent-green: #4ade80;
+      --accent-yellow: #facc15;
+      --accent-orange: #fb923c;
+      --text-main: #e5e7eb;
+      --text-sub: #9ca3af;
+      --line-soft: rgba(148,163,184,0.35);
+      --level1-color: #38bdf8;
+      --level2-color: #a855f7;
+      --level3-color: #f472b6;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Hiragino Sans", sans-serif;
+      color: var(--text-main);
+      background:
+        radial-gradient(circle at top left, rgba(168, 85, 247, 0.15) 0, transparent 40%),
+        radial-gradient(circle at 90% 10%, rgba(56, 189, 248, 0.12) 0, transparent 45%),
+        radial-gradient(circle at bottom, rgba(244, 114, 182, 0.1) 0, transparent 45%),
+        var(--bg);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* パンくずナビ */
+    .breadcrumb {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 12px 20px;
+      background: rgba(2, 6, 23, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    }
+
+    .breadcrumb-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+    }
+
+    .breadcrumb a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .breadcrumb a:hover { color: #c084fc; }
+    .breadcrumb-sep { color: var(--text-sub); opacity: 0.5; }
+    .breadcrumb-current { color: var(--text-sub); }
+
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 60px 16px 80px;
+    }
+
+    /* レール（中央線） */
+    .rail {
+      position: relative;
+      margin: 0 auto;
+    }
+
+    .rail::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 100vh;
+      background: linear-gradient(to bottom, transparent, rgba(168, 85, 247, 0.33), transparent);
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    /* ヒーローセクション */
+    .hero {
+      position: relative;
+      margin-bottom: 40px;
+      padding: 28px 24px;
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at top left, rgba(168, 85, 247, 0.2), transparent 60%),
+        rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      background: rgba(168, 85, 247, 0.15);
+      border: 1px solid rgba(168, 85, 247, 0.4);
+      color: #c084fc;
+      margin-bottom: 12px;
+    }
+
+    .hero-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 8px rgba(34, 197, 94, 0.8);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.4;
+      background: linear-gradient(90deg, var(--level1-color), var(--level2-color), var(--level3-color));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-sub {
+      margin-top: 12px;
+      font-size: 14px;
+      color: var(--text-sub);
+      line-height: 1.7;
+    }
+
+    /* レベル概要 */
+    .level-overview {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .level-badge {
+      flex: 1;
+      min-width: 100px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--line-soft);
+      text-align: center;
+    }
+
+    .level-badge-num {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .level-badge:nth-child(1) .level-badge-num { color: var(--level1-color); }
+    .level-badge:nth-child(2) .level-badge-num { color: var(--level2-color); }
+    .level-badge:nth-child(3) .level-badge-num { color: var(--level3-color); }
+
+    .level-badge-label {
+      font-size: 11px;
+      color: var(--text-sub);
+    }
+
+    /* レベルセクション */
+    .level-section {
+      margin-bottom: 40px;
+    }
+
+    .level-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .level-num {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      position: relative;
+    }
+
+    .level-num::after {
+      content: "";
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      border: 2px solid currentColor;
+      opacity: 0.3;
+    }
+
+    .level-section.lv1 .level-num { 
+      background: linear-gradient(135deg, var(--level1-color), #0ea5e9);
+      color: var(--bg);
+    }
+    .level-section.lv2 .level-num { 
+      background: linear-gradient(135deg, var(--level2-color), #7c3aed);
+      color: var(--bg);
+    }
+    .level-section.lv3 .level-num { 
+      background: linear-gradient(135deg, var(--level3-color), #ec4899);
+      color: var(--bg);
+    }
+
+    .level-title {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .level-subtitle {
+      font-size: 12px;
+      color: var(--text-sub);
+      margin-top: 2px;
+    }
+
+    /* コンテンツカード */
+    .content-card {
+      position: relative;
+      margin-bottom: 14px;
+      padding: 16px 18px;
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--line-soft);
+    }
+
+    .content-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      border-radius: 14px 14px 0 0;
+    }
+
+    .content-card.lv1::before { background: var(--level1-color); }
+    .content-card.lv2::before { background: var(--level2-color); }
+    .content-card.lv3::before { background: var(--level3-color); }
+
+    .card-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    .content-card.lv1 .card-label { color: var(--level1-color); }
+    .content-card.lv2 .card-label { color: var(--level2-color); }
+    .content-card.lv3 .card-label { color: var(--level3-color); }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-icon {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .card-body {
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.7;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .card-tag {
+      font-size: 10px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--line-soft);
+    }
+
+    .card-tag.blue { border-color: var(--accent-blue); color: #7dd3fc; }
+    .card-tag.purple { border-color: var(--accent); color: #c084fc; }
+    .card-tag.pink { border-color: var(--accent-pink); color: #f9a8d4; }
+    .card-tag.green { border-color: var(--accent-green); color: #86efac; }
+    .card-tag.yellow { border-color: var(--accent-yellow); color: #fde68a; }
+    .card-tag.orange { border-color: var(--accent-orange); color: #fdba74; }
+
+    /* ツールリスト */
+    .tool-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .tool-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      background: rgba(30, 41, 59, 0.9);
+      border: 1px solid var(--line-soft);
+      font-size: 11px;
+    }
+
+    .tool-chip-icon {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+    }
+
+    /* 矢印 */
+    .level-arrow {
+      display: flex;
+      justify-content: center;
+      margin: 24px 0;
+      position: relative;
+    }
+
+    .level-arrow::before {
+      content: "↓";
+      font-size: 24px;
+      color: var(--accent);
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
+
+    /* 比較セクション */
+    .compare-section {
+      margin: 40px 0;
+      padding: 20px;
+      border-radius: 16px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--line-soft);
+    }
+
+    .compare-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 500px) {
+      .compare-grid { grid-template-columns: 1fr; }
+    }
+
+    .compare-card {
+      padding: 14px 16px;
+      border-radius: 12px;
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid var(--line-soft);
+    }
+
+    .compare-card-icon {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .compare-card-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .compare-card-desc {
+      font-size: 11px;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+
+    .compare-card-example {
+      font-size: 10px;
+      color: var(--accent);
+      margin-top: 8px;
+    }
+
+    /* フローセクション */
+    .flow-section {
+      margin: 40px 0;
+      padding: 20px;
+      border-radius: 16px;
+      background:
+        linear-gradient(135deg, rgba(168, 85, 247, 0.1), transparent),
+        rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+    }
+
+    .flow-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .flow-diagram {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .flow-node {
+      padding: 10px 16px;
+      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--line-soft);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .flow-node-icon {
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+
+    .flow-node-label {
+      font-size: 10px;
+      color: var(--text-sub);
+    }
+
+    .flow-arrow {
+      font-size: 16px;
+      color: var(--accent);
+    }
+
+    .flow-node.highlight {
+      border-color: var(--accent-green);
+      background: rgba(74, 222, 128, 0.1);
+    }
+
+    /* 気づきセクション */
+    .insight-section {
+      margin: 40px 0;
+    }
+
+    .insight-card {
+      padding: 18px 20px;
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--line-soft);
+      margin-bottom: 14px;
+    }
+
+    .insight-card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .insight-card-icon {
+      font-size: 18px;
+    }
+
+    .insight-card-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .insight-card-body {
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.7;
+    }
+
+    .insight-card-highlight {
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    /* 結論セクション */
+    .conclusion {
+      margin: 40px 0;
+      padding: 24px;
+      border-radius: 16px;
+      background:
+        linear-gradient(135deg, rgba(244, 114, 182, 0.15), rgba(168, 85, 247, 0.1)),
+        rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(244, 114, 182, 0.3);
+    }
+
+    .conclusion-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .conclusion-quote {
+      font-size: 15px;
+      line-height: 1.8;
+      padding-left: 16px;
+      border-left: 3px solid var(--accent);
+    }
+
+    .conclusion-sub {
+      font-size: 12px;
+      color: var(--text-sub);
+      margin-top: 12px;
+    }
+
+    /* フッター */
+    .footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line-soft);
+      text-align: center;
+    }
+
+    .footer-note {
+      font-size: 10px;
+      color: var(--text-sub);
+    }
+  </style>
+</head>
+<body>
+  <nav class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <a href="../index.html">← DIAGRAM LIBRARY</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">AI開発の3段階</span>
+    </div>
+  </nav>
+
+  <div class="page">
+    <div class="rail">
+      <!-- ヒーロー -->
+      <section class="hero">
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          VIBE CODING JOURNEY
+        </div>
+        <h1>AI開発の3段階<br>〜バイブコーディングへの道〜</h1>
+        <p class="hero-sub">
+          AIツールの活用には3つのレベルがある。多くの人はレベル1〜2で止まっているが、レベル3「開発」に踏み込むことで、AIとの協働の本質が見えてくる。
+        </p>
+
+        <div class="level-overview">
+          <div class="level-badge">
+            <div class="level-badge-num">Lv.1</div>
+            <div class="level-badge-label">調べる</div>
+          </div>
+          <div class="level-badge">
+            <div class="level-badge-num">Lv.2</div>
+            <div class="level-badge-label">効率化</div>
+          </div>
+          <div class="level-badge">
+            <div class="level-badge-num">Lv.3</div>
+            <div class="level-badge-label">開発</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Level 1 -->
+      <section class="level-section lv1">
+        <div class="level-header">
+          <div class="level-num">1</div>
+          <div>
+            <div class="level-title">調べる（リサーチ）</div>
+            <div class="level-subtitle">受動的な情報収集</div>
+          </div>
+        </div>
+
+        <div class="content-card lv1">
+          <div class="card-label">できること</div>
+          <div class="card-title"><span class="card-icon">🔍</span>情報を調べる</div>
+          <div class="card-body">
+            質問に答えてもらう。Deep Researchで深掘りする。わからないことをAIに聞いて、答えをもらうだけ。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag blue">テキスト出力</span>
+            <span class="card-tag">受け身</span>
+          </div>
+        </div>
+
+        <div class="content-card lv1">
+          <div class="card-label">主なツール</div>
+          <div class="tool-list">
+            <div class="tool-chip">
+              <span class="tool-chip-icon" style="background: #10a37f;">C</span>
+              ChatGPT
+            </div>
+            <div class="tool-chip">
+              <span class="tool-chip-icon" style="background: #4285f4;">G</span>
+              Gemini
+            </div>
+            <div class="tool-chip">
+              <span class="tool-chip-icon" style="background: #d97706;">C</span>
+              Claude
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="level-arrow"></div>
+
+      <!-- Level 2 -->
+      <section class="level-section lv2">
+        <div class="level-header">
+          <div class="level-num">2</div>
+          <div>
+            <div class="level-title">効率化（作業自動化）</div>
+            <div class="level-subtitle">AIに作業させる</div>
+          </div>
+        </div>
+
+        <div class="content-card lv2">
+          <div class="card-label">できること</div>
+          <div class="card-title"><span class="card-icon">⚡</span>コンテンツを作る</div>
+          <div class="card-body">
+            簡単なサイトを作る。スライドを作る。定型作業を効率化する。テンプレートベースの生成で、一定の作業をAIに任せられる。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag purple">コンテンツ出力</span>
+            <span class="card-tag">テンプレート</span>
+          </div>
+        </div>
+
+        <div class="content-card lv2">
+          <div class="card-label">主なツール</div>
+          <div class="tool-list">
+            <div class="tool-chip">
+              <span class="tool-chip-icon" style="background: #6366f1;">S</span>
+              Spark
+            </div>
+            <div class="tool-chip">
+              <span class="tool-chip-icon" style="background: #8b5cf6;">M</span>
+              Manus
+            </div>
+            <div class="tool-chip">
+              <span class="tool-chip-icon" style="background: #f59e0b;">G</span>
+              Gamma
+            </div>
+            <div class="tool-chip">
+              <span class="tool-chip-icon" style="background: #06b6d4;">C</span>
+              Canva AI
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="level-arrow"></div>
+
+      <!-- Level 3 -->
+      <section class="level-section lv3">
+        <div class="level-header">
+          <div class="level-num">3</div>
+          <div>
+            <div class="level-title">開発（バイブコーディング）</div>
+            <div class="level-subtitle">AIと一緒に作る</div>
+          </div>
+        </div>
+
+        <div class="content-card lv3">
+          <div class="card-label">できること</div>
+          <div class="card-title"><span class="card-icon">🚀</span>プロダクトを作る</div>
+          <div class="card-body">
+            Webアプリケーション開発。ローカル環境構築。本格的なプロダクト作成。対話しながらコードを書いていく。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag pink">プロダクト出力</span>
+            <span class="card-tag">対話型開発</span>
+          </div>
+        </div>
+
+        <div class="content-card lv3">
+          <div class="card-label">主なツール</div>
+          <div class="tool-list">
+            <div class="tool-chip">
+              <span class="tool-chip-icon" style="background: linear-gradient(135deg, #a855f7, #3b82f6);">C</span>
+              Cursor
+            </div>
+            <div class="tool-chip">
+              <span class="tool-chip-icon" style="background: #f97316;">R</span>
+              Replit
+            </div>
+            <div class="tool-chip">
+              <span class="tool-chip-icon" style="background: #000;">v0</span>
+              v0 by Vercel
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- サイト vs アプリ 比較 -->
+      <section class="compare-section">
+        <div class="compare-title">💡 レベル3で見えてきたこと</div>
+        
+        <p style="font-size: 13px; color: var(--text-sub); margin-bottom: 16px; line-height: 1.7;">
+          サイトとアプリって何が違うんだろう？レベル3に来て、ようやくその本質が見えた。
+        </p>
+
+        <div class="compare-grid">
+          <div class="compare-card">
+            <div class="compare-card-icon">🏛️</div>
+            <div class="compare-card-title">サイト = 美術館</div>
+            <div class="compare-card-desc">
+              情報に価値がある。<br>そこに行くだけで、その文字情報とかが大事。見るもの。
+            </div>
+            <div class="compare-card-example">例：ブログ、ポートフォリオ、この図解サイト</div>
+          </div>
+          <div class="compare-card">
+            <div class="compare-card-icon">🏭</div>
+            <div class="compare-card-title">アプリ = 工場</div>
+            <div class="compare-card-desc">
+              作業に価値がある。<br>何かを作業させて、成果物が出るもの。使うもの。
+            </div>
+            <div class="compare-card-example">例：Notion、Figma、ChatGPT</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 開発フロー -->
+      <section class="flow-section">
+        <div class="flow-title">🔄 開発フローの全体図</div>
+
+        <div class="flow-diagram">
+          <div class="flow-node">
+            <div class="flow-node-icon">💻</div>
+            <div>Cursor</div>
+            <div class="flow-node-label">開発環境</div>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-node">
+            <div class="flow-node-icon">📦</div>
+            <div>GitHub</div>
+            <div class="flow-node-label">コード保存</div>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-node">
+            <div class="flow-node-icon">🚀</div>
+            <div>Vercel</div>
+            <div class="flow-node-label">デプロイ</div>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-node highlight">
+            <div class="flow-node-icon">🌐</div>
+            <div>公開</div>
+            <div class="flow-node-label">世界へ</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 20px; padding: 14px; background: rgba(74, 222, 128, 0.1); border-radius: 10px; border: 1px solid rgba(74, 222, 128, 0.3);">
+          <div style="font-size: 12px; font-weight: 600; color: var(--accent-green); margin-bottom: 6px;">✨ Surgeの感動ポイント</div>
+          <div style="font-size: 12px; color: var(--text-sub); line-height: 1.6;">
+            ローカルで動く！Cursorから「Surgeでデプロイして」って言うだけで、<code style="background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px;">surge .</code> で公開完了。マジで感動した。
+          </div>
+        </div>
+      </section>
+
+      <!-- 気づき -->
+      <section class="insight-section">
+        <div class="insight-card">
+          <div class="insight-card-header">
+            <span class="insight-card-icon">🤔</span>
+            <div class="insight-card-title">エンジニア不要？→ NO</div>
+          </div>
+          <div class="insight-card-body">
+            知識がないと<span class="insight-card-highlight">「指示の解像度」</span>が低くなる。構造を知らないと改善できない。「ターミナルって何？」から始まると迷子になる。
+          </div>
+        </div>
+
+        <div class="insight-card">
+          <div class="insight-card-header">
+            <span class="insight-card-icon">📚</span>
+            <div class="insight-card-title">必要な基礎知識</div>
+          </div>
+          <div class="card-tags" style="margin-top: 0;">
+            <span class="card-tag blue">ターミナル</span>
+            <span class="card-tag purple">プロジェクト構造</span>
+            <span class="card-tag pink">Git / GitHub</span>
+            <span class="card-tag green">デプロイ</span>
+          </div>
+        </div>
+
+        <div class="insight-card">
+          <div class="insight-card-header">
+            <span class="insight-card-icon">🗂️</span>
+            <div class="insight-card-title">フォルダ = 開発のハブ</div>
+          </div>
+          <div class="insight-card-body">
+            Cursorを開いて、まずプロジェクトをフォルダとして開く。そのフォルダの中で開発をしまくっていく。<span class="insight-card-highlight">フォルダがハブになる</span>という全体図が見えた。
+          </div>
+        </div>
+      </section>
+
+      <!-- 結論 -->
+      <section class="conclusion">
+        <div class="conclusion-title">📝 結論</div>
+        <div class="conclusion-quote">
+          レベル3に行くことで、<br>レベル1・2の意味も深く理解できる。<br><br>
+          バイブコーディングは<br>「エンジニアを不要にする」のではなく、<br>
+          <span style="color: var(--accent-pink); font-weight: 600;">「エンジニアリングの解像度を上げてくれる」</span><br>ツール。
+        </div>
+        <div class="conclusion-sub">
+          やっと「バイブコーディングとは何か」が分かった。
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="footer-note">A personal memo from the vibe coding journey</div>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>
+

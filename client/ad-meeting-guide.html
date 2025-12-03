@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>広告運用ミーティングの進め方｜60分で成果を最大化する</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%2338bdf8'/><stop offset='100%25' stop-color='%23a855f7'/></linearGradient></defs><circle cx='50' cy='50' r='48' fill='%23020617'/><path d='M30 70 L50 30 L70 70 Z' fill='none' stroke='url(%23g)' stroke-width='3'/><circle cx='50' cy='55' r='8' fill='url(%23g)'/></svg>" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
+    
+    :root {
+      --bg: #0a0f1a;
+      --bg-soft: #0d1321;
+      --panel: #111827;
+      --panel-soft: #1f2937;
+      --accent-cyan: #06b6d4;
+      --accent-blue: #3b82f6;
+      --accent-purple: #8b5cf6;
+      --accent-pink: #ec4899;
+      --accent-orange: #f97316;
+      --accent-green: #22c55e;
+      --text-main: #f1f5f9;
+      --text-sub: #94a3b8;
+      --border: rgba(148,163,184,0.2);
+      --border-strong: rgba(148,163,184,0.4);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Noto Sans JP', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text-main);
+      background: var(--bg);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* 背景グラデーション */
+    .bg-gradient {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% 10%, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 80% 20%, rgba(139, 92, 246, 0.12) 0%, transparent 45%),
+        radial-gradient(ellipse 70% 50% at 50% 90%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+        var(--bg);
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    @media (min-width: 768px) {
+      .page {
+        padding: 60px 32px 100px;
+      }
+    }
+
+    /* ヒーローセクション */
+    .hero {
+      text-align: center;
+      margin-bottom: 48px;
+      animation: fadeUp 0.8s ease-out;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      margin-bottom: 16px;
+    }
+
+    .hero-badge::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.2); }
+    }
+
+    .hero h1 {
+      font-size: 28px;
+      font-weight: 900;
+      line-height: 1.3;
+      margin: 0 0 12px;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    @media (min-width: 768px) {
+      .hero h1 {
+        font-size: 36px;
+      }
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      color: var(--text-sub);
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .hero-sub strong {
+      color: var(--text-main);
+    }
+
+    /* セクション共通 */
+    .section {
+      margin-bottom: 48px;
+      animation: fadeUp 0.8s ease-out both;
+    }
+
+    .section:nth-child(2) { animation-delay: 0.1s; }
+    .section:nth-child(3) { animation-delay: 0.2s; }
+    .section:nth-child(4) { animation-delay: 0.3s; }
+    .section:nth-child(5) { animation-delay: 0.4s; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .section-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .section-icon.cyan { background: rgba(6, 182, 212, 0.15); }
+    .section-icon.blue { background: rgba(59, 130, 246, 0.15); }
+    .section-icon.purple { background: rgba(139, 92, 246, 0.15); }
+    .section-icon.green { background: rgba(34, 197, 94, 0.15); }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    @media (min-width: 768px) {
+      .section-title {
+        font-size: 22px;
+      }
+    }
+
+    /* タイムテーブル */
+    .timetable {
+      background: var(--panel);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .timetable-header {
+      display: grid;
+      grid-template-columns: 50px 1fr 70px 60px;
+      gap: 12px;
+      padding: 14px 16px;
+      background: var(--panel-soft);
+      border-bottom: 1px solid var(--border);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--text-sub);
+      text-transform: uppercase;
+    }
+
+    @media (min-width: 640px) {
+      .timetable-header {
+        grid-template-columns: 60px 1fr 100px 80px;
+        padding: 16px 20px;
+      }
+    }
+
+    .timetable-row {
+      display: grid;
+      grid-template-columns: 50px 1fr 70px 60px;
+      gap: 12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      align-items: center;
+      transition: background 0.2s;
+    }
+
+    @media (min-width: 640px) {
+      .timetable-row {
+        grid-template-columns: 60px 1fr 100px 80px;
+        padding: 16px 20px;
+      }
+    }
+
+    .timetable-row:last-child {
+      border-bottom: none;
+    }
+
+    .timetable-row:hover {
+      background: rgba(6, 182, 212, 0.03);
+    }
+
+    .timetable-row.total {
+      background: var(--panel-soft);
+      font-weight: 700;
+    }
+
+    .phase-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+      color: white;
+    }
+
+    .phase-content {
+      min-width: 0;
+    }
+
+    .phase-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .phase-desc {
+      font-size: 12px;
+      color: var(--text-sub);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    @media (max-width: 639px) {
+      .phase-desc {
+        display: none;
+      }
+    }
+
+    .phase-owner {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    .phase-owner.agency {
+      background: rgba(6, 182, 212, 0.15);
+      color: var(--accent-cyan);
+    }
+
+    .phase-owner.client {
+      background: rgba(236, 72, 153, 0.15);
+      color: var(--accent-pink);
+    }
+
+    .phase-owner.both {
+      background: rgba(139, 92, 246, 0.15);
+      color: var(--accent-purple);
+    }
+
+    .phase-time {
+      font-size: 14px;
+      font-weight: 600;
+      text-align: right;
+      color: var(--accent-cyan);
+    }
+
+    /* フェーズカード */
+    .phase-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .phase-card {
+      background: var(--panel);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 20px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .phase-card:hover {
+      border-color: var(--border-strong);
+      transform: translateY(-2px);
+    }
+
+    .phase-card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .phase-card-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .phase-card-num.before { background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue)); }
+    .phase-card-num.during { background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); }
+    .phase-card-num.after { background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink)); }
+
+    .phase-card-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .phase-card-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin: 0 0 4px;
+    }
+
+    .phase-card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    .phase-card-body {
+      font-size: 14px;
+      color: var(--text-sub);
+      line-height: 1.7;
+    }
+
+    .phase-card-body strong {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    .phase-card-list {
+      margin: 12px 0 0;
+      padding-left: 20px;
+    }
+
+    .phase-card-list li {
+      margin-bottom: 6px;
+    }
+
+    .phase-card-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    .phase-card-example {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 10px;
+      background: var(--bg);
+      border: 1px dashed var(--border);
+      font-size: 13px;
+    }
+
+    .phase-card-example-title {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--accent-cyan);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    /* 3カラムグリッド */
+    .three-cols {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .three-cols {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .principle-card {
+      background: var(--panel);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 18px;
+      text-align: center;
+    }
+
+    .principle-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin: 0 auto 12px;
+    }
+
+    .principle-icon.cyan { background: rgba(6, 182, 212, 0.15); }
+    .principle-icon.blue { background: rgba(59, 130, 246, 0.15); }
+    .principle-icon.green { background: rgba(34, 197, 94, 0.15); }
+
+    .principle-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .principle-desc {
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+
+    /* フローライン */
+    .flow-line {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 24px 0;
+      color: var(--text-sub);
+    }
+
+    .flow-arrow {
+      font-size: 20px;
+      color: var(--accent-cyan);
+    }
+
+    .flow-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* フェーズヘッダー（Before/During/After） */
+    .phase-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .phase-header-badge {
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    .phase-header-badge.before {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(59, 130, 246, 0.2));
+      color: var(--accent-cyan);
+    }
+
+    .phase-header-badge.during {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
+      color: var(--accent-blue);
+    }
+
+    .phase-header-badge.after {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.2));
+      color: var(--accent-purple);
+    }
+
+    .phase-header-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    /* サマリーボックス */
+    .summary-box {
+      background: linear-gradient(135deg, var(--panel), var(--panel-soft));
+      border-radius: 16px;
+      border: 1px solid var(--border-strong);
+      padding: 24px;
+      text-align: center;
+    }
+
+    .summary-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .summary-formula {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .summary-step {
+      padding: 8px 16px;
+      border-radius: 8px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+    }
+
+    .summary-arrow {
+      color: var(--accent-cyan);
+      font-size: 18px;
+    }
+
+    .summary-note {
+      font-size: 14px;
+      color: var(--text-sub);
+      line-height: 1.7;
+    }
+
+    /* フッター */
+    .footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    /* アニメーション */
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-gradient"></div>
+
+  <div class="page">
+    <!-- ヒーロー -->
+    <header class="hero">
+      <div class="hero-badge">MEETING GUIDE</div>
+      <h1>広告運用ミーティングの進め方</h1>
+      <p class="hero-sub">
+        <strong>60分で成果を最大化する</strong>ミーティングフレームワーク。<br />
+        数字 → インサイト → アクション → 現場チューニングのサイクルを回し、<br />
+        確実に次の改善につなげる「意思決定の場」を作ります。
+      </p>
+    </header>
+
+    <!-- 60分タイムテーブル -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon cyan">⏱</div>
+        <h2 class="section-title">60分ミーティング タイムテーブル</h2>
+      </div>
+
+      <div class="timetable">
+        <div class="timetable-header">
+          <span>No.</span>
+          <span>フェーズ</span>
+          <span>主導</span>
+          <span>時間</span>
+        </div>
+        <div class="timetable-row">
+          <div class="phase-num">1</div>
+          <div class="phase-content">
+            <div class="phase-title">ゴール確認</div>
+            <div class="phase-desc">今日のゴールを一言で共有</div>
+          </div>
+          <div class="phase-owner agency">代理店</div>
+          <div class="phase-time">3分</div>
+        </div>
+        <div class="timetable-row">
+          <div class="phase-num">2</div>
+          <div class="phase-content">
+            <div class="phase-title">数字のファクト共有</div>
+            <div class="phase-desc">KPIサマリー、前月比・ベンチマーク</div>
+          </div>
+          <div class="phase-owner agency">代理店</div>
+          <div class="phase-time">8分</div>
+        </div>
+        <div class="timetable-row">
+          <div class="phase-num">3</div>
+          <div class="phase-content">
+            <div class="phase-title">インサイト＆仮説共有</div>
+            <div class="phase-desc">「なぜこうなったか」の仮説提示</div>
+          </div>
+          <div class="phase-owner agency">代理店</div>
+          <div class="phase-time">10分</div>
+        </div>
+        <div class="timetable-row">
+          <div class="phase-num">4</div>
+          <div class="phase-content">
+            <div class="phase-title">アクション案提示</div>
+            <div class="phase-desc">数字ベースの次アクション案</div>
+          </div>
+          <div class="phase-owner agency">代理店</div>
+          <div class="phase-time">8分</div>
+        </div>
+        <div class="timetable-row">
+          <div class="phase-num">5</div>
+          <div class="phase-content">
+            <div class="phase-title">現場インプット</div>
+            <div class="phase-desc">現場の肌感・内部事情の共有</div>
+          </div>
+          <div class="phase-owner client">クライアント</div>
+          <div class="phase-time">10分</div>
+        </div>
+        <div class="timetable-row">
+          <div class="phase-num">6</div>
+          <div class="phase-content">
+            <div class="phase-title">アクションプラン確定</div>
+            <div class="phase-desc">WHO/WHAT/WHENを明確化</div>
+          </div>
+          <div class="phase-owner both">共同</div>
+          <div class="phase-time">12分</div>
+        </div>
+        <div class="timetable-row">
+          <div class="phase-num">7</div>
+          <div class="phase-content">
+            <div class="phase-title">全体戦略共有</div>
+            <div class="phase-desc">大局観の確認、媒体アップデート</div>
+          </div>
+          <div class="phase-owner agency">代理店</div>
+          <div class="phase-time">5分</div>
+        </div>
+        <div class="timetable-row">
+          <div class="phase-num">8</div>
+          <div class="phase-content">
+            <div class="phase-title">まとめ・次回確認</div>
+            <div class="phase-desc">決定事項の復唱、次回日程</div>
+          </div>
+          <div class="phase-owner agency">代理店</div>
+          <div class="phase-time">4分</div>
+        </div>
+        <div class="timetable-row total">
+          <div></div>
+          <div class="phase-content">
+            <div class="phase-title">合計</div>
+          </div>
+          <div></div>
+          <div class="phase-time">60分</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Before -->
+    <section class="section">
+      <div class="phase-header">
+        <span class="phase-header-badge before">BEFORE</span>
+        <h2 class="phase-header-title">ミーティング前の準備</h2>
+      </div>
+
+      <div class="phase-cards">
+        <div class="phase-card">
+          <div class="phase-card-header">
+            <div class="phase-card-num before">1</div>
+            <div class="phase-card-info">
+              <h3 class="phase-card-title">事前レポートの共有</h3>
+              <div class="phase-card-meta">
+                <span>担当：代理店</span>
+                <span>タイミング：MTG 1〜2日前</span>
+              </div>
+            </div>
+          </div>
+          <div class="phase-card-body">
+            <ul class="phase-card-list">
+              <li><strong>期間</strong>：前月 or 前回MTG〜直近まで</li>
+              <li><strong>指標</strong>：応募数 / 有効応募数 / 有効応募率 / CPA / 媒体別・職種別</li>
+              <li><strong>形式</strong>：グラフ＋簡単コメント（「有効応募率が○○％ → ○○％に低下」程度でOK）</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="phase-card">
+          <div class="phase-card-header">
+            <div class="phase-card-num before">2</div>
+            <div class="phase-card-info">
+              <h3 class="phase-card-title">アジェンダの共有</h3>
+              <div class="phase-card-meta">
+                <span>担当：代理店</span>
+                <span>目的：参加者全員の準備を整える</span>
+              </div>
+            </div>
+          </div>
+          <div class="phase-card-body">
+            <div class="phase-card-example">
+              <div class="phase-card-example-title">アジェンダ例</div>
+              1. 直近運用結果の共有（代理店）<br />
+              2. インサイト＆次アクション案（代理店）<br />
+              3. 現場状況の共有（クライアント）<br />
+              4. アクションプラン確定<br />
+              5. 全体採用戦略・媒体アップデート共有
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="flow-line">
+      <span class="flow-arrow">↓</span>
+      <span class="flow-label">Meeting Day</span>
+      <span class="flow-arrow">↓</span>
+    </div>
+
+    <!-- During -->
+    <section class="section">
+      <div class="phase-header">
+        <span class="phase-header-badge during">DURING</span>
+        <h2 class="phase-header-title">ミーティング中の進行</h2>
+      </div>
+
+      <div class="phase-cards">
+        <div class="phase-card">
+          <div class="phase-card-header">
+            <div class="phase-card-num during">1</div>
+            <div class="phase-card-info">
+              <h3 class="phase-card-title">ゴール確認</h3>
+              <div class="phase-card-meta">
+                <span>3分</span>
+                <span>代理店主導</span>
+              </div>
+            </div>
+          </div>
+          <div class="phase-card-body">
+            毎回、ミーティングの冒頭でゴールを一言で共有。<br />
+            <strong>全員が同じゴールを見ている状態</strong>を作ることが目的。
+            <div class="phase-card-example">
+              <div class="phase-card-example-title">例</div>
+              「今日のゴールは『有効応募率が落ちている要因を整理し、次の1ヶ月でやる具体アクションを決めること』です」
+            </div>
+          </div>
+        </div>
+
+        <div class="phase-card">
+          <div class="phase-card-header">
+            <div class="phase-card-num during">2</div>
+            <div class="phase-card-info">
+              <h3 class="phase-card-title">数字のファクト共有</h3>
+              <div class="phase-card-meta">
+                <span>8分</span>
+                <span>代理店主導</span>
+              </div>
+            </div>
+          </div>
+          <div class="phase-card-body">
+            データの「事実」を整理するフェーズ。<strong>実況ではなく、見えている事実の整理</strong>。
+            <ul class="phase-card-list">
+              <li><strong>直近KPIサマリー</strong>：応募数 / 有効応募数 / 有効応募率 / CPA</li>
+              <li><strong>比較データ</strong>：前月比 / 前年同月比 / 前回MTG比</li>
+              <li><strong>ベンチマーク</strong>：同規模他社との比較</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="phase-card">
+          <div class="phase-card-header">
+            <div class="phase-card-num during">3</div>
+            <div class="phase-card-info">
+              <h3 class="phase-card-title">インサイト＆仮説共有</h3>
+              <div class="phase-card-meta">
+                <span>10分</span>
+                <span>代理店主導</span>
+              </div>
+            </div>
+          </div>
+          <div class="phase-card-body">
+            「なぜこうなっているか」の仮説を出すゾーン。<br />
+            ここが<strong>「ただデータ読み上げる人」と「プロ」の差</strong>が出る部分。
+            <div class="phase-card-example">
+              <div class="phase-card-example-title">仮説の例</div>
+              ・有効応募率が落ちた → エリア拡張で母集団が広がりすぎた<br />
+              ・職種AだけCPAが跳ねている → 検索クエリがずれている / 競合の入札強化<br />
+              ・特定媒体のパフォーマンス低下 → アルゴリズム変更の影響
+            </div>
+          </div>
+        </div>
+
+        <div class="phase-card">
+          <div class="phase-card-header">
+            <div class="phase-card-num during">4</div>
+            <div class="phase-card-info">
+              <h3 class="phase-card-title">アクション案提示</h3>
+              <div class="phase-card-meta">
+                <span>8分</span>
+                <span>代理店主導</span>
+              </div>
+            </div>
+          </div>
+          <div class="phase-card-body">
+            「数字だけ見たときに、次やるべきこと」の案を出す。
+            <ul class="phase-card-list">
+              <li><strong>入札・予算配分</strong>：媒体ごとの予算シフト</li>
+              <li><strong>媒体のオン/オフ</strong>：パフォーマンスに応じた出稿調整</li>
+              <li><strong>原稿改修</strong>：タイトル・訴求・原稿の分割</li>
+              <li><strong>ターゲティング</strong>：エリア / 年齢 / 経験</li>
+            </ul>
+            <div class="phase-card-example">
+              <div class="phase-card-example-title">例</div>
+              ・有効応募率を戻すために、まず職種Aはエリアを一段絞る<br />
+              ・求人ボックスのCPAが優秀なので、次月は＋20％予算を振る
+            </div>
+          </div>
+        </div>
+
+        <div class="phase-card">
+          <div class="phase-card-header">
+            <div class="phase-card-num during">5</div>
+            <div class="phase-card-info">
+              <h3 class="phase-card-title">現場インプット</h3>
+              <div class="phase-card-meta">
+                <span>10分</span>
+                <span>クライアント主導</span>
+              </div>
+            </div>
+          </div>
+          <div class="phase-card-body">
+            <strong>数字だけのプランに「現場のリアリティ」を掛け算</strong>するフェーズ。
+            <ul class="phase-card-list">
+              <li><strong>有効応募の現場感</strong>：電話のつながり具合、決定率の体感</li>
+              <li><strong>内部事情</strong>：面接担当の変更、拠点の採用ストップ、優先度の変化</li>
+            </ul>
+            <div class="phase-card-example">
+              <div class="phase-card-example-title">共有してほしい情報</div>
+              ・「この1ヶ月は応募数はいいけど、電話つながらない割合が増えている」<br />
+              ・「この職種は応募は少ないが、決定率が高い」<br />
+              ・「拠点Bの採用が一旦ストップ」
+            </div>
+          </div>
+        </div>
+
+        <div class="phase-card">
+          <div class="phase-card-header">
+            <div class="phase-card-num during">6</div>
+            <div class="phase-card-info">
+              <h3 class="phase-card-title">アクションプラン確定</h3>
+              <div class="phase-card-meta">
+                <span>12分</span>
+                <span>共同</span>
+              </div>
+            </div>
+          </div>
+          <div class="phase-card-body">
+            「数字 × 現場」を踏まえて、具体的なアクションを決定。<br />
+            <strong>WHO / WHAT / WHEN が明確でない会議は全部ムダ</strong>。
+            <div class="phase-card-example">
+              <div class="phase-card-example-title">決定フォーマット</div>
+              【職種A】<br />
+              ・やること：求人ボックスの原稿を2パターンテスト<br />
+              ・担当：代理店<br />
+              ・期限：来週水曜まで<br /><br />
+              【職種B】<br />
+              ・やること：面接設定〜初回接触のSLAを整理して共有<br />
+              ・担当：クライアント<br />
+              ・期限：次回MTGまで
+            </div>
+          </div>
+        </div>
+
+        <div class="phase-card">
+          <div class="phase-card-header">
+            <div class="phase-card-num during">7</div>
+            <div class="phase-card-info">
+              <h3 class="phase-card-title">全体戦略共有</h3>
+              <div class="phase-card-meta">
+                <span>5分</span>
+                <span>代理店主導</span>
+              </div>
+            </div>
+          </div>
+          <div class="phase-card-body">
+            今やっている運用が、どんな<strong>大きい戦略の中に位置づくのか</strong>を確認。
+            <ul class="phase-card-list">
+              <li><strong>採用戦略の方向性</strong>：「今年は母集団最大化より、有効応募率を優先」など</li>
+              <li><strong>媒体アップデート</strong>：Indeed・求人ボックス・スタンバイの仕様変更や新機能</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="phase-card">
+          <div class="phase-card-header">
+            <div class="phase-card-num during">8</div>
+            <div class="phase-card-info">
+              <h3 class="phase-card-title">まとめ・次回確認</h3>
+              <div class="phase-card-meta">
+                <span>4分</span>
+                <span>代理店主導</span>
+              </div>
+            </div>
+          </div>
+          <div class="phase-card-body">
+            <ul class="phase-card-list">
+              <li>決定事項の復唱</li>
+              <li>アクションアイテムの最終確認</li>
+              <li>次回ミーティング日程の調整</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="flow-line">
+      <span class="flow-arrow">↓</span>
+      <span class="flow-label">Follow Up</span>
+      <span class="flow-arrow">↓</span>
+    </div>
+
+    <!-- After -->
+    <section class="section">
+      <div class="phase-header">
+        <span class="phase-header-badge after">AFTER</span>
+        <h2 class="phase-header-title">ミーティング後のフォロー</h2>
+      </div>
+
+      <div class="phase-cards">
+        <div class="phase-card">
+          <div class="phase-card-header">
+            <div class="phase-card-num after">✓</div>
+            <div class="phase-card-info">
+              <h3 class="phase-card-title">1枚サマリーを即共有</h3>
+              <div class="phase-card-meta">
+                <span>担当：代理店</span>
+                <span>タイミング：MTG当日〜翌日</span>
+              </div>
+            </div>
+          </div>
+          <div class="phase-card-body">
+            毎回このフォーマットで積み上げると、<strong>半年後・1年後の振り返りが異常にやりやすくなる</strong>。
+            <div class="phase-card-example">
+              <div class="phase-card-example-title">サマリーフォーマット</div>
+              <strong>■ KPIサマリー</strong><br />
+              ・応募数：○○件（前月比+10%）<br />
+              ・有効応募率：○○%（前月比-5pt）<br />
+              ・CPA：○○円<br /><br />
+              <strong>■ 今日のインサイト</strong><br />
+              ・有効応募率低下の主因はエリア拡張による母集団の質低下<br />
+              ・職種Aは求人ボックスのパフォーマンスが突出<br /><br />
+              <strong>■ 決定事項</strong><br />
+              ・職種Aのエリアを首都圏に限定<br />
+              ・求人ボックスの予算を+20%<br /><br />
+              <strong>■ アクションアイテム</strong><br />
+              1. 職種A原稿テスト（代理店・来週水曜）<br />
+              2. 面接SLA整理（クライアント・次回MTG）
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3原則 -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon green">★</div>
+        <h2 class="section-title">成功するミーティングの3原則</h2>
+      </div>
+
+      <div class="three-cols">
+        <div class="principle-card">
+          <div class="principle-icon cyan">💬</div>
+          <div class="principle-title">言語化する</div>
+          <div class="principle-desc">
+            数字を「読み上げる」のではなく<br />
+            「なぜ」「どうすれば」まで<br />
+            踏み込んで言語化する
+          </div>
+        </div>
+        <div class="principle-card">
+          <div class="principle-icon blue">👂</div>
+          <div class="principle-title">現場を拾う</div>
+          <div class="principle-desc">
+            数字だけでは見えない情報がある<br />
+            クライアントの内部事情が<br />
+            施策の精度を上げる
+          </div>
+        </div>
+        <div class="principle-card">
+          <div class="principle-icon green">✅</div>
+          <div class="principle-title">アクションで終わる</div>
+          <div class="principle-desc">
+            決定事項がない会議は価値がない<br />
+            WHO / WHAT / WHEN を<br />
+            必ず明確にする
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- サマリー -->
+    <section class="section">
+      <div class="summary-box">
+        <div class="summary-title">ミーティングの核心</div>
+        <div class="summary-formula">
+          <span class="summary-step">数字</span>
+          <span class="summary-arrow">→</span>
+          <span class="summary-step">インサイト</span>
+          <span class="summary-arrow">→</span>
+          <span class="summary-step">アクション</span>
+          <span class="summary-arrow">→</span>
+          <span class="summary-step">現場チューニング</span>
+        </div>
+        <div class="summary-note">
+          このサイクルを60分で回し、確実に次の改善につなげる。<br />
+          それが「意思決定の場」としてのミーティングの価値です。
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>© 2024 Michael Pruneda. All Rights Reserved.</p>
+      <p style="margin-top: 8px; font-size: 11px; opacity: 0.7;">
+        本コンテンツの著作権はMichael Prunedaに帰属します。<br>
+        無断転載・複製・再配布を禁じます。
+      </p>
+    </footer>
+  </div>
+</body>
+</html>
+

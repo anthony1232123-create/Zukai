@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>人生最高の身体の休め方｜縦スク図解</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-soft: #070b1f;
+      --panel: #0b1024;
+      --panel-soft: #111733;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56,189,248,0.18);
+      --accent-strong: #f97316;
+      --text-main: #e5e7eb;
+      --text-sub: #9ca3af;
+      --line-soft: rgba(148,163,184,0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Hiragino Sans", "ヒラギノ角ゴ ProN W3", "YuGothic", "游ゴシック体",
+        "Yu Gothic", "メイリオ", sans-serif;
+      color: var(--text-main);
+      background:
+        radial-gradient(circle at top left, #0ea5e9 0, transparent 40%),
+        radial-gradient(circle at 80% 0%, #ec4899 0, transparent 42%),
+        radial-gradient(circle at bottom, #22c55e 0, transparent 45%),
+        var(--bg);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* パンくずナビ */
+    .breadcrumb {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 12px 20px;
+      background: rgba(5, 8, 22, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    }
+
+    .breadcrumb-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+    }
+
+    .breadcrumb a {
+      color: var(--accent);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+
+    .breadcrumb a:hover {
+      color: #7dd3fc;
+    }
+
+    .breadcrumb-sep {
+      color: var(--text-sub);
+      opacity: 0.5;
+    }
+
+    .breadcrumb-current {
+      color: var(--text-sub);
+    }
+
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 60px 14px 80px;
+    }
+
+    @media (min-width: 768px) {
+      .page {
+        padding: 68px 18px 96px;
+      }
+    }
+
+    .rail {
+      position: relative;
+      margin: 0 auto;
+    }
+
+    .rail::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 100vh;
+      background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(148,163,184,0.33),
+        transparent
+      );
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .hero {
+      position: relative;
+      margin-bottom: 32px;
+      padding: 18px 16px 22px;
+      border-radius: 20px;
+      background:
+        linear-gradient(135deg, rgba(15,23,42,0.95), rgba(15,23,42,0.8)),
+        radial-gradient(circle at top left, rgba(56,189,248,0.25), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(236,72,153,0.2), transparent 60%);
+      border: 1px solid rgba(148,163,184,0.4);
+      box-shadow:
+        0 24px 80px rgba(15,23,42,0.85),
+        0 0 0 1px rgba(15,23,42,0.9);
+      overflow: hidden;
+    }
+
+    @media (min-width: 720px) {
+      .hero {
+        padding: 22px 22px 26px;
+        border-radius: 22px;
+      }
+    }
+
+    .hero-topline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      color: var(--text-sub);
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.55);
+      backdrop-filter: blur(16px);
+    }
+
+    .hero-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #facc15, #f97316);
+      box-shadow: 0 0 12px rgba(250,204,21,0.8);
+    }
+
+    .hero-title {
+      margin: 10px 0 4px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      font-size: 22px;
+      line-height: 1.3;
+    }
+
+    @media (min-width: 720px) {
+      .hero-title {
+        font-size: 26px;
+      }
+    }
+
+    .hero-sub {
+      font-size: 13px;
+      color: var(--text-sub);
+    }
+
+    .hero-meta {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--text-sub);
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.5);
+      background: rgba(15,23,42,0.9);
+    }
+
+    .hero-tag span {
+      font-size: 14px;
+    }
+
+    .hero-credit {
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--text-sub);
+      text-align: right;
+    }
+
+    .scroll-hint {
+      margin: 14px auto 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      color: var(--text-sub);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 30px;
+      background: linear-gradient(
+        to bottom,
+        rgba(148,163,184,0),
+        rgba(148,163,184,0.7)
+      );
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scroll-line::after {
+      content: "";
+      position: absolute;
+      top: -40%;
+      left: 0;
+      right: 0;
+      height: 60%;
+      background: linear-gradient(
+        to bottom,
+        rgba(148,163,184,0),
+        rgba(148,163,184,1),
+        rgba(148,163,184,0)
+      );
+      animation: scrollDot 1.6s infinite ease-in-out;
+    }
+
+    @keyframes scrollDot {
+      0% { transform: translateY(-60%); opacity: 0; }
+      20% { opacity: 1; }
+      80% { transform: translateY(150%); opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    /* Panels (縦読みのコマ) */
+
+    .panels {
+      margin-top: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .panel {
+      position: relative;
+      padding: 18px 14px 18px;
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,0.15), transparent 50%),
+        radial-gradient(circle at bottom right, rgba(248,250,252,0.05), transparent 55%),
+        linear-gradient(135deg, rgba(15,23,42,0.96), rgba(15,23,42,0.96));
+      border: 1px solid rgba(148,163,184,0.45);
+      box-shadow:
+        0 18px 60px rgba(15,23,42,0.85),
+        0 0 0 1px rgba(15,23,42,0.9);
+      overflow: hidden;
+    }
+
+    @media (min-width: 720px) {
+      .panel {
+        padding: 20px 18px 20px;
+        border-radius: 20px;
+      }
+    }
+
+    .panel::before {
+      content: attr(data-label);
+      position: absolute;
+      top: 10px;
+      left: -40px;
+      font-size: 10px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: rgba(148,163,184,0.35);
+      transform: rotate(-90deg);
+      transform-origin: left top;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .panel-index {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.6);
+      font-size: 11px;
+      color: var(--text-sub);
+      background: rgba(15,23,42,0.9);
+      backdrop-filter: blur(12px);
+    }
+
+    .panel-index-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #e5e7eb, #38bdf8);
+      box-shadow: 0 0 8px rgba(56,189,248,0.9);
+    }
+
+    .panel-title {
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .panel-kicker {
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .panel-main {
+      font-size: 13px;
+      color: var(--text-main);
+      line-height: 1.7;
+      margin-top: 4px;
+    }
+
+    .panel-main strong {
+      color: #f97316;
+      font-weight: 600;
+    }
+
+    .panel-note {
+      margin-top: 10px;
+      padding: 8px 9px;
+      border-radius: 12px;
+      background: rgba(15,23,42,0.92);
+      border: 1px dashed rgba(148,163,184,0.6);
+      font-size: 11px;
+      color: var(--text-sub);
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      color: var(--text-sub);
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.5);
+    }
+
+    .chip-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      box-shadow: 0 0 10px rgba(56,189,248,0.8);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.55);
+      background: rgba(15,23,42,0.86);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill span {
+      font-size: 14px;
+    }
+
+    .two-cols {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    @media (min-width: 640px) {
+      .two-cols {
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      }
+    }
+
+    .mini-card {
+      padding: 8px 9px;
+      border-radius: 12px;
+      border: 1px solid rgba(148,163,184,0.55);
+      background: rgba(15,23,42,0.92);
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    .mini-title {
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px;
+      color: var(--text-main);
+    }
+
+    .mini-title span {
+      font-size: 14px;
+    }
+
+    .list {
+      margin: 4px 0 0;
+      padding-left: 18px;
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    .list li + li {
+      margin-top: 2px;
+    }
+
+    .flow {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    @media (min-width: 640px) {
+      .flow {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .flow-step {
+      padding: 8px 9px;
+      border-radius: 12px;
+      border: 1px solid rgba(148,163,184,0.5);
+      background: rgba(12,16,35,0.98);
+      font-size: 12px;
+    }
+
+    .flow-step-label {
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .flow-step-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .key-points {
+      margin-top: 8px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+      font-size: 12px;
+    }
+
+    @media (min-width: 640px) {
+      .key-points {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .key-pill {
+      padding: 6px 7px;
+      border-radius: 12px;
+      border: 1px dashed rgba(148,163,184,0.6);
+      background: rgba(15,23,42,0.92);
+    }
+
+    .danger-list {
+      margin-top: 8px;
+      padding-left: 18px;
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    .danger-list li + li {
+      margin-top: 3px;
+    }
+
+    .footer-panel {
+      margin-top: 26px;
+      padding: 14px 14px 16px;
+      border-radius: 16px;
+      background: rgba(15,23,42,0.95);
+      border: 1px solid rgba(148,163,184,0.6);
+      font-size: 11px;
+      color: var(--text-sub);
+      text-align: center;
+    }
+
+    .footer-panel strong {
+      color: var(--accent-strong);
+    }
+
+    .footer-panel span {
+      color: var(--accent);
+    }
+
+    .footer-note {
+      margin-top: 10px;
+      font-size: 10px;
+      color: var(--text-sub);
+      text-align: right;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <!-- パンくずナビ -->
+  <nav class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <a href="../index.html">← DIAGRAM LIBRARY</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">人生最高の身体の休め方</span>
+    </div>
+  </nav>
+
+  <div class="page">
+    <div class="rail">
+      <section class="hero">
+        <div class="hero-topline">
+          <span class="hero-dot"></span>
+          人生最高の「身体の休め方」を一枚の縦スク図解で
+        </div>
+        <h1 class="hero-title">
+          人生最高の身体の休め方<br />
+          <span style="font-size:0.85em;font-weight:500;color:var(--text-sub);">
+            科学×実践の最強メソッドまとめ
+          </span>
+        </h1>
+        <p class="hero-sub">
+          「寝ても疲れが抜けない」の正体は、
+          <strong>自律神経・脳のオーバーワーク・姿勢ストレス</strong> の3つ。<br />
+          この図解では、20〜40分で「睡眠1.5時間分」の回復をねらう
+          <strong>超実用ルーティン</strong> を、縦スクで一気に理解します。
+        </p>
+        <div class="hero-meta">
+          <div class="hero-tag"><span>🧠</span>自律神経ケア</div>
+          <div class="hero-tag"><span>💤</span>睡眠の質UP</div>
+          <div class="hero-tag"><span>📶</span>現代人の慢性疲労対策</div>
+        </div>
+        <div class="hero-credit">
+          作成：Isaac for まいける
+        </div>
+      </section>
+
+      <div class="scroll-hint">
+        <span>SCROLL</span>
+        <div class="scroll-line"></div>
+      </div>
+
+      <div class="panels">
+        <!-- Panel 1 -->
+        <section class="panel" data-label="CHAPTER 01">
+          <div class="panel-header">
+            <div>
+              <div class="panel-kicker">01 / UNDERSTAND</div>
+              <h2 class="panel-title">まず「疲れの正体」を誤解しない</h2>
+            </div>
+            <div class="panel-index">
+              <span class="panel-index-dot"></span>
+              <span>正体をラベリング</span>
+            </div>
+          </div>
+          <div class="panel-main">
+            現代人の疲れは「筋肉が疲れた」よりも、
+            <strong>神経と脳と姿勢</strong> が削られているケースがほとんど。<br />
+            つまり、ただ寝るだけでは抜けない「目に見えない疲れ」が
+            体の深部に溜まっていきます。
+          </div>
+
+          <div class="chips">
+            <div class="chip">
+              <span class="chip-dot"></span> 自律神経の連続稼働（交感神経ONの張りっぱなし）
+            </div>
+            <div class="chip">
+              <span class="chip-dot"></span> 脳の情報処理過多（インプット疲れ）
+            </div>
+            <div class="chip">
+              <span class="chip-dot"></span> 姿勢ストレス・血行不良
+            </div>
+          </div>
+
+          <div class="panel-note">
+            🔍 <strong>ポイント：</strong>
+            この3つを同時に落としていくと、「ただ寝ただけ以上の回復」が起きる。
+            以降のパネルはすべて、この3つをどう下げるかのストーリー。
+          </div>
+        </section>
+
+        <!-- Panel 2 -->
+        <section class="panel" data-label="CHAPTER 02">
+          <div class="panel-header">
+            <div>
+              <div class="panel-kicker">02 / SCIENCE</div>
+              <h2 class="panel-title">身体が本当に「回復モード」に入る瞬間</h2>
+            </div>
+            <div class="panel-index">
+              <span class="panel-index-dot"></span>
+              <span>サインを観察</span>
+            </div>
+          </div>
+          <div class="panel-main">
+            科学的に見ると、「休んでいるつもり」と「実際に回復している」は別物です。
+            <strong>副交感神経が優位</strong> になった時、体はようやく修復モードに入ります。
+          </div>
+
+          <div class="two-cols">
+            <div class="mini-card">
+              <div class="mini-title"><span>💓</span>回復モードに入ったサイン</div>
+              <ul class="list">
+                <li>心拍が下がり、鼓動が静かになる</li>
+                <li>呼吸が自然と深く・ゆっくりになる</li>
+                <li>肩・首・顔まわりの筋肉のこわばりが抜ける</li>
+              </ul>
+            </div>
+            <div class="mini-card">
+              <div class="mini-title"><span>🧠</span>脳の状態の変化</div>
+              <ul class="list">
+                <li>「考えごとの渋滞」が減り、思考がスローダウン</li>
+                <li>安静時ネットワーク（DMN）の活動が安定</li>
+                <li>内側から「ふっと抜ける」ような安心感が出てくる</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="panel-note">
+            ✅ <strong>ゴール：</strong>
+            「横になっているか」ではなく、
+            <span style="color:var(--accent);">上のサインが出ているか</span> をチェック軸にする。
+            ここを狙い撃ちするのが次のルーティンです。
+          </div>
+        </section>
+
+        <!-- Panel 3 -->
+        <section class="panel" data-label="CHAPTER 03">
+          <div class="panel-header">
+            <div>
+              <div class="panel-kicker">03 / TARGET</div>
+              <h2 class="panel-title">20〜40分で「睡眠1.5時間分」の回復をねらう</h2>
+            </div>
+            <div class="panel-index">
+              <span class="panel-index-dot"></span>
+              <span>時間 vs. 深さ</span>
+            </div>
+          </div>
+          <div class="panel-main">
+            仕事・育児・勉強で「まとまった睡眠時間」が取りづらい現代だからこそ、
+            <strong>短時間で深く休む技術</strong> が武器になります。<br />
+            ここで使うのは、3つのキー習慣です。
+          </div>
+
+          <div class="key-points">
+            <div class="key-pill">
+              <strong>NSDR</strong><br />
+              「眠らない睡眠」とも呼ばれる、深いリラクゼーション誘導音声。
+              横になって聞くだけで、副交感神経を一気に引き上げる。
+            </div>
+            <div class="key-pill">
+              <strong>1:2呼吸</strong><br />
+              「吸う：吐く」を 1:2 にする呼吸法。
+              例：4秒吸う → 8秒吐く をくり返して、交感神経のブレーキを踏む。
+            </div>
+            <div class="key-pill">
+              <strong>軽負荷ストレッチ</strong><br />
+              ガチ筋トレではなく、「姿勢リセット」のためのゆるストレッチ。
+              血流と体温の流れを整え、休息に入りやすい土台を作る。
+            </div>
+          </div>
+
+          <div class="panel-note">
+            ⏱ <strong>目安：</strong> 20〜40分で、体感として「もうひと踏ん張りできる」くらいの
+            余白をつくるのがこのパネルのゴール。
+          </div>
+        </section>
+
+        <!-- Panel 4 -->
+        <section class="panel" data-label="CHAPTER 04">
+          <div class="panel-header">
+            <div>
+              <div class="panel-kicker">04 / ROUTINE</div>
+              <h2 class="panel-title">最強20分ルーティンを「3コマ」で覚える</h2>
+            </div>
+            <div class="panel-index">
+              <span class="panel-index-dot"></span>
+              <span>STEP by STEP</span>
+            </div>
+          </div>
+          <div class="panel-main">
+            「めんどくさくて続かない」を防ぐために、
+            <strong>3ステップだけ</strong> に絞り込んだルーティンです。
+            それぞれのコマを、漫画のシーンのように覚えてください。
+          </div>
+
+          <div class="flow">
+            <div class="flow-step">
+              <div class="flow-step-label">STEP 1</div>
+              <div class="flow-step-title">胸椎リセット（約2分）</div>
+              <p style="margin:4px 0 0;font-size:12px;color:var(--text-sub);">
+                胸を開く動きを10秒キープ × 6回。<br />
+                丸まりがちな背中を一度リセットし、
+                肺と心臓まわりのスペースを確保。
+              </p>
+            </div>
+            <div class="flow-step">
+              <div class="flow-step-label">STEP 2</div>
+              <div class="flow-step-title">1:2呼吸（約5分）</div>
+              <p style="margin:4px 0 0;font-size:12px;color:var(--text-sub);">
+                4秒吸う → 8秒吐く を5分続ける。<br />
+                「吐く時間が長いほど、副交感神経が優位になる」
+                という性質をフル活用。
+              </p>
+            </div>
+            <div class="flow-step">
+              <div class="flow-step-label">STEP 3</div>
+              <div class="flow-step-title">NSDR（10〜15分）</div>
+              <p style="margin:4px 0 0;font-size:12px;color:var(--text-sub);">
+                YouTube等で「NSDR」と検索し、横になって音声を聞くだけ。<br />
+                意識は起きているけれど、脳は「ほぼ睡眠」に近い深い休息状態へ。
+              </p>
+            </div>
+          </div>
+
+          <div class="panel-note">
+            🧩 <strong>コツ：</strong>
+            「全部きっちり」ではなく、
+            <span style="color:var(--accent);">今日はSTEP2からだけ</span>
+            のように、部分的に使ってもOK。
+          </div>
+        </section>
+
+        <!-- Panel 5 -->
+        <section class="panel" data-label="CHAPTER 05">
+          <div class="panel-header">
+            <div>
+              <div class="panel-kicker">05 / GOLDEN RULES</div>
+              <h2 class="panel-title">休息を最大化する「黄金ルール」</h2>
+            </div>
+            <div class="panel-index">
+              <span class="panel-index-dot"></span>
+              <span>環境を整える</span>
+            </div>
+          </div>
+          <div class="panel-main">
+            たとえ最強ルーティンをしても、
+            <strong>日常の習慣が邪魔していたら効果は半減</strong> します。
+            ここでは、回復を底上げするベースのルールを揃えます。
+          </div>
+
+          <div class="pill-row">
+            <div class="pill"><span>☕️</span>16時以降カフェインNG</div>
+            <div class="pill"><span>📱</span>寝る前はブルーライトカット</div>
+            <div class="pill"><span>🛁</span>入浴は寝る90分前</div>
+            <div class="pill"><span>❄️</span>寝室は18〜20℃をキープ</div>
+            <div class="pill"><span>🧘‍♀️</span>寝る前ストレッチで体温をなだらかに下げる</div>
+          </div>
+
+          <div class="panel-note">
+            🌙 <strong>ゴール：</strong>
+            「眠気が来ているのにスマホとカフェインで自分から壊してしまう」
+            パターンを断ち切ること。
+          </div>
+        </section>
+
+        <!-- Panel 6 -->
+        <section class="panel" data-label="CHAPTER 06">
+          <div class="panel-header">
+            <div>
+              <div class="panel-kicker">06 / SLEEP QUALITY</div>
+              <h2 class="panel-title">睡眠の質を決める「3つの軸」</h2>
+            </div>
+            <div class="panel-index">
+              <span class="panel-index-dot"></span>
+              <span>光・体温・神経</span>
+            </div>
+          </div>
+          <div class="panel-main">
+            深い睡眠は「時間」だけでなく、
+            <strong>入り方と維持の質</strong> で決まります。<br />
+            そのカギを握るのが、次の3ポイントです。
+          </div>
+
+          <div class="two-cols">
+            <div class="mini-card">
+              <div class="mini-title"><span>☀️</span>光</div>
+              <ul class="list">
+                <li>朝起きたらできるだけ早く「朝日」を浴びる</li>
+                <li>体内時計がリセットされ、夜の眠気が自然に訪れやすくなる</li>
+              </ul>
+            </div>
+            <div class="mini-card">
+              <div class="mini-title"><span>🌡</span>体温</div>
+              <ul class="list">
+                <li>入浴でいったん体温を上げる→ゆっくり下がるタイミングで就寝</li>
+                <li>「入浴→冷却」の落差が深い眠りをサポート</li>
+              </ul>
+            </div>
+          </div>
+          <div class="mini-card" style="margin-top:8px;">
+            <div class="mini-title"><span>💆‍♂️</span>副交感神経</div>
+            <ul class="list">
+              <li>1:2呼吸・NSDRで「今日の交感神経モード」をリセット</li>
+              <li>寝る直前に「休む準備」をしておくことで、睡眠の前半90分が深くなりやすい</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Panel 7 -->
+        <section class="panel" data-label="CHAPTER 07">
+          <div class="panel-header">
+            <div>
+              <div class="panel-kicker">07 / AVOID</div>
+              <h2 class="panel-title">やってはいけない「休息の邪魔」TOP5</h2>
+            </div>
+            <div class="panel-index">
+              <span class="panel-index-dot"></span>
+              <span>NG習慣を断つ</span>
+            </div>
+          </div>
+          <div class="panel-main">
+            「何をするか」以上に効くのが、「何をやめるか」。<br />
+            次の5つは、休息のクオリティを一瞬で下げてしまう代表選手です。
+          </div>
+
+          <ul class="danger-list">
+            <li>ベッドでの長時間スマホ（脳をずっと興奮モードに保ってしまう）</li>
+            <li>寝酒に頼る（眠りは浅くなり、途中覚醒も増える）</li>
+            <li>夜の高強度運動（交感神経MAXのまま寝ることに）</li>
+            <li>遅い時間の heavy な食事（消化のために体が休めない）</li>
+            <li>長すぎる昼寝（体内時計がずれて夜の睡眠が浅くなる）</li>
+          </ul>
+
+          <div class="panel-note">
+            🚫 <strong>ルール：</strong>
+            まずはこの中から
+            <span style="color:var(--accent);">1つだけやめる</span>。
+            「減点を減らす」だけでも、休息体験はガラッと変わります。
+          </div>
+        </section>
+
+        <!-- Panel 8 -->
+        <section class="panel" data-label="CHAPTER 08">
+          <div class="panel-header">
+            <div>
+              <div class="panel-kicker">08 / SUMMARY</div>
+              <h2 class="panel-title">一生使える「回復の技術」にする</h2>
+            </div>
+            <div class="panel-index">
+              <span class="panel-index-dot"></span>
+              <span>明日からの一歩</span>
+            </div>
+          </div>
+          <div class="panel-main">
+            ここまでのパネルをまとめると、「ちゃんと休める人」は次のことが自然にできています。
+          </div>
+
+          <div class="two-cols">
+            <div class="mini-card">
+              <div class="mini-title"><span>📋</span>行動のチェックリスト</div>
+              <ul class="list">
+                <li>胸椎リセットで姿勢を戻す</li>
+                <li>1:2呼吸で交感神経を落とす</li>
+                <li>NSDRで脳をオフラインに近づける</li>
+                <li>入浴のタイミングと室温を整える</li>
+                <li>ブルーライトとカフェインをコントロール</li>
+              </ul>
+            </div>
+            <div class="mini-card">
+              <div class="mini-title"><span>🎯</span>今日からのミニゴール</div>
+              <ul class="list">
+                <li>「20分だけ」の休息ブロックを一日1回入れてみる</li>
+                <li>NG習慣から1つだけやめる</li>
+                <li>朝の光と夜のルーティンを「セット」で意識する</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="panel-note">
+            💬 <strong>アイザックからまいけるへ：</strong>
+            この図解は「一生使える回復スキル」のスタート地点。
+            完璧を目指さず、
+            <span style="color:var(--accent);">どれか1つを、今日の自分のために実験してみる</span>
+            ところから始めよう。
+          </div>
+        </section>
+      </div>
+
+      <div class="footer-panel">
+        <strong>まとめ：</strong>
+        人生最高の身体の休め方は、「長く寝る」より
+        <span>どう回復モードに入るか</span> の技術。<br />
+        この縦スク1枚を、疲れた日の「チートシート」としていつでも開いてください。
+      </div>
+      <div class="footer-note">
+        ※ この図解は個人の体調・医療的アドバイスを代替するものではありません。<br />
+        体調に違和感がある場合は、医療機関への相談を優先してください。
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+

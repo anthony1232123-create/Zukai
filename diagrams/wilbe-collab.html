@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>クロスリンク × ウィルビー 連携モデル図解</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      /* ウィルビー × クロスリンク コラボ専用カラー */
+      --bg: #0a1628;
+      --bg-soft: #0f1f35;
+      --panel: #0f1f35;
+      --panel-soft: #162a46;
+      --accent: #00b4d8;
+      --accent-soft: rgba(0, 180, 216, 0.18);
+      --accent-blue: #00b4d8;
+      --accent-pink: #f472b6;
+      --accent-green: #00c896;
+      --accent-yellow: #ffd166;
+      --text-main: #f0f4f8;
+      --text-sub: #94a3b8;
+      --line-soft: rgba(148,163,184,0.35);
+      /* ウィルビーブランドカラー（ティール・ブルー系） */
+      --willbe-color: #00b4d8;
+      --willbe-dark: #0077b6;
+      --willbe-light: #90e0ef;
+      /* クロスリンクカラー（ピンク・マゼンタ系） */
+      --cross-color: #f472b6;
+      --cross-dark: #db2777;
+      --cross-light: #fbcfe8;
+      /* クライアントカラー */
+      --client-color: #ffd166;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Hiragino Sans", sans-serif;
+      color: var(--text-main);
+      background:
+        radial-gradient(circle at top left, rgba(0, 180, 216, 0.18) 0, transparent 45%),
+        radial-gradient(circle at 90% 20%, rgba(0, 119, 182, 0.15) 0, transparent 50%),
+        radial-gradient(circle at 20% 80%, rgba(244, 114, 182, 0.12) 0, transparent 45%),
+        radial-gradient(circle at bottom right, rgba(0, 200, 150, 0.1) 0, transparent 40%),
+        var(--bg);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* パンくずナビ */
+    .breadcrumb {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 12px 20px;
+      background: rgba(2, 6, 23, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    }
+
+    .breadcrumb-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+    }
+
+    .breadcrumb a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .breadcrumb a:hover { color: #c084fc; }
+    .breadcrumb-sep { color: var(--text-sub); opacity: 0.5; }
+    .breadcrumb-current { color: var(--text-sub); }
+
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 60px 16px 80px;
+    }
+
+    /* レール（中央線） */
+    .rail {
+      position: relative;
+      margin: 0 auto;
+    }
+
+    .rail::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 100vh;
+      background: linear-gradient(to bottom, transparent, rgba(0, 180, 216, 0.4), transparent);
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    /* ヒーローセクション */
+    .hero {
+      position: relative;
+      margin-bottom: 40px;
+      padding: 28px 24px;
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at top left, rgba(0, 180, 216, 0.15), transparent 50%),
+        radial-gradient(circle at bottom right, rgba(244, 114, 182, 0.1), transparent 50%),
+        rgba(15, 31, 53, 0.95);
+      border: 1px solid rgba(0, 180, 216, 0.3);
+      box-shadow: 0 0 60px rgba(0, 180, 216, 0.1);
+    }
+
+    /* パートナーロゴ */
+    .partner-logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    }
+
+    .logo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .logo-container svg {
+      height: 32px;
+      width: auto;
+    }
+
+    .logo-label {
+      font-size: 9px;
+      color: var(--text-sub);
+      letter-spacing: 0.05em;
+    }
+
+    .logo-x {
+      font-size: 20px;
+      font-weight: 300;
+      color: var(--text-sub);
+      opacity: 0.6;
+    }
+
+    /* プロダクトロゴ */
+    .product-logo {
+      margin-bottom: 12px;
+    }
+
+    .product-logo svg {
+      height: 36px;
+      width: auto;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      background: rgba(0, 180, 216, 0.15);
+      border: 1px solid rgba(0, 180, 216, 0.4);
+      color: var(--willbe-light);
+      margin-bottom: 16px;
+    }
+
+    .hero-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-green);
+      box-shadow: 0 0 8px rgba(0, 200, 150, 0.8);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.4;
+      background: linear-gradient(90deg, var(--willbe-color), var(--text-main), var(--cross-color));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-sub {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.7;
+    }
+
+    @media (max-width: 500px) {
+      .partner-logos {
+        flex-direction: column;
+        gap: 12px;
+      }
+      .logo-x {
+        transform: rotate(90deg);
+      }
+    }
+
+    /* プレイヤー紹介 */
+    .players {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .player {
+      flex: 1;
+      min-width: 140px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(15, 31, 53, 0.8);
+      border: 1px solid var(--line-soft);
+    }
+
+    .player-name {
+      font-size: 11px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .player-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .player.client .player-dot { background: var(--client-color); }
+    .player.willbe .player-dot { background: var(--willbe-color); }
+    .player.cross .player-dot { background: var(--cross-color); }
+
+    .player-role {
+      font-size: 10px;
+      color: var(--text-sub);
+      margin-top: 4px;
+    }
+
+    /* フェーズセクション */
+    .phase {
+      margin-bottom: 32px;
+    }
+
+    .phase-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .phase-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--willbe-color), var(--accent-green));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--bg);
+    }
+
+    .phase-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .phase-sub {
+      font-size: 11px;
+      color: var(--text-sub);
+    }
+
+    /* ステップカード */
+    .step-card {
+      position: relative;
+      margin-bottom: 14px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--line-soft);
+    }
+
+    .step-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      border-radius: 14px 14px 0 0;
+    }
+
+    .step-card.client::before { background: var(--client-color); }
+    .step-card.willbe::before { background: var(--willbe-color); }
+    .step-card.cross::before { background: var(--cross-color); }
+
+    .step-who {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 6px;
+    }
+
+    .step-card.client .step-who { color: var(--client-color); }
+    .step-card.willbe .step-who { color: var(--willbe-color); }
+    .step-card.cross .step-who { color: var(--cross-color); }
+
+    .step-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .step-num {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(148, 163, 184, 0.2);
+      border: 1px solid var(--line-soft);
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step-body {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+
+    .step-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .step-tag {
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--line-soft);
+    }
+
+    .step-tag.blue { border-color: var(--accent-blue); color: #7dd3fc; }
+    .step-tag.purple { border-color: var(--accent); color: #c084fc; }
+    .step-tag.pink { border-color: var(--accent-pink); color: #f9a8d4; }
+    .step-tag.green { border-color: var(--accent-green); color: #86efac; }
+    .step-tag.yellow { border-color: var(--accent-yellow); color: #fde68a; }
+
+    .step-arrow {
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* 役割セクション */
+    .role-section {
+      margin: 40px 0;
+      padding: 20px;
+      border-radius: 16px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--line-soft);
+    }
+
+    .role-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .role-card {
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid var(--line-soft);
+      margin-bottom: 10px;
+    }
+
+    .role-card-title {
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .role-card ul {
+      margin: 0;
+      padding-left: 16px;
+      font-size: 11px;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+
+    /* マネーフロー */
+    .money-flow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .money-node {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(250, 204, 21, 0.5);
+      font-size: 11px;
+    }
+
+    .money-arrow {
+      color: var(--accent-yellow);
+      font-size: 14px;
+    }
+
+    /* ウェビナーセクション */
+    .webinar-section {
+      margin: 40px 0;
+    }
+
+    .webinar-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .webinar-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    @media (max-width: 500px) {
+      .webinar-grid { grid-template-columns: 1fr; }
+    }
+
+    .webinar-card {
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--line-soft);
+    }
+
+    .webinar-vol {
+      font-size: 10px;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .webinar-card h3 {
+      font-size: 12px;
+      margin: 0 0 4px;
+    }
+
+    .webinar-desc {
+      font-size: 10px;
+      color: var(--text-sub);
+      line-height: 1.5;
+    }
+
+    /* フッター */
+    .footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line-soft);
+      text-align: center;
+    }
+
+    .footer-note {
+      font-size: 10px;
+      color: var(--text-sub);
+    }
+  </style>
+</head>
+<body>
+  <nav class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <a href="../index.html">← DIAGRAM LIBRARY</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">クロスリンク × ウィルビー</span>
+    </div>
+  </nav>
+
+  <div class="page">
+    <div class="rail">
+      <!-- ヒーロー -->
+      <section class="hero">
+        <!-- パートナーロゴ -->
+        <div class="partner-logos">
+          <!-- ウィルビーロゴ -->
+          <div class="logo-container willbe-logo">
+            <svg viewBox="0 0 140 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="0" y="8" width="24" height="24" rx="6" fill="url(#willbe-grad)"/>
+              <text x="10" y="25" font-size="14" font-weight="bold" fill="#0a1628" text-anchor="middle">W</text>
+              <text x="32" y="27" font-size="18" font-weight="600" fill="#00b4d8">WillB</text>
+              <defs>
+                <linearGradient id="willbe-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#00b4d8"/>
+                  <stop offset="100%" stop-color="#00c896"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <span class="logo-label">株式会社ウィルビー</span>
+          </div>
+          
+          <span class="logo-x">×</span>
+          
+          <!-- クロスリンクロゴ -->
+          <div class="logo-container cross-logo">
+            <svg viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="0" y="8" width="24" height="24" rx="6" fill="url(#cross-grad)"/>
+              <text x="12" y="25" font-size="14" font-weight="bold" fill="#0a1628" text-anchor="middle">X</text>
+              <text x="32" y="27" font-size="16" font-weight="600" fill="#f472b6">CROSSLINK</text>
+              <defs>
+                <linearGradient id="cross-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#f472b6"/>
+                  <stop offset="100%" stop-color="#db2777"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <span class="logo-label">株式会社クロスリンク</span>
+          </div>
+        </div>
+
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          STRATEGIC ALLIANCE
+        </div>
+        
+        <!-- jobMAKERロゴ -->
+        <div class="product-logo">
+          <svg viewBox="0 0 180 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="4" width="28" height="28" rx="8" fill="url(#jm-grad)"/>
+            <text x="14" y="24" font-size="16" font-weight="bold" fill="#0a1628" text-anchor="middle">JM</text>
+            <text x="36" y="26" font-size="20" font-weight="700" fill="#f0f4f8">job</text>
+            <text x="72" y="26" font-size="20" font-weight="700" fill="#00b4d8">MAKER</text>
+            <defs>
+              <linearGradient id="jm-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00b4d8"/>
+                <stop offset="50%" stop-color="#00c896"/>
+                <stop offset="100%" stop-color="#90e0ef"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        
+        <h1>× 広告運用<br>連携モデル図解</h1>
+        <p class="hero-sub">
+          ウィルビーが「ATS／アプリ」で応募の受け皿を整え、クロスリンクが「求人広告」で火力を最大化する。
+          ジョブメーカー導入後のアフターフォローを起点に、定期ウェビナーと紹介スキームでリードを回収していく全体像。
+        </p>
+
+        <div class="players">
+          <div class="player client">
+            <div class="player-name"><span class="player-dot"></span>企業（クライアント）</div>
+            <div class="player-role">採用したい会社</div>
+          </div>
+          <div class="player willbe">
+            <div class="player-name"><span class="player-dot"></span>ウィルビー</div>
+            <div class="player-role">jobMAKER / ATS提供</div>
+          </div>
+          <div class="player cross">
+            <div class="player-name"><span class="player-dot"></span>クロスリンク</div>
+            <div class="player-role">求人広告運用</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Phase 1: 導入前 -->
+      <section class="phase">
+        <div class="phase-header">
+          <div class="phase-num">1</div>
+          <div>
+            <div class="phase-title">導入前</div>
+            <div class="phase-sub">企業が課題を抱えている状態</div>
+          </div>
+        </div>
+
+        <div class="step-card client">
+          <div class="step-who">企業</div>
+          <div class="step-title"><span class="step-num">1</span>採用カオス期</div>
+          <div class="step-body">
+            応募経路バラバラ、Excel管理、媒体もなんとなく出稿。「そもそも今どこから何人来てるのか？」が見えてない。
+          </div>
+          <div class="step-tags">
+            <span class="step-tag">母集団が足りない</span>
+            <span class="step-tag">歩留まり不明</span>
+          </div>
+        </div>
+
+        <div class="step-card willbe">
+          <div class="step-who">ウィルビー</div>
+          <div class="step-title"><span class="step-num">2</span>ジョブメーカー提案</div>
+          <div class="step-body">
+            「まずは応募を一元管理しましょう」という入口で、ATS＋アプリの価値を提案。
+          </div>
+          <div class="step-tags">
+            <span class="step-tag purple">応募情報の一元化</span>
+            <span class="step-tag purple">歩留まり可視化</span>
+          </div>
+        </div>
+
+        <div class="step-card cross">
+          <div class="step-who">クロスリンク</div>
+          <div class="step-title"><span class="step-num">–</span>このタイミングでは登場しない</div>
+          <div class="step-body">
+            導入商談の時点では、あえて広告運用の話は出さずにジョブメーカーに集中。
+          </div>
+          <div class="step-tags">
+            <span class="step-tag">話を盛り込みすぎない</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Phase 2: 導入〜初期運用 -->
+      <section class="phase">
+        <div class="phase-header">
+          <div class="phase-num">2</div>
+          <div>
+            <div class="phase-title">導入〜初期運用</div>
+            <div class="phase-sub">1〜3ヶ月：ATSを定着させる期間</div>
+          </div>
+        </div>
+
+        <div class="step-card client">
+          <div class="step-who">企業</div>
+          <div class="step-title"><span class="step-num">3</span>ATS上で運用スタート</div>
+          <div class="step-body">
+            ジョブメーカーを使って、応募〜面接〜採用までのステータス管理を開始。
+          </div>
+          <div class="step-tags">
+            <span class="step-tag">データがたまり始める</span>
+          </div>
+        </div>
+
+        <div class="step-card willbe">
+          <div class="step-who">ウィルビー</div>
+          <div class="step-title"><span class="step-num">4</span>設定・オンボーディング</div>
+          <div class="step-body">
+            初期設定・レクチャー・Q&A対応など、「ちゃんと使える状態」まで伴走。
+          </div>
+          <div class="step-tags">
+            <span class="step-tag purple">ATS定着</span>
+            <span class="step-tag">ダッシュボード整備</span>
+          </div>
+        </div>
+
+        <div class="step-card cross">
+          <div class="step-who">クロスリンク</div>
+          <div class="step-title"><span class="step-num">–</span>水面下で準備</div>
+          <div class="step-body">
+            ウェビナーや事例資料など、後から出て行くためのコンテンツをクロスリンク側で仕込んでおく。
+          </div>
+        </div>
+      </section>
+
+      <!-- Phase 3: アフターフォロー -->
+      <section class="phase">
+        <div class="phase-header">
+          <div class="phase-num">3</div>
+          <div>
+            <div class="phase-title">アフターフォロー</div>
+            <div class="phase-sub">課題が見えてきたタイミング</div>
+          </div>
+        </div>
+
+        <div class="step-card client">
+          <div class="step-who">企業</div>
+          <div class="step-title"><span class="step-num">5</span>課題が浮き彫りに</div>
+          <div class="step-body">
+            データで見ると、「そもそも応募が少ない」「応募は来るけど質が悪い」といった課題がハッキリしてくる。
+          </div>
+          <div class="step-tags">
+            <span class="step-tag yellow">母集団不足</span>
+            <span class="step-tag yellow">質のミスマッチ</span>
+          </div>
+        </div>
+
+        <div class="step-card willbe">
+          <div class="step-who">ウィルビー</div>
+          <div class="step-title"><span class="step-num">6</span>アフターヒアリング</div>
+          <div class="step-body">
+            「応募数・面接数・採用数」を一緒に確認しながら、集客側の課題を言語化。
+          </div>
+          <div class="step-tags">
+            <span class="step-tag purple">数字ベースで会話</span>
+          </div>
+          <div class="step-arrow">→ ここでクロスリンク紹介のチャンス</div>
+        </div>
+
+        <div class="step-card cross">
+          <div class="step-who">クロスリンク</div>
+          <div class="step-title"><span class="step-num">7</span>紹介・個別相談へ</div>
+          <div class="step-body">
+            ウィルビーから一言：「広告運用はクロスリンクさんが鬼強いので、無料で一回一緒に見てもらいませんか？」
+          </div>
+          <div class="step-tags">
+            <span class="step-tag pink">紹介起点リード</span>
+            <span class="step-tag green">ATS連携前提</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Phase 4: 広告運用〜成果 -->
+      <section class="phase">
+        <div class="phase-header">
+          <div class="phase-num">4</div>
+          <div>
+            <div class="phase-title">広告運用〜成果</div>
+            <div class="phase-sub">火力投入して成果を出す</div>
+          </div>
+        </div>
+
+        <div class="step-card client">
+          <div class="step-who">企業</div>
+          <div class="step-title"><span class="step-num">8</span>数字で成果を体感</div>
+          <div class="step-body">
+            「◯ヶ月で応募◯倍」「採用単価◯%削減」など、企業側は"変化"を実感。
+          </div>
+          <div class="step-tags">
+            <span class="step-tag green">採用の再現性UP</span>
+          </div>
+        </div>
+
+        <div class="step-card willbe">
+          <div class="step-who">ウィルビー</div>
+          <div class="step-title"><span class="step-num">9</span>成果を一緒に可視化</div>
+          <div class="step-body">
+            ジョブメーカー上のレポートで、「媒体別の歩留まり」「応募〜採用のライン」を共有。
+          </div>
+          <div class="step-tags">
+            <span class="step-tag purple">ATSの価値も同時に上がる</span>
+          </div>
+        </div>
+
+        <div class="step-card cross">
+          <div class="step-who">クロスリンク</div>
+          <div class="step-title"><span class="step-num">10</span>マルチチャネル運用</div>
+          <div class="step-body">
+            Indeed / 求人ボックス / スタンバイ / GIGABYTE / Googleリスティング & P-MAX をジョブメーカーと連携させて最適化。
+          </div>
+          <div class="step-tags">
+            <span class="step-tag pink">CPA最適化</span>
+            <span class="step-tag pink">職種別チャネル設計</span>
+          </div>
+          <div class="step-arrow">↻ 成果事例は次回ウェビナーのネタへ</div>
+        </div>
+      </section>
+
+      <!-- 役割セクション -->
+      <section class="role-section">
+        <div class="role-title">🤝 それぞれの役割とWin-Win</div>
+
+        <div class="role-card">
+          <div class="role-card-title" style="color: var(--willbe-color);">
+            <span style="width:10px;height:10px;border-radius:50%;background:var(--willbe-color);"></span>
+            ウィルビー（ジョブメーカー / アプリ）
+          </div>
+          <ul>
+            <li>ジョブメーカー導入を軸に「採用のOS」を提供</li>
+            <li>アフターフォローで課題ヒアリング</li>
+            <li>広告運用はクロスリンクにパスして、成果で自社価値も上がる</li>
+          </ul>
+        </div>
+
+        <div class="role-card">
+          <div class="role-card-title" style="color: var(--cross-color);">
+            <span style="width:10px;height:10px;border-radius:50%;background:var(--cross-color);"></span>
+            クロスリンク（求人広告運用）
+          </div>
+          <ul>
+            <li>Indeed / 求人ボックス / スタンバイ / GIGABYTE / Googleリスティングをフル活用</li>
+            <li>ジョブメーカーのデータを使って、媒体別の投資配分を最適化</li>
+            <li>成果事例をウェビナーで展開し、次のリードを呼ぶ循環を作る</li>
+          </ul>
+        </div>
+
+        <div class="role-card">
+          <div class="role-card-title" style="color: var(--accent-yellow);">
+            <span style="width:10px;height:10px;border-radius:50%;background:var(--accent-yellow);"></span>
+            収益分配（紹介マージン）
+          </div>
+          <div class="money-flow">
+            <div class="money-node">広告費（媒体）</div>
+            <span class="money-arrow">→</span>
+            <div class="money-node">クロスリンク売上</div>
+            <span class="money-arrow">→</span>
+            <div class="money-node">ウィルビー 5%</div>
+          </div>
+          <p style="font-size:10px;color:var(--text-sub);margin-top:8px;">
+            ※「ウィルビー経由案件」をタグ管理し、月次レポートで共有すると営業トークにも使いやすい。
+          </p>
+        </div>
+      </section>
+
+      <!-- ウェビナーセクション -->
+      <section class="webinar-section">
+        <div class="webinar-title">📅 定期ウェビナーの設計図</div>
+        <p style="font-size:11px;color:var(--text-sub);margin-bottom:14px;">
+          ウィルビー主催の大型ウェビナーの中に、クロスリンク枠を「シリーズ企画」として埋め込むイメージ。
+        </p>
+
+        <div class="webinar-grid">
+          <div class="webinar-card">
+            <div class="webinar-vol">Vol.1 / チャネル設計</div>
+            <h3>求人媒体の"沼"から脱出する</h3>
+            <div class="webinar-desc">Indeed / 求人ボックス / スタンバイ / GIGABYTE を職種・エリア別にどう使い分けるか。</div>
+          </div>
+          <div class="webinar-card">
+            <div class="webinar-vol">Vol.2 / SNS vs CPC</div>
+            <h3>ソーシャル広告 vs 求人型CPC</h3>
+            <div class="webinar-desc">若年層・主婦層・シニアなどターゲット別に、どちらが効くのか実データで比較。</div>
+          </div>
+          <div class="webinar-card">
+            <div class="webinar-vol">Vol.3 / Google & P-MAX</div>
+            <h3>P-MAXで本気の母集団形成</h3>
+            <div class="webinar-desc">どんな職種にハマるのか、LP構成・キーワード設計まで踏み込んで紹介。</div>
+          </div>
+          <div class="webinar-card">
+            <div class="webinar-vol">Vol.4 / 事例深掘り</div>
+            <h3>ジョブメーカー × 複数媒体</h3>
+            <div class="webinar-desc">匿名事例で「導入前→導入後→広告強化後」の数字を公開。そのまま個別相談への導線に。</div>
+          </div>
+        </div>
+
+        <p style="font-size:11px;color:var(--text-sub);margin-top:14px;">
+          すべての回のゴールは、<strong style="color:var(--text-main);">①ATS未導入：ウィルビー個別相談</strong> と <strong style="color:var(--text-main);">②ATS導入済：クロスリンク個別相談</strong> の二段CTAに揃えておく。
+        </p>
+      </section>
+
+      <!-- 紹介トーク台本セクション -->
+      <section class="role-section" style="border: 1px solid rgba(129, 140, 248, 0.4); background: linear-gradient(135deg, rgba(129, 140, 248, 0.1), transparent), rgba(15, 23, 42, 0.95);">
+        <div class="role-title" style="color: var(--willbe-color);">📋 ウィルビー側の「紹介トーク台本」</div>
+        <p style="font-size:12px;color:var(--text-sub);margin-bottom:16px;line-height:1.6;">
+          ウィルビーが毎回悩まずに言えるように、定型文を用意しておく。<br>
+          これを「ウィルビーの営業マニュアル」にしちゃうと楽。
+        </p>
+
+        <div style="padding: 16px; border-radius: 12px; background: rgba(15, 23, 42, 0.8); border-left: 3px solid var(--willbe-color);">
+          <div style="font-size: 10px; font-weight: 600; color: var(--willbe-color); letter-spacing: 0.1em; margin-bottom: 10px;">
+            アフターフォロー時のヒアリング 〜 クロスリンク紹介
+          </div>
+          
+          <div style="font-size: 13px; color: var(--text-main); line-height: 1.9; font-style: italic;">
+            「〇〇さん、ジョブメーカー側のデータを見ると、<br><br>
+            
+            <span style="display: inline-block; padding: 4px 10px; background: rgba(129, 140, 248, 0.15); border-radius: 6px; margin: 2px 0;">・応募数は◯◯件／月</span><br>
+            <span style="display: inline-block; padding: 4px 10px; background: rgba(129, 140, 248, 0.15); border-radius: 6px; margin: 2px 0;">・そのうち面接が◯件</span><br>
+            <span style="display: inline-block; padding: 4px 10px; background: rgba(129, 140, 248, 0.15); border-radius: 6px; margin: 2px 0;">・採用が◯名</span><br><br>
+            
+            って感じですね。<br><br>
+            
+            一方で<span style="color: var(--accent-yellow); font-weight: 600;">"応募そのものの数"</span>や<span style="color: var(--accent-yellow); font-weight: 600;">"応募者の質"</span>は、<br>
+            ジョブメーカーだけではコントロールしきれない領域なんです。<br><br>
+            
+            そこは<span style="color: var(--cross-color); font-weight: 600;">求人広告の設計・運用が肝</span>でして、<br>
+            うちは広告専任ではないので、<br>
+            広告運用専門のパートナーとして<span style="color: var(--cross-color); font-weight: 600;">クロスリンク</span>さんに入ってもらうケースが多いです。<br><br>
+            
+            ご希望あれば、<br>
+            『<span style="color: var(--accent-green);">ジョブメーカー×求人広告で母集団をどう増やすか</span>』というテーマで、<br>
+            クロスリンクさんと一緒に<span style="text-decoration: underline;">無料のオンライン相談を1回</span>組みますが、どうでしょう？」
+          </div>
+        </div>
+
+        <div style="margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px;">
+          <span style="font-size: 10px; padding: 4px 10px; border-radius: 999px; background: rgba(129, 140, 248, 0.15); border: 1px solid rgba(129, 140, 248, 0.4); color: #a5b4fc;">数字ベースで会話</span>
+          <span style="font-size: 10px; padding: 4px 10px; border-radius: 999px; background: rgba(244, 114, 182, 0.15); border: 1px solid rgba(244, 114, 182, 0.4); color: #f9a8d4;">自然な紹介導線</span>
+          <span style="font-size: 10px; padding: 4px 10px; border-radius: 999px; background: rgba(74, 222, 128, 0.15); border: 1px solid rgba(74, 222, 128, 0.4); color: #86efac;">無料相談でハードル下げ</span>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="footer-note">Designed for CROSSLINK × WILLBE alliance</div>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>
