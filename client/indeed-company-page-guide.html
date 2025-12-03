@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Indeed企業ページ 徹底活用ガイド｜成果を最大化する実践知識</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%232164f3'/><stop offset='100%25' stop-color='%236366f1'/></linearGradient></defs><circle cx='50' cy='50' r='48' fill='%23020617'/><rect x='30' y='25' width='40' height='50' rx='4' fill='none' stroke='url(%23g)' stroke-width='3'/><circle cx='50' cy='40' r='10' fill='url(%23g)'/><rect x='38' y='55' width='24' height='3' rx='1' fill='url(%23g)'/><rect x='38' y='62' width='18' height='3' rx='1' fill='url(%23g)' opacity='0.6'/></svg>" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
+    
+    :root {
+      --bg: #0a0f1a;
+      --bg-soft: #0d1321;
+      --panel: #111827;
+      --panel-soft: #1f2937;
+      --accent-indeed: #2164f3;
+      --accent-blue: #3b82f6;
+      --accent-purple: #8b5cf6;
+      --accent-green: #22c55e;
+      --accent-orange: #f97316;
+      --accent-cyan: #06b6d4;
+      --text-main: #f1f5f9;
+      --text-sub: #94a3b8;
+      --border: rgba(148,163,184,0.2);
+      --border-strong: rgba(148,163,184,0.4);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Noto Sans JP', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text-main);
+      background: var(--bg);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .bg-gradient {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% 10%, rgba(33, 100, 243, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 80% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 45%),
+        radial-gradient(ellipse 70% 50% at 50% 90%, rgba(34, 197, 94, 0.08) 0%, transparent 50%),
+        var(--bg);
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    @media (min-width: 768px) {
+      .page {
+        padding: 60px 32px 100px;
+      }
+    }
+
+    /* ヒーロー */
+    .hero {
+      text-align: center;
+      margin-bottom: 48px;
+      animation: fadeUp 0.8s ease-out;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent-indeed);
+      background: rgba(33, 100, 243, 0.1);
+      border: 1px solid rgba(33, 100, 243, 0.3);
+      margin-bottom: 16px;
+    }
+
+    .hero-badge::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-indeed);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.2); }
+    }
+
+    .hero h1 {
+      font-size: 26px;
+      font-weight: 900;
+      line-height: 1.3;
+      margin: 0 0 12px;
+      background: linear-gradient(135deg, var(--accent-indeed), var(--accent-blue), var(--accent-purple));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    @media (min-width: 768px) {
+      .hero h1 { font-size: 34px; }
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      color: var(--text-sub);
+      line-height: 1.7;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    .hero-sub strong {
+      color: var(--text-main);
+    }
+
+    /* セクション */
+    .section {
+      margin-bottom: 48px;
+      animation: fadeUp 0.8s ease-out both;
+    }
+
+    .section:nth-child(2) { animation-delay: 0.1s; }
+    .section:nth-child(3) { animation-delay: 0.15s; }
+    .section:nth-child(4) { animation-delay: 0.2s; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .section-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .section-icon.blue { background: rgba(33, 100, 243, 0.15); }
+    .section-icon.green { background: rgba(34, 197, 94, 0.15); }
+    .section-icon.purple { background: rgba(139, 92, 246, 0.15); }
+    .section-icon.orange { background: rgba(249, 115, 22, 0.15); }
+    .section-icon.cyan { background: rgba(6, 182, 212, 0.15); }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    @media (min-width: 768px) {
+      .section-title { font-size: 22px; }
+    }
+
+    /* カード */
+    .card {
+      background: var(--panel);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin: 0 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-body {
+      font-size: 14px;
+      color: var(--text-sub);
+      line-height: 1.7;
+    }
+
+    .card-body strong {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    /* 成果ハイライト */
+    .results-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 640px) {
+      .results-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 768px) {
+      .results-grid.four { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    .result-card {
+      background: linear-gradient(135deg, var(--panel), var(--panel-soft));
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .result-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent-green);
+    }
+
+    .result-number {
+      font-size: 32px;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent-green), var(--accent-cyan));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 4px;
+    }
+
+    .result-label {
+      font-size: 13px;
+      color: var(--text-sub);
+    }
+
+    /* ケーススタディ */
+    .case-study {
+      background: linear-gradient(135deg, rgba(33, 100, 243, 0.08), rgba(139, 92, 246, 0.08));
+      border-radius: 16px;
+      border: 1px solid rgba(33, 100, 243, 0.2);
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+
+    .case-study-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .case-study-badge {
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      background: rgba(33, 100, 243, 0.2);
+      color: var(--accent-indeed);
+    }
+
+    .case-study-company {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .case-study-results {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 639px) {
+      .case-study-results { grid-template-columns: 1fr; }
+    }
+
+    .case-result {
+      background: var(--panel);
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .case-result-number {
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--accent-green);
+    }
+
+    .case-result-label {
+      font-size: 12px;
+      color: var(--text-sub);
+      margin-top: 4px;
+    }
+
+    /* テーブル */
+    .table-wrapper {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th, td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      background: var(--panel-soft);
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      color: var(--text-sub);
+    }
+
+    td {
+      background: var(--panel);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* リスト */
+    .checklist {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      color: var(--text-sub);
+    }
+
+    .checklist li:last-child {
+      border-bottom: none;
+    }
+
+    .checklist-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      flex-shrink: 0;
+      background: rgba(34, 197, 94, 0.15);
+      color: var(--accent-green);
+    }
+
+    /* ステップ */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .step {
+      display: flex;
+      gap: 16px;
+      background: var(--panel);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 20px;
+    }
+
+    .step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, var(--accent-indeed), var(--accent-blue));
+      color: white;
+    }
+
+    .step-content {
+      flex: 1;
+    }
+
+    .step-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .step-desc {
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+
+    /* ハイライトボックス */
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(6, 182, 212, 0.1));
+      border-radius: 14px;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      padding: 20px;
+      margin: 16px 0;
+    }
+
+    .highlight-box-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent-green);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .highlight-box-content {
+      font-size: 14px;
+      color: var(--text-sub);
+      line-height: 1.7;
+    }
+
+    .highlight-box-content strong {
+      color: var(--text-main);
+    }
+
+    /* 警告ボックス */
+    .warning-box {
+      background: rgba(249, 115, 22, 0.1);
+      border-radius: 14px;
+      border: 1px solid rgba(249, 115, 22, 0.3);
+      padding: 20px;
+      margin: 16px 0;
+    }
+
+    .warning-box-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent-orange);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* NGリスト */
+    .ng-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    @media (min-width: 640px) {
+      .ng-list { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .ng-item {
+      background: var(--panel);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 16px;
+    }
+
+    .ng-item-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent-orange);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ng-item-desc {
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    /* サマリーボックス */
+    .summary-box {
+      background: linear-gradient(135deg, var(--panel), var(--panel-soft));
+      border-radius: 16px;
+      border: 1px solid var(--border-strong);
+      padding: 28px;
+      text-align: center;
+    }
+
+    .summary-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .summary-formula {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .summary-step {
+      padding: 8px 14px;
+      border-radius: 8px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+    }
+
+    .summary-arrow {
+      color: var(--accent-indeed);
+      font-size: 16px;
+    }
+
+    .summary-note {
+      font-size: 14px;
+      color: var(--text-sub);
+      line-height: 1.7;
+    }
+
+    .summary-note strong {
+      color: var(--accent-green);
+    }
+
+    /* フッター */
+    .footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    .footer p:first-child {
+      margin-bottom: 8px;
+    }
+
+    .footer-note {
+      font-size: 11px;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-gradient"></div>
+
+  <div class="page">
+    <!-- ヒーロー -->
+    <header class="hero">
+      <div class="hero-badge">INDEED COMPANY PAGE GUIDE</div>
+      <h1>Indeed企業ページ<br>徹底活用ガイド</h1>
+      <p class="hero-sub">
+        求人原稿だけでは伝えきれない「会社の魅力」を求職者に届ける<strong>企業ページの活用方法</strong>と<strong>成果事例</strong>をまとめました。
+      </p>
+    </header>
+
+    <!-- なぜやるべきか -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon blue">📊</div>
+        <h2 class="section-title">なぜ企業ページをやるべきか</h2>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🔍 求職者の行動変化</div>
+        <div class="card-body">
+          Indeed調査によると、<strong>求職者の67%が「オンライン上の企業クチコミが応募先選びに影響した」と回答</strong>しています。<br><br>
+          求職者は今、仕事内容だけでなく「企業文化」「働く人のリアル」「成長機会」を総合的に見て比較しています。
+        </div>
+      </div>
+
+      <div class="highlight-box">
+        <div class="highlight-box-title">💡 ポイント</div>
+        <div class="highlight-box-content">
+          <strong>「求人原稿だけ」では、もはや候補者の判断材料として不十分。</strong><br>
+          企業ページ ＝ 応募前に信頼と期待値を整える<strong>"前室"</strong>として機能している。
+        </div>
+      </div>
+    </section>
+
+    <!-- 成果事例 -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon green">📈</div>
+        <h2 class="section-title">成果事例：数字で見る効果</h2>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🌍 世界の企業ページ投資企業の平均改善値</div>
+      </div>
+
+      <div class="results-grid four">
+        <div class="result-card">
+          <div class="result-number">+27%</div>
+          <div class="result-label">求人クリック数</div>
+        </div>
+        <div class="result-card">
+          <div class="result-number">+34%</div>
+          <div class="result-label">応募開始クリック数</div>
+        </div>
+        <div class="result-card">
+          <div class="result-number">+12%</div>
+          <div class="result-label">プロフィール閲覧数</div>
+        </div>
+        <div class="result-card">
+          <div class="result-number">+28%</div>
+          <div class="result-label">ブランドインプレッション</div>
+        </div>
+      </div>
+
+      <div class="case-study">
+        <div class="case-study-header">
+          <span class="case-study-badge">CASE STUDY</span>
+          <span class="case-study-company">The North West Company（カナダ・小売）</span>
+        </div>
+        <p style="font-size: 13px; color: var(--text-sub); margin-bottom: 16px;">
+          ブランド広告から企業ページPremiumに誘導する設計を実施した結果：
+        </p>
+        <div class="case-study-results">
+          <div class="case-result">
+            <div class="case-result-number">+339%</div>
+            <div class="case-result-label">企業ページへのトラフィック</div>
+          </div>
+          <div class="case-result">
+            <div class="case-result-number">+200%</div>
+            <div class="case-result-label">企業名検索ボリューム</div>
+          </div>
+          <div class="case-result">
+            <div class="case-result-number">+38%</div>
+            <div class="case-result-label">応募数</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🇯🇵 日本での期待効果</div>
+        <ul class="checklist">
+          <li>
+            <span class="checklist-icon">1</span>
+            <div><strong>認知度向上</strong> - Indeed内での企業名検索時に露出増加、ブランド想起の向上</div>
+          </li>
+          <li>
+            <span class="checklist-icon">2</span>
+            <div><strong>求人閲覧数の増加</strong> - 企業ページ経由で他の求人への回遊が発生</div>
+          </li>
+          <li>
+            <span class="checklist-icon">3</span>
+            <div><strong>応募数・応募率の改善</strong> - 企業理解が深まり「応募しても大丈夫そうだ」という心理ハードルが下がる</div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- CMPP -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon purple">⭐</div>
+        <h2 class="section-title">企業ページプレミアム（CMPP）の活用</h2>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📋 日本での利用条件</div>
+        <div class="table-wrapper">
+          <table>
+            <tr>
+              <th>条件</th>
+              <th>目安</th>
+            </tr>
+            <tr>
+              <td>月の有料掲載額</td>
+              <td><strong>最低150,000円程度以上</strong></td>
+            </tr>
+            <tr>
+              <td>その他</td>
+              <td>Indeed側の基準（掲載形態・契約プランなど）を満たすこと</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="highlight-box">
+        <div class="highlight-box-title">💡 ポイント</div>
+        <div class="highlight-box-content">
+          CMPPは「別料金」というより、<strong>毎月ある程度の広告費を出している企業への"無料オプション"</strong>として付与されるイメージです。<br><br>
+          最新の条件は <strong>Indeedの営業担当または認定パートナー経由で確認</strong>するのが安全です。
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">✨ CMPPで追加される機能</div>
+        <ul class="checklist">
+          <li>
+            <span class="checklist-icon">✓</span>
+            <div><strong>ビジュアルの強化</strong> - バナー画像、動画、ストーリー的なコンテンツブロック</div>
+          </li>
+          <li>
+            <span class="checklist-icon">✓</span>
+            <div><strong>レビューのハイライト</strong> - ポジティブレビューをピックアップ表示</div>
+          </li>
+          <li>
+            <span class="checklist-icon">✓</span>
+            <div><strong>高度な分析機能</strong> - ページ閲覧数、ブランドインプレッション、評価推移など</div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 活用コンセプト -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon cyan">🎯</div>
+        <h2 class="section-title">活用コンセプト</h2>
+      </div>
+
+      <div class="card">
+        <div class="card-title">「応募数」だけでなく「応募の質」と「辞退率」までを見る</div>
+        <div class="card-body">
+          企業ページの本質的なゴールは：
+          <ul style="margin: 12px 0 0; padding-left: 20px;">
+            <li>「応募前に企業理解を深めてもらい、<strong>ミスマッチ応募と辞退を減らす</strong>」</li>
+            <li>「<strong>自社とフィットする人だけを強く惹きつける</strong>」</li>
+          </ul>
+          <br>
+          単純な応募件数だけを追う施策ではありません。
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">「求人原稿」と「企業ページ」をセットで設計</div>
+        <div class="table-wrapper">
+          <table>
+            <tr>
+              <th>役割</th>
+              <th>内容</th>
+            </tr>
+            <tr>
+              <td><strong>求人原稿</strong></td>
+              <td>ポジション単位での「仕事の中身」「条件」「要件」</td>
+            </tr>
+            <tr>
+              <td><strong>企業ページ</strong></td>
+              <td>会社単位での「なぜここで働くのか」「どんな人が活躍しているか」</td>
+            </tr>
+          </table>
+        </div>
+        <div class="highlight-box" style="margin-top: 16px;">
+          <div class="highlight-box-content">
+            <strong>求人原稿の「ロジック」と、企業ページの「ストーリー」を組み合わせることで、候補者の納得感を最大化する。</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- コンテンツ設計 -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon orange">📝</div>
+        <h2 class="section-title">コンテンツ設計のベストプラクティス</h2>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🏢 会社概要でおさえる要素</div>
+        <ul class="checklist">
+          <li><span class="checklist-icon">✓</span><div><strong>事業ドメイン</strong> - 何を提供している会社か</div></li>
+          <li><span class="checklist-icon">✓</span><div><strong>顧客</strong> - 誰に価値を届けているか</div></li>
+          <li><span class="checklist-icon">✓</span><div><strong>強み</strong> - 他社と違うポイント</div></li>
+          <li><span class="checklist-icon">✓</span><div><strong>ミッション／ビジョン</strong> - 中長期でどこを目指すか</div></li>
+          <li><span class="checklist-icon">✓</span><div><strong>バリュー</strong> - 行動規範</div></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📸 写真・動画コンテンツのおすすめ</div>
+        <ul class="checklist">
+          <li><span class="checklist-icon">📷</span><div>オフィス・現場の写真（盛ってない"日常感"を重視）</div></li>
+          <li><span class="checklist-icon">🎬</span><div>メンバーインタビュー動画（30〜90秒程度）</div></li>
+          <li><span class="checklist-icon">⏰</span><div>1日の流れをまとめたショート動画</div></li>
+          <li><span class="checklist-icon">💬</span><div>代表・現場リーダーのメッセージ動画</div></li>
+        </ul>
+        <div class="highlight-box" style="margin-top: 16px;">
+          <div class="highlight-box-title">💡 ポイント</div>
+          <div class="highlight-box-content">
+            「キラキラしすぎない」「実態に近い」トーンにすることで、<strong>入社後ギャップを減らせる</strong>。
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">💬 クチコミ＆Q&A対応</div>
+        <ul class="checklist">
+          <li><span class="checklist-icon">✓</span><div>ネガティブレビューも含めて<strong>放置せずコメントする</strong>（反論ではなく、事実と改善姿勢を示す）</div></li>
+          <li><span class="checklist-icon">✓</span><div>Q&Aには<strong>24〜48時間以内</strong>の返答を目安に</div></li>
+          <li><span class="checklist-icon">✓</span><div>「よくある質問」はテンプレ化して回答品質を揃える</div></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 運用フロー -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon blue">🔄</div>
+        <h2 class="section-title">成果を最大化する運用フロー</h2>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">0</div>
+          <div class="step-content">
+            <div class="step-title">企業ページをClaimして基礎を埋める</div>
+            <div class="step-desc">
+              企業ページをClaimし、基本情報・ロゴ・写真を埋める。レーティング推移やレビューのモニタリングを開始。
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">ページ改善 → 求人原稿へのフィードバック</div>
+            <div class="step-desc">
+              「教育体制が良い」というレビューが多い → 原稿の"教育・研修"訴求を強める<br>
+              「ワークライフバランス」が評価されている → 残業時間・休暇実績を数字で見せる
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">効果検証のKPI設計</div>
+            <div class="step-desc">
+              <strong>ブランド指標：</strong>企業名検索数、企業ページ閲覧数、フォロワー数<br>
+              <strong>求人行動指標：</strong>企業ページ経由の求人クリック数、応募開始クリック<br>
+              <strong>採用成果指標：</strong>応募数／有効応募数、面接設定率、内定率、早期離職率
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- よくあるNG -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon orange">⚠️</div>
+        <h2 class="section-title">よくあるNG・注意点</h2>
+      </div>
+
+      <div class="ng-list">
+        <div class="ng-item">
+          <div class="ng-item-title">❌ 作って終わりで情報が古いまま</div>
+          <div class="ng-item-desc">アップデートされていない企業ページは、かえって「止まっている会社」に見える</div>
+        </div>
+        <div class="ng-item">
+          <div class="ng-item-title">❌ クチコミを完全放置</div>
+          <div class="ng-item-desc">特にネガティブレビューが目立つ状態で企業側からのコメントが一切ないと信頼を失う</div>
+        </div>
+        <div class="ng-item">
+          <div class="ng-item-title">❌ 自社サイト・求人票とのメッセージ不一致</div>
+          <div class="ng-item-desc">企業ページと求人原稿、自社サイトで言っていることがバラバラだと信頼が削られる</div>
+        </div>
+        <div class="ng-item">
+          <div class="ng-item-title">❌ "盛りすぎ"のブランディング</div>
+          <div class="ng-item-desc">実態とギャップのある「きれいごと」は、入社後ギャップ → 早期離職に直結</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 日本での注意点 -->
+    <section class="section">
+      <div class="warning-box">
+        <div class="warning-box-title">🇯🇵 日本での注意点</div>
+        <ul style="margin: 0; padding-left: 20px; font-size: 14px; color: var(--text-sub); line-height: 1.8;">
+          <li><strong>Employer Branding Hub</strong>：日本では2025年時点で未実装</li>
+          <li><strong>企業ページのトラフィック分析</strong>：一部機能は日本UIで表示されない可能性あり</li>
+          <li><strong>CMPPの利用条件</strong>：最新情報はIndeed営業担当またはパートナー経由で確認</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- まとめ -->
+    <section class="section">
+      <div class="summary-box">
+        <div class="summary-title">成果を出すための核心</div>
+        <div class="summary-formula">
+          <span class="summary-step">求人原稿</span>
+          <span class="summary-arrow">×</span>
+          <span class="summary-step">企業ページ</span>
+          <span class="summary-arrow">×</span>
+          <span class="summary-step">広告運用</span>
+        </div>
+        <div class="summary-note">
+          をワンセットで設計し、<br>
+          応募数ではなく<strong>「応募の質」と「辞退・離職の低減」</strong>まで含めて見ること。
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>© 2025 Michael Pruneda. All Rights Reserved.</p>
+      <p class="footer-note">
+        本コンテンツの著作権はMichael Prunedaに帰属します。無断転載・複製・再配布を禁じます。
+      </p>
+    </footer>
+  </div>
+</body>
+</html>
+
