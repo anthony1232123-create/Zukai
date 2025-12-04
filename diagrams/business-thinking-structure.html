@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>ビジネス思考の構造 〜AI時代に生き残るための思考地図〜</title>
+    <title>ビジネス思考の構造 〜「虎の巻」に学ぶプロの思考地図〜</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
         :root {
@@ -97,7 +97,7 @@
         .page {
             max-width: 720px;
             margin: 0 auto;
-            padding: 80px 16px 80px;
+            padding: 80px 16px 120px;
         }
 
         /* レール（中央線） */
@@ -331,31 +331,45 @@
             font-weight: 700;
         }
 
-        .card-highlight {
-            margin-top: 16px;
-            padding: 14px 16px;
-            background: rgba(15, 23, 42, 0.5);
+        /* 虎の巻（決めゼリフ） */
+        .tora-box {
+            margin-top: 20px;
+            padding: 16px 20px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
             border-radius: 12px;
-            font-size: 13px;
-            color: var(--text-main);
-            border-left: 3px solid;
-            line-height: 1.6;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
         }
 
-        .card.s1 .card-highlight {
-            border-color: var(--layer1-color);
+        .tora-label {
+            position: absolute;
+            top: -10px;
+            left: 16px;
+            background: #0f172a;
+            padding: 0 8px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #fbbf24;
+            /* Tiger Gold */
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
 
-        .card.s2 .card-highlight {
-            border-color: var(--layer2-color);
+        .tora-phrase {
+            font-size: 16px;
+            font-weight: 700;
+            color: #fbbf24;
+            text-align: center;
+            margin: 8px 0;
+            line-height: 1.5;
         }
 
-        .card.s3 .card-highlight {
-            border-color: var(--layer3-color);
-        }
-
-        .card.s4 .card-highlight {
-            border-color: var(--layer4-color);
+        .tora-desc {
+            font-size: 12px;
+            color: var(--text-sub);
+            margin-top: 8px;
+            text-align: center;
         }
 
         .card-list {
@@ -497,11 +511,11 @@
             <!-- ヒーロー -->
             <section class="hero">
                 <div class="hero-badge">BUSINESS THINKING STRUCTURE</div>
-                <h1>ビジネス思考の構造<br>〜AI時代に生き残るための思考地図〜</h1>
+                <h1>ビジネス思考の構造<br>〜「虎の巻」に学ぶプロの思考地図〜</h1>
                 <p class="hero-sub">
                     「問いと答え」を支える思考技術、それを実行するメンタル、<br>
                     基盤となる素養、そしてインプットとなる武器。<br>
-                    コンサルティング思考の核心を体系化。
+                    明日からの会議で使える「決めゼリフ」と共に体系化。
                 </p>
 
                 <div class="structure-overview">
@@ -530,15 +544,21 @@
                     <span class="card-badge">Start Here</span>
                 </div>
                 <div class="card-body">
-                    <p>全ての始まり。作業に入る前に、<strong>「僕らは何の問いを解こうとしているんだっけ？」</strong>という発言をすることで、方向性を見失う迷路に入ることを防ぐ。</p>
+                    <p>全ての始まり。「何を解決すべきか」「何を知りたいか」という純粋な探究の出発点。</p>
                     <ul class="card-list">
-                        <li><strong>核となる問い</strong>：問いがなければ何も始まらない。タスクや結果よりも前に存在する哲学的なスタート地点。</li>
-                        <li><strong>論点 ≠ 課題</strong>：「問題（プロブレム）」や「課題（イシュー）」ではなく、「純粋な疑問（クエスチョン）」の側面が強い。</li>
+                        <li><strong>犬の道</strong>：問いが明確でないまま作業することは、無駄な労力を費やすこと。</li>
+                        <li><strong>論点 ≠ 課題</strong>：「問題（Problem）」ではなく「純粋な疑問（Question）」の側面が強い。</li>
                     </ul>
                 </div>
-                <div class="card-highlight">
-                    <strong>犬の道</strong><br>
-                    問いが明確になっていない状態でタスクをこなすことは「犬の道」を歩くことであり、生産的な活動ではない。
+
+                <div class="tora-box">
+                    <div class="tora-label">🐯 虎の巻：決めゼリフ</div>
+                    <div class="tora-phrase">
+                        「そもそも作業に入る前に、<br>僕らは何の問いを解こうとしているんだっけ？」
+                    </div>
+                    <div class="tora-desc">
+                        会議で手段の話ばかりになった時、思考を本質（目的）へ引き戻す一言。
+                    </div>
                 </div>
             </div>
 
@@ -547,16 +567,21 @@
                     <div class="card-title">2. 戦略思考（答えの世界）</div>
                 </div>
                 <div class="card-body">
-                    <p>論点思考で設定された問いに対する<strong>「解（打ち手）」</strong>を考える世界。</p>
+                    <p>問いに対する「解（打ち手）」を導く思考。</p>
                     <ul class="card-list">
-                        <li><strong>VS思考</strong>：「ちょっと違う視点で物事を見てみるとどう見えるのかな？」と問うことが本質。</li>
-                        <li><strong>視点の転換</strong>：一般的な視点（普通の人）と対立する視点（VS）を持つこと。</li>
-                        <li><strong>構成</strong>：振り（導入）と落ち（結論）が存在する。</li>
+                        <li><strong>VS思考</strong>：自身の利害関係の外側に立ち、一般的な視点と対立する視点を持つこと。</li>
+                        <li><strong>自分事化</strong>：成功事例を学ぶ際も、自社の「問い」がないと活かせない。</li>
                     </ul>
                 </div>
-                <div class="card-highlight">
-                    <strong>自分事化</strong><br>
-                    企業の成功例（例：テスラ）を読む際も、自分の会社の「問い（論点）」がないと、その戦略を自分事に活かせない。
+
+                <div class="tora-box">
+                    <div class="tora-label">🐯 虎の巻：決めゼリフ</div>
+                    <div class="tora-phrase">
+                        「ちょっと違う視点で物事を見てみると、<br>どう見えるのかな？」
+                    </div>
+                    <div class="tora-desc">
+                        固定観念から脱却し、新しい発想を探るきっかけを作る一言。
+                    </div>
                 </div>
             </div>
 
@@ -577,16 +602,12 @@
                     <span class="card-badge">Energy</span>
                 </div>
                 <div class="card-body">
-                    <p><strong>検証されていない状態で考えを進めようという思考。</strong>思考を止めずに前進させるための「心のバリア」を下げる役割。</p>
+                    <p><strong>不確実な中でも進む勇気。</strong></p>
+                    <p>「現時点で最も答えに近いと思える答え」を仮置きし、思考を停止させずに前進させるエネルギー。</p>
                     <ul class="card-list">
-                        <li><strong>定義</strong>：現時点で「最も答えに近いと思える答え（仮の答え）」。</li>
-                        <li><strong>役割</strong>：わからないから作業を止めずに、「仮の答え」を作って一旦進もうというエネルギーを与える。</li>
-                        <li><strong>範囲</strong>：答えの仮説だけでなく、論点仮説（問の仮説）やタスク仮説にも及ぶ。</li>
+                        <li><strong>範囲</strong>：答えの仮説だけでなく、「問いの仮説」にも適用される。</li>
+                        <li><strong>本質</strong>：情報が足りないからといって止まらず、「一旦これを答えとする」と決める心の強さ。</li>
                     </ul>
-                </div>
-                <div class="card-highlight">
-                    <strong>ジャストアイデア</strong><br>
-                    アイデア（ジャストアイデア）は、答えへの仮説と同義である。
                 </div>
             </div>
 
@@ -596,7 +617,7 @@
                 </div>
                 <div class="card-body">
                     <p><strong>「引いてみて、近づいてみて、また引いてみて」</strong>を繰り返すこと。</p>
-                    <p>抽象的な概念と具体的な事例を行き来する行為は、技術以前のメンタリティの問題として捉えられる。あらゆるシチュエーションで必要となる。</p>
+                    <p>抽象的な概念と具体的な事例を行き来する行為は、技術以前のメンタリティの問題。</p>
                 </div>
             </div>
 
@@ -617,7 +638,7 @@
                 </div>
                 <div class="card-body">
                     <p><strong>「AだったらB」という論理構造。</strong></p>
-                    <p>人々が既に持っている能力（素養）であり、自慢すべきものではない。人間よりもAIが確実に得意とする分野。</p>
+                    <p>人間が本来持っている能力だが、AIの方が圧倒的に得意とする領域。自慢すべきものではない。</p>
                 </div>
             </div>
 
@@ -626,10 +647,10 @@
                     <div class="card-title">2. 因数分解（MECE）</div>
                 </div>
                 <div class="card-body">
-                    <p>大きな物事を分解して考える力。ホールケーキをいきなり食べないのと同じく、人間が持つ感覚的なもの。</p>
+                    <p>大きな物事を分解して考える力。「雨が降りそうだから傘を持つ」のと同じレベルの当たり前の素養。</p>
                     <ul class="card-list">
-                        <li><strong>MECE</strong>：「一度漏れてないかダブりがないかを一度確認してみる」こと。</li>
-                        <li><strong>フェルミ推定</strong>：世の中の未知の数字を分解して落とし込んでいく技術も、この素養に含まれる。</li>
+                        <li><strong>MECE</strong>：「漏れなくダブりなく」確認すること。</li>
+                        <li><strong>地頭力</strong>：フェルミ推定のように、未知の数字を分解して落とし込んでいく技術もトレーニングで鍛えられる。</li>
                     </ul>
                 </div>
             </div>
@@ -651,12 +672,10 @@
                 </div>
                 <div class="card-body">
                     <ul class="card-list">
-                        <li><strong>分析</strong>：数字を使ったデータ活用。8つのコアパターン（虎の巻）が存在する。</li>
-                        <li><strong>インタビュー</strong>：従来の「数が正義（100人、1000人）」に対し、<strong>「N=1」</strong>（たった1人から深く聞き出す）でインサイトを得るアプローチ。
-                        </li>
-                        <li><strong>未来予測</strong>：フェルミ推定の先にある領域。未来が分かれば武器になるため、唯一思考の中で武器にしていい可能性がある。</li>
-                        <li><strong>知識</strong>：<strong>陳腐化（アップデートしないと価値が落ちる）</strong>するもの。素養やメンタルに入ると考えることをやめてしまうため、常に「武器」として扱う。
-                        </li>
+                        <li><strong>分析</strong>：数字を使ったデータ活用。前提となる「問い」や「仮説」が不可欠。</li>
+                        <li><strong>インタビュー</strong>：<strong>「N=1」</strong>（たった1人）から深いインサイトを得る。顧客の文脈や真意を掘り下げる。</li>
+                        <li><strong>未来予測</strong>：「10年後の市場はどうなるか？」を描く力。唯一、思考の中で武器にしていい可能性がある。</li>
+                        <li><strong>知識</strong>：<strong>陳腐化（アップデートしないと価値が落ちる）</strong>するもの。常に「武器」として扱い、思考停止を防ぐ。</li>
                     </ul>
                 </div>
             </div>
@@ -664,20 +683,20 @@
             <!-- AIとの関係 -->
             <div class="ai-section">
                 <div class="ai-content">
-                    <div class="ai-title">🤖 AIと構造の関係性</div>
+                    <div class="ai-title">🤖 コンサルタントの価値とAI</div>
                     <div class="ai-grid">
                         <div class="ai-card">
-                            <div class="ai-card-title">⚡ AIは「武器」であり「素養」</div>
+                            <div class="ai-card-title">⚡ コンサルタントの本質</div>
                             <div class="ai-card-text">
-                                AIは現在「武器」の位置にあるが、ロジカルシンキングや因数分解といった「素養」を人間以上にこなす。<br>
-                                <strong>素養は確実にAIに代替される。</strong>
+                                「インプット → 考える → アウトプット」を高速で回す傭兵部隊。<br>
+                                クライアントに不都合な真実を突きつけてでも、<strong>「議論を前に進める」</strong>ことに価値がある。
                             </div>
                         </div>
                         <div class="ai-card">
                             <div class="ai-card-title">👁️ 人間に残る「神眼」</div>
                             <div class="ai-card-text">
-                                「天才 vs AI」ではなく「凡人 + AI」が勝つ時代。<br>
-                                最終的に合格点を超えたかを<strong>判断する（神眼）</strong>能力こそが、AIに代替されない条件となる。
+                                AIは「素養」を人間以上にこなす。<br>
+                                最終的に合格点を超えたかを<strong>判断する（神眼）</strong>能力こそが、AIに代替されない人間の最後の砦。
                             </div>
                         </div>
                     </div>
