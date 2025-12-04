@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8" />
   <title>Diagram Library｜図解ポータル</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- ファビコン: 知識の湖 💧 -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%2338bdf8'/><stop offset='50%25' stop-color='%23a855f7'/><stop offset='100%25' stop-color='%23f472b6'/></linearGradient></defs><circle cx='50' cy='50' r='48' fill='%23020617'/><circle cx='50' cy='50' r='35' fill='none' stroke='url(%23g)' stroke-width='2' opacity='0.3'/><circle cx='50' cy='50' r='25' fill='none' stroke='url(%23g)' stroke-width='2' opacity='0.5'/><circle cx='50' cy='50' r='15' fill='none' stroke='url(%23g)' stroke-width='2' opacity='0.7'/><circle cx='50' cy='42' r='8' fill='url(%23g)'/><path d='M50 50 L50 65' stroke='url(%23g)' stroke-width='4' stroke-linecap='round'/></svg>" />
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%2338bdf8'/><stop offset='50%25' stop-color='%23a855f7'/><stop offset='100%25' stop-color='%23f472b6'/></linearGradient></defs><circle cx='50' cy='50' r='48' fill='%23020617'/><circle cx='50' cy='50' r='35' fill='none' stroke='url(%23g)' stroke-width='2' opacity='0.3'/><circle cx='50' cy='50' r='25' fill='none' stroke='url(%23g)' stroke-width='2' opacity='0.5'/><circle cx='50' cy='50' r='15' fill='none' stroke='url(%23g)' stroke-width='2' opacity='0.7'/><circle cx='50' cy='42' r='8' fill='url(%23g)'/><path d='M50 50 L50 65' stroke='url(%23g)' stroke-width='4' stroke-linecap='round'/></svg>" />
   <style>
     :root {
       --bg: #020617;
       --bg-soft: #020819;
       --panel: #020617;
       --card: #020617;
-      --border: rgba(148,163,184,0.5);
+      --border: rgba(148, 163, 184, 0.5);
       --accent: #38bdf8;
       --accent-purple: #a855f7;
       --accent-green: #22c55e;
       --accent-strong: #f97316;
       --text-main: #e5e7eb;
       --text-sub: #9ca3af;
-      --chip-bg: rgba(15,23,42,0.9);
+      --chip-bg: rgba(15, 23, 42, 0.9);
     }
 
     * {
@@ -85,47 +87,62 @@
     }
 
     @keyframes smoke-drift-1 {
-      0%, 100% {
+
+      0%,
+      100% {
         transform: translate(0, 0) scale(1);
       }
+
       20% {
         transform: translate(3%, -2%) scale(1.05);
       }
+
       40% {
         transform: translate(-2%, 3%) scale(0.97);
       }
+
       60% {
         transform: translate(-4%, -1%) scale(1.03);
       }
+
       80% {
         transform: translate(2%, 2%) scale(0.98);
       }
     }
 
     @keyframes smoke-drift-2 {
-      0%, 100% {
+
+      0%,
+      100% {
         transform: translate(0, 0) scale(1) rotate(0deg);
       }
+
       25% {
         transform: translate(-3%, 2%) scale(1.04) rotate(1deg);
       }
+
       50% {
         transform: translate(2%, -3%) scale(0.96) rotate(-1deg);
       }
+
       75% {
         transform: translate(3%, 1%) scale(1.02) rotate(0.5deg);
       }
     }
 
     @keyframes smoke-drift-3 {
-      0%, 100% {
+
+      0%,
+      100% {
         transform: translate(0, 0) scale(1);
         opacity: 0.8;
       }
+
       33% {
         transform: translate(4%, -3%) scale(1.06);
         opacity: 1;
       }
+
       66% {
         transform: translate(-3%, 4%) scale(0.94);
         opacity: 0.7;
@@ -174,35 +191,45 @@
     }
 
     @keyframes ripple-container {
-      0% { opacity: 1; }
-      100% { opacity: 1; }
+      0% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 1;
+      }
     }
 
     @keyframes ripple-wave-zen {
+
       /* 静かに現れる */
       0% {
         transform: scale(0.1);
         border-color: rgba(56, 189, 248, 0);
         border-width: 1px;
       }
+
       /* ゆっくり濃くなる */
       15% {
         transform: scale(0.4);
         border-color: rgba(56, 189, 248, 0.15);
         border-width: 1.5px;
       }
+
       /* ピーク - 最も濃い */
       35% {
         transform: scale(1);
         border-color: rgba(56, 189, 248, 0.4);
         border-width: 1.5px;
       }
+
       /* ゆっくり薄くなりながら広がる */
       60% {
         transform: scale(1.8);
         border-color: rgba(56, 189, 248, 0.2);
         border-width: 1px;
       }
+
       /* 静かに消えていく */
       100% {
         transform: scale(3);
@@ -222,20 +249,62 @@
       filter: blur(1px);
     }
 
-    .water-sparkle:nth-child(5) { top: 20%; left: 40%; animation-delay: 0s; }
-    .water-sparkle:nth-child(6) { top: 35%; left: 70%; animation-delay: 0.7s; }
-    .water-sparkle:nth-child(7) { top: 55%; left: 25%; animation-delay: 1.4s; }
-    .water-sparkle:nth-child(8) { top: 75%; left: 55%; animation-delay: 2.1s; }
-    .water-sparkle:nth-child(9) { top: 45%; left: 85%; animation-delay: 2.8s; }
-    .water-sparkle:nth-child(10) { top: 65%; left: 10%; animation-delay: 0.5s; }
-    .water-sparkle:nth-child(11) { top: 25%; left: 90%; animation-delay: 1.9s; }
-    .water-sparkle:nth-child(12) { top: 80%; left: 75%; animation-delay: 3.2s; }
+    .water-sparkle:nth-child(5) {
+      top: 20%;
+      left: 40%;
+      animation-delay: 0s;
+    }
+
+    .water-sparkle:nth-child(6) {
+      top: 35%;
+      left: 70%;
+      animation-delay: 0.7s;
+    }
+
+    .water-sparkle:nth-child(7) {
+      top: 55%;
+      left: 25%;
+      animation-delay: 1.4s;
+    }
+
+    .water-sparkle:nth-child(8) {
+      top: 75%;
+      left: 55%;
+      animation-delay: 2.1s;
+    }
+
+    .water-sparkle:nth-child(9) {
+      top: 45%;
+      left: 85%;
+      animation-delay: 2.8s;
+    }
+
+    .water-sparkle:nth-child(10) {
+      top: 65%;
+      left: 10%;
+      animation-delay: 0.5s;
+    }
+
+    .water-sparkle:nth-child(11) {
+      top: 25%;
+      left: 90%;
+      animation-delay: 1.9s;
+    }
+
+    .water-sparkle:nth-child(12) {
+      top: 80%;
+      left: 75%;
+      animation-delay: 3.2s;
+    }
 
     @keyframes sparkle {
-      0%, 100% {
+
+      0%,
+      100% {
         opacity: 0;
         transform: scale(0.5);
       }
+
       50% {
         opacity: 0.8;
         transform: scale(1.2);
@@ -270,6 +339,7 @@
         opacity: 0;
         transform: translateY(20px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -284,8 +354,8 @@
       border-radius: 999px;
       font-size: 11px;
       color: var(--text-sub);
-      background: rgba(15,23,42,0.85);
-      border: 1px solid rgba(148,163,184,0.5);
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.5);
       backdrop-filter: blur(16px);
     }
 
@@ -294,13 +364,22 @@
       height: 8px;
       border-radius: 999px;
       background: radial-gradient(circle at 30% 30%, #facc15, #f97316);
-      box-shadow: 0 0 12px rgba(250,204,21,0.8);
+      box-shadow: 0 0 12px rgba(250, 204, 21, 0.8);
       animation: pulse 2s ease-in-out infinite;
     }
 
     @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.7; transform: scale(1.1); }
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.7;
+        transform: scale(1.1);
+      }
     }
 
     h1 {
@@ -317,8 +396,15 @@
     }
 
     @keyframes gradient-shift {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
+
+      0%,
+      100% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
     }
 
     @media (min-width: 768px) {
@@ -367,8 +453,8 @@
       border-radius: 999px;
       font-size: 12px;
       font-weight: 500;
-      border: 1px solid rgba(148,163,184,0.5);
-      background: rgba(15,23,42,0.8);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.8);
       color: var(--text-sub);
       cursor: pointer;
       transition: all 0.2s ease;
@@ -382,20 +468,40 @@
     }
 
     .filter-btn.active {
-      background: linear-gradient(135deg, rgba(56,189,248,0.3), rgba(168,85,247,0.3));
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.3), rgba(168, 85, 247, 0.3));
       border-color: var(--accent);
       color: var(--text-main);
-      box-shadow: 0 0 20px rgba(56,189,248,0.3);
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
     }
 
     /* カテゴリーカラー */
-    .filter-btn[data-category="tech"] { --cat-color: #f472b6; }
-    .filter-btn[data-category="art"] { --cat-color: #f97316; }
-    .filter-btn[data-category="cat"] { --cat-color: #fb923c; }
-    .filter-btn[data-category="health"] { --cat-color: #22c55e; }
-    .filter-btn[data-category="marketing"] { --cat-color: #38bdf8; }
-    .filter-btn[data-category="business"] { --cat-color: #a855f7; }
-    .filter-btn[data-category="client"] { --cat-color: #06b6d4; }
+    .filter-btn[data-category="tech"] {
+      --cat-color: #f472b6;
+    }
+
+    .filter-btn[data-category="art"] {
+      --cat-color: #f97316;
+    }
+
+    .filter-btn[data-category="cat"] {
+      --cat-color: #fb923c;
+    }
+
+    .filter-btn[data-category="health"] {
+      --cat-color: #22c55e;
+    }
+
+    .filter-btn[data-category="marketing"] {
+      --cat-color: #38bdf8;
+    }
+
+    .filter-btn[data-category="business"] {
+      --cat-color: #a855f7;
+    }
+
+    .filter-btn[data-category="client"] {
+      --cat-color: #06b6d4;
+    }
 
     .filter-btn[data-category]:hover,
     .filter-btn[data-category].active {
@@ -415,7 +521,7 @@
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--text-sub);
-      border-bottom: 1px solid rgba(148,163,184,0.3);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.3);
       animation: fade-up 0.8s ease-out 0.3s both;
     }
 
@@ -443,7 +549,7 @@
       align-items: center;
       gap: 12px;
       padding: 14px 16px;
-      border-bottom: 1px solid rgba(148,163,184,0.2);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
       text-decoration: none;
       color: inherit;
       transition: all 0.25s ease;
@@ -456,7 +562,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(90deg, transparent, rgba(56,189,248,0.08), transparent);
+      background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.08), transparent);
       transform: translateX(-100%);
       transition: transform 0.5s ease;
     }
@@ -466,14 +572,25 @@
     }
 
     .diagram-item:hover {
-      background: rgba(56,189,248,0.05);
-      border-color: rgba(56,189,248,0.3);
+      background: rgba(56, 189, 248, 0.05);
+      border-color: rgba(56, 189, 248, 0.3);
     }
 
-    .diagram-item:nth-child(1) { animation-delay: 0.35s; }
-    .diagram-item:nth-child(2) { animation-delay: 0.4s; }
-    .diagram-item:nth-child(3) { animation-delay: 0.45s; }
-    .diagram-item:nth-child(4) { animation-delay: 0.5s; }
+    .diagram-item:nth-child(1) {
+      animation-delay: 0.35s;
+    }
+
+    .diagram-item:nth-child(2) {
+      animation-delay: 0.4s;
+    }
+
+    .diagram-item:nth-child(3) {
+      animation-delay: 0.45s;
+    }
+
+    .diagram-item:nth-child(4) {
+      animation-delay: 0.5s;
+    }
 
     /* カテゴリーラベル */
     .item-category {
@@ -626,63 +743,29 @@
     }
   </style>
 </head>
+
 <body>
   <!-- SVG フィルター定義 -->
   <svg style="position:absolute;width:0;height:0;">
     <defs>
       <!-- メインの湖うねりフィルター -->
       <filter id="lake-turbulence" x="-50%" y="-50%" width="200%" height="200%">
-        <feTurbulence 
-          type="fractalNoise" 
-          baseFrequency="0.006" 
-          numOctaves="4" 
-          seed="15"
-          result="noise">
-          <animate 
-            attributeName="baseFrequency" 
-            values="0.006;0.01;0.006" 
-            dur="25s" 
-            repeatCount="indefinite" />
+        <feTurbulence type="fractalNoise" baseFrequency="0.006" numOctaves="4" seed="15" result="noise">
+          <animate attributeName="baseFrequency" values="0.006;0.01;0.006" dur="25s" repeatCount="indefinite" />
         </feTurbulence>
-        <feDisplacementMap 
-          in="SourceGraphic" 
-          in2="noise" 
-          scale="60" 
-          xChannelSelector="R" 
-          yChannelSelector="G">
-          <animate 
-            attributeName="scale" 
-            values="60;90;60" 
-            dur="18s" 
-            repeatCount="indefinite" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="60" xChannelSelector="R" yChannelSelector="G">
+          <animate attributeName="scale" values="60;90;60" dur="18s" repeatCount="indefinite" />
         </feDisplacementMap>
       </filter>
 
       <!-- 水面のゆらぎフィルター -->
       <filter id="water-distort" x="-20%" y="-20%" width="140%" height="140%">
-        <feTurbulence 
-          type="turbulence" 
-          baseFrequency="0.015 0.008" 
-          numOctaves="2" 
-          seed="42"
-          result="ripple">
-          <animate 
-            attributeName="baseFrequency" 
-            values="0.015 0.008;0.02 0.012;0.015 0.008" 
-            dur="12s" 
+        <feTurbulence type="turbulence" baseFrequency="0.015 0.008" numOctaves="2" seed="42" result="ripple">
+          <animate attributeName="baseFrequency" values="0.015 0.008;0.02 0.012;0.015 0.008" dur="12s"
             repeatCount="indefinite" />
         </feTurbulence>
-        <feDisplacementMap 
-          in="SourceGraphic" 
-          in2="ripple" 
-          scale="20" 
-          xChannelSelector="R" 
-          yChannelSelector="B">
-          <animate 
-            attributeName="scale" 
-            values="20;35;20" 
-            dur="8s" 
-            repeatCount="indefinite" />
+        <feDisplacementMap in="SourceGraphic" in2="ripple" scale="20" xChannelSelector="R" yChannelSelector="B">
+          <animate attributeName="scale" values="20;35;20" dur="8s" repeatCount="indefinite" />
         </feDisplacementMap>
       </filter>
     </defs>
@@ -743,6 +826,17 @@
 
     <!-- 図解リスト（新しいものが上） -->
     <div class="diagram-list">
+      <a class="diagram-item" href="diagrams/business-thinking-structure.html" data-category="business"
+        data-date="2025-12-04">
+        <span class="item-category business">ビジネス</span>
+        <div class="item-content">
+          <div class="item-title">ビジネス思考の構造</div>
+          <div class="item-desc">AI時代に生き残るための思考地図</div>
+        </div>
+        <span class="item-date">2025-12-04</span>
+        <span class="item-arrow">→</span>
+      </a>
+
       <a class="diagram-item" href="client/ad-meeting-guide.html" data-category="client" data-date="2025-12-03">
         <span class="item-category client">共有用</span>
         <div class="item-content">
@@ -753,7 +847,8 @@
         <span class="item-arrow">→</span>
       </a>
 
-      <a class="diagram-item" href="client/indeed-company-page-guide.html" data-category="client" data-date="2025-12-03">
+      <a class="diagram-item" href="client/indeed-company-page-guide.html" data-category="client"
+        data-date="2025-12-03">
         <span class="item-category client">共有用</span>
         <div class="item-content">
           <div class="item-title">Indeed企業ページ 徹底活用ガイド</div>
@@ -855,30 +950,31 @@
 
     // ZENな波紋エフェクト（静かに、たまに出現）
     const ripples = document.querySelectorAll('.ripple');
-    
+
     function triggerRipple() {
       const ripple = ripples[Math.floor(Math.random() * ripples.length)];
-      
+
       // ランダムな位置
       ripple.style.top = Math.random() * 70 + 15 + '%';
       ripple.style.left = Math.random() * 70 + 15 + '%';
-      
+
       // ランダムなサイズ（少し大きめ）
       const size = 150 + Math.random() * 120;
       ripple.style.width = size + 'px';
       ripple.style.height = size + 'px';
-      
+
       // アニメーション発火
       ripple.classList.remove('active');
       void ripple.offsetWidth; // リフロー
       ripple.classList.add('active');
-      
+
       // 次の波紋（15〜30秒後にランダム - もっとゆっくり）
       setTimeout(triggerRipple, 15000 + Math.random() * 15000);
     }
-    
+
     // 最初の波紋は5〜10秒後（静かに始まる）
     setTimeout(triggerRipple, 5000 + Math.random() * 5000);
   </script>
 </body>
+
 </html>

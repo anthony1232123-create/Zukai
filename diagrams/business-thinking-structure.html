@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>ビジネス思考の構造 〜AI時代に生き残るための思考地図〜</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        :root {
+            --bg: #0f172a;
+            --bg-soft: #1e293b;
+            --panel: #1e293b;
+            --panel-soft: #334155;
+            --accent: #3b82f6;
+            /* Blue for Logic */
+            --accent-soft: rgba(59, 130, 246, 0.18);
+            --accent-purple: #8b5cf6;
+            /* Strategy */
+            --accent-green: #10b981;
+            /* Mental/Growth */
+            --accent-orange: #f59e0b;
+            /* Weapons */
+            --text-main: #f1f5f9;
+            --text-sub: #94a3b8;
+            --line-soft: rgba(148, 163, 184, 0.2);
+
+            --layer1-color: #8b5cf6;
+            /* Thinking Skills */
+            --layer2-color: #10b981;
+            /* Mental */
+            --layer3-color: #3b82f6;
+            /* Aptitude */
+            --layer4-color: #f59e0b;
+            /* Weapons */
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+                "Hiragino Sans", sans-serif;
+            color: var(--text-main);
+            background:
+                radial-gradient(circle at top right, rgba(59, 130, 246, 0.15) 0, transparent 40%),
+                radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.12) 0, transparent 45%),
+                radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.1) 0, transparent 45%),
+                var(--bg);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* パンくずナビ */
+        .breadcrumb {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 12px 20px;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--line-soft);
+        }
+
+        .breadcrumb-inner {
+            max-width: 720px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+        }
+
+        .breadcrumb a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .breadcrumb a:hover {
+            color: #60a5fa;
+        }
+
+        .breadcrumb-sep {
+            color: var(--text-sub);
+            opacity: 0.5;
+        }
+
+        .breadcrumb-current {
+            color: var(--text-sub);
+        }
+
+        .page {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 80px 16px 80px;
+        }
+
+        /* レール（中央線） */
+        .rail {
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .rail::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 100vh;
+            background: linear-gradient(to bottom, transparent, rgba(148, 163, 184, 0.2), transparent);
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        /* ヒーローセクション */
+        .hero {
+            position: relative;
+            margin-bottom: 48px;
+            padding: 32px 24px;
+            border-radius: 20px;
+            background:
+                radial-gradient(circle at top left, rgba(59, 130, 246, 0.15), transparent 60%),
+                rgba(30, 41, 59, 0.6);
+            border: 1px solid var(--line-soft);
+            text-align: center;
+            backdrop-filter: blur(8px);
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 11px;
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            color: #60a5fa;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 {
+            margin: 0 0 12px;
+            font-size: 28px;
+            line-height: 1.4;
+            background: linear-gradient(135deg, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-sub {
+            font-size: 14px;
+            color: var(--text-sub);
+            line-height: 1.7;
+        }
+
+        /* 構造概要図 */
+        .structure-overview {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 24px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .structure-layer {
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: #fff;
+            position: relative;
+        }
+
+        .structure-layer.layer1 {
+            background: linear-gradient(90deg, rgba(139, 92, 246, 0.8), rgba(139, 92, 246, 0.4));
+            border: 1px solid var(--layer1-color);
+        }
+
+        .structure-layer.layer2 {
+            background: linear-gradient(90deg, rgba(16, 185, 129, 0.8), rgba(16, 185, 129, 0.4));
+            border: 1px solid var(--layer2-color);
+        }
+
+        .structure-layer.layer3 {
+            background: linear-gradient(90deg, rgba(59, 130, 246, 0.8), rgba(59, 130, 246, 0.4));
+            border: 1px solid var(--layer3-color);
+        }
+
+        .structure-layer.layer4 {
+            background: linear-gradient(90deg, rgba(245, 158, 11, 0.8), rgba(245, 158, 11, 0.4));
+            border: 1px solid var(--layer4-color);
+        }
+
+        .structure-arrow {
+            text-align: center;
+            color: var(--text-sub);
+            font-size: 10px;
+            opacity: 0.7;
+        }
+
+        /* セクション共通 */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-num {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-num.s1 {
+            background: var(--layer1-color);
+        }
+
+        .section-num.s2 {
+            background: var(--layer2-color);
+        }
+
+        .section-num.s3 {
+            background: var(--layer3-color);
+        }
+
+        .section-num.s4 {
+            background: var(--layer4-color);
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            font-size: 12px;
+            color: var(--text-sub);
+        }
+
+        /* カード */
+        .card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid var(--line-soft);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            position: relative;
+            backdrop-filter: blur(4px);
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 4px;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .card.s1::before {
+            background: var(--layer1-color);
+        }
+
+        .card.s2::before {
+            background: var(--layer2-color);
+        }
+
+        .card.s3::before {
+            background: var(--layer3-color);
+        }
+
+        .card.s4::before {
+            background: var(--layer4-color);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-badge {
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-sub);
+        }
+
+        .card-body {
+            font-size: 13px;
+            color: var(--text-sub);
+            line-height: 1.7;
+        }
+
+        .card-highlight {
+            margin-top: 12px;
+            padding: 10px 12px;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 8px;
+            font-size: 12px;
+            color: var(--text-main);
+            border-left: 2px solid;
+        }
+
+        .card.s1 .card-highlight {
+            border-color: var(--layer1-color);
+        }
+
+        .card.s2 .card-highlight {
+            border-color: var(--layer2-color);
+        }
+
+        .card.s3 .card-highlight {
+            border-color: var(--layer3-color);
+        }
+
+        .card.s4 .card-highlight {
+            border-color: var(--layer4-color);
+        }
+
+        /* 矢印 */
+        .scroll-arrow {
+            display: flex;
+            justify-content: center;
+            margin: 24px 0;
+            color: var(--line-soft);
+            font-size: 20px;
+        }
+
+        /* AIセクション */
+        .ai-section {
+            margin-top: 60px;
+            padding: 32px 24px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.9));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-section::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .ai-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .ai-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            text-align: center;
+            background: linear-gradient(90deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .ai-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        @media (min-width: 600px) {
+            .ai-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .ai-card {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .ai-card-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #e2e8f0;
+        }
+
+        .ai-card-text {
+            font-size: 12px;
+            color: var(--text-sub);
+            line-height: 1.6;
+        }
+
+        /* フッター */
+        .footer {
+            margin-top: 60px;
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-sub);
+            opacity: 0.6;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="breadcrumb">
+        <div class="breadcrumb-inner">
+            <a href="../index.html">← DIAGRAM LIBRARY</a>
+            <span class="breadcrumb-sep">/</span>
+            <span class="breadcrumb-current">ビジネス思考の構造</span>
+        </div>
+    </nav>
+
+    <div class="page">
+        <div class="rail">
+            <!-- ヒーロー -->
+            <section class="hero">
+                <div class="hero-badge">BUSINESS THINKING STRUCTURE</div>
+                <h1>ビジネス思考の構造<br>〜AI時代に生き残るための思考地図〜</h1>
+                <p class="hero-sub">
+                    「問いと答え」を支える思考技術、それを実行するメンタル、<br>
+                    基盤となる素養、そしてインプットとなる武器。<br>
+                    コンサルティング思考の核心を体系化。
+                </p>
+
+                <div class="structure-overview">
+                    <div class="structure-layer layer1">Ⅰ. 思考技術（問いと答え）</div>
+                    <div class="structure-arrow">支える</div>
+                    <div class="structure-layer layer2">Ⅱ. メンタル（マインドセット）</div>
+                    <div class="structure-arrow">基盤</div>
+                    <div class="structure-layer layer3">Ⅲ. 素養（基礎能力）</div>
+                    <div class="structure-arrow">使う</div>
+                    <div class="structure-layer layer4">Ⅳ. 武器（ツール・知識）</div>
+                </div>
+            </section>
+
+            <!-- Ⅰ. 思考技術 -->
+            <div class="section-header">
+                <div class="section-num s1">Ⅰ</div>
+                <div>
+                    <div class="section-title">思考技術</div>
+                    <div class="section-subtitle">問いと答えの解き方</div>
+                </div>
+            </div>
+
+            <div class="card s1">
+                <div class="card-header">
+                    <div class="card-title">1. 論点思考（問いの世界）</div>
+                    <span class="card-badge">Start Here</span>
+                </div>
+                <div class="card-body">
+                    全ての始まり。「僕らは何の問いを解こうとしているんだっけ？」から始める。<br>
+                    問いがないまま作業することは「犬の道」であり、生産的ではない。
+                </div>
+                <div class="card-highlight">
+                    「問題（プロブレム）」ではなく「純粋な疑問（クエスチョン）」を持つ
+                </div>
+            </div>
+
+            <div class="card s1">
+                <div class="card-header">
+                    <div class="card-title">2. 戦略思考（答えの世界）</div>
+                </div>
+                <div class="card-body">
+                    問いに対する「解（打ち手）」を考える世界。<br>
+                    「ちょっと違う視点で物事を見てみるとどう見えるか？」というVS思考（対立視点）が鍵。
+                </div>
+                <div class="card-highlight">
+                    振り（導入）と落ち（結論）を作る
+                </div>
+            </div>
+
+            <div class="scroll-arrow">↓</div>
+
+            <!-- Ⅱ. メンタル -->
+            <div class="section-header">
+                <div class="section-num s2">Ⅱ</div>
+                <div>
+                    <div class="section-title">メンタル</div>
+                    <div class="section-subtitle">思考を前に進める心の持ち方</div>
+                </div>
+            </div>
+
+            <div class="card s2">
+                <div class="card-header">
+                    <div class="card-title">1. 仮説思考</div>
+                    <span class="card-badge">Energy</span>
+                </div>
+                <div class="card-body">
+                    検証されていない状態で考えを進める力。「現時点で最も答えに近いと思える答え」を仮置きして、思考を止めずに前に進むエネルギー。
+                </div>
+            </div>
+
+            <div class="card s2">
+                <div class="card-header">
+                    <div class="card-title">2. 具体と抽象の往復</div>
+                </div>
+                <div class="card-body">
+                    「引いてみて、近づいてみて」を繰り返すこと。<br>
+                    抽象的な概念と具体的な事例を行き来する行為は、技術以前のメンタリティの問題。
+                </div>
+            </div>
+
+            <div class="scroll-arrow">↓</div>
+
+            <!-- Ⅲ. 素養 -->
+            <div class="section-header">
+                <div class="section-num s3">Ⅲ</div>
+                <div>
+                    <div class="section-title">素養（アプトアッド）</div>
+                    <div class="section-subtitle">誰もが持つ基礎能力</div>
+                </div>
+            </div>
+
+            <div class="card s3">
+                <div class="card-header">
+                    <div class="card-title">1. ロジカルシンキング</div>
+                </div>
+                <div class="card-body">
+                    「AだったらB」という論理構造。人間が本来持っている能力だが、AIの方が圧倒的に得意な領域。
+                </div>
+            </div>
+
+            <div class="card s3">
+                <div class="card-header">
+                    <div class="card-title">2. 因数分解（MECE）</div>
+                </div>
+                <div class="card-body">
+                    大きな物事を分解して考える力。「漏れなくダブりなく（MECE）」確認する。<br>
+                    フェルミ推定などもこの能力に含まれる。
+                </div>
+            </div>
+
+            <div class="scroll-arrow">↓</div>
+
+            <!-- Ⅳ. 武器 -->
+            <div class="section-header">
+                <div class="section-num s4">Ⅳ</div>
+                <div>
+                    <div class="section-title">武器（ツール）</div>
+                    <div class="section-subtitle">思考のための材料</div>
+                </div>
+            </div>
+
+            <div class="card s4">
+                <div class="card-header">
+                    <div class="card-title">分析・インタビュー・未来予測・知識</div>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li><strong>分析</strong>：数字を使ったデータ活用（8つのコアパターン）。</li>
+                        <li><strong>インタビュー</strong>：N=1から深いインサイトを得る。</li>
+                        <li><strong>未来予測</strong>：唯一、思考の中で武器にしていい「予測」。</li>
+                        <li><strong>知識</strong>：陳腐化するため、常にアップデートが必要な「武器」。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- AIとの関係 -->
+            <div class="ai-section">
+                <div class="ai-content">
+                    <div class="ai-title">🤖 AIと構造の関係性</div>
+                    <div class="ai-grid">
+                        <div class="ai-card">
+                            <div class="ai-card-title">AIは「武器」であり「素養」</div>
+                            <div class="ai-card-text">
+                                AIは現在「武器」の位置にあるが、ロジカルシンキングや因数分解といった「素養」を人間以上にこなす。素養はAIに代替される。
+                            </div>
+                        </div>
+                        <div class="ai-card">
+                            <div class="ai-card-title">人間に残る「神眼」</div>
+                            <div class="ai-card-text">
+                                「天才 vs AI」ではなく「凡人 + AI」が勝つ時代。<br>
+                                最終的に合格点を超えたかを<strong>判断する（神眼）</strong>能力こそが、人間に求められる最後の砦。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <div class="footer-note">© 2025 Zukai Library</div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
