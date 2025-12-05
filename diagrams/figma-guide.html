@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Figma完全攻略ガイド for まいける部長</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@400;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        figma: {
+                            red: '#F24E1E',
+                            orange: '#FF7262',
+                            purple: '#A259FF',
+                            blue: '#1ABCFE',
+                            green: '#0ACF83',
+                            dark: '#2C2C2C',
+                            bg: '#F5F5F5'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Inter"', '"Noto Sans JP"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F5F5F5;
+            color: #333;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #F24E1E, #A259FF, #1ABCFE);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #F24E1E, #A259FF);
+            border-radius: 2px;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 24px;
+            margin-bottom: 1rem;
+        }
+
+        .nav-link {
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: #A259FF;
+        }
+    </style>
+</head>
+
+<body class="antialiased pb-20">
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <a href="../index.html" class="text-gray-500 hover:text-gray-900 mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                    </a>
+                    <h1 class="text-xl font-bold text-gray-900">Zukai Library</h1>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#what" class="nav-link text-sm font-medium text-gray-700">Figmaとは</a>
+                    <a href="#merit" class="nav-link text-sm font-medium text-gray-700">メリット</a>
+                    <a href="#scope" class="nav-link text-sm font-medium text-gray-700">守備範囲</a>
+                    <a href="#prototype" class="nav-link text-sm font-medium text-gray-700">プロトタイプ</a>
+                    <a href="#manager" class="nav-link text-sm font-medium text-gray-700">部長活用術</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+        <h1 class="text-5xl md:text-6xl font-extrabold mb-6 tracking-tight">
+            Figma<span class="block text-3xl md:text-4xl mt-2 font-bold text-gray-600">完全攻略ガイド for まいける部長</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-8">
+            <span class="gradient-text font-bold">「デザイン業界のGoogleドキュメント」</span><br>
+            ブラウザで動く、世界標準のインターフェースデザインツール
+        </p>
+        <div class="flex justify-center gap-4 flex-wrap">
+            <span class="px-4 py-2 bg-white rounded-full shadow-sm text-sm font-bold text-figma-red">OS不問</span>
+            <span class="px-4 py-2 bg-white rounded-full shadow-sm text-sm font-bold text-figma-purple">インストール不要</span>
+            <span class="px-4 py-2 bg-white rounded-full shadow-sm text-sm font-bold text-figma-green">超軽量</span>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
+
+        <!-- 1. Before/After -->
+        <section id="merit">
+            <h2 class="text-3xl font-bold mb-12 text-center section-title">解決した「地獄」とメリット</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Before -->
+                <div class="card p-8 bg-gray-100 border-2 border-dashed border-gray-300 relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 bg-gray-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
+                        Before</div>
+                    <h3 class="text-2xl font-bold mb-6 text-gray-500">Figma以前の地獄</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">😫</span>
+                            <div>
+                                <strong class="block text-gray-700">「最新データどれ問題」</strong>
+                                <span class="text-sm text-gray-500">final_v2_fix.psd が乱立</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">😱</span>
+                            <div>
+                                <strong class="block text-gray-700">「先祖返り」</strong>
+                                <span class="text-sm text-gray-500">古いファイルで上書きして修正消失</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">😡</span>
+                            <div>
+                                <strong class="block text-gray-700">「スクショ赤ペン先生」</strong>
+                                <span class="text-sm text-gray-500">修正指示メール作成に1時間</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- After -->
+                <div class="card p-8 border-2 border-figma-purple relative overflow-hidden bg-white">
+                    <div
+                        class="absolute top-0 right-0 bg-figma-purple text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
+                        After</div>
+                    <h3 class="text-2xl font-bold mb-6 text-figma-purple">Figma導入後の天国</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">✨</span>
+                            <div>
+                                <strong class="block text-gray-900">URL1つで共有</strong>
+                                <span class="text-sm text-gray-600">全員が常に「唯一の最新データ」へ</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">🚀</span>
+                            <div>
+                                <strong class="block text-gray-900">リアルタイム共同編集</strong>
+                                <span class="text-sm text-gray-600">横で作業を見ながらその場で修正</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">💬</span>
+                            <div>
+                                <strong class="block text-gray-900">コメント機能</strong>
+                                <span class="text-sm text-gray-600">画面に直接付箋を貼る感覚で指示</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Scope -->
+        <section id="scope">
+            <h2 class="text-3xl font-bold mb-12 text-center section-title">作れるもの（守備範囲）</h2>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                <div class="card p-6 text-center hover:bg-figma-blue hover:text-white group">
+                    <div class="text-4xl mb-3">📱</div>
+                    <h3 class="font-bold text-sm">スマホアプリUI</h3>
+                </div>
+                <div class="card p-6 text-center hover:bg-figma-purple hover:text-white group">
+                    <div class="text-4xl mb-3">💻</div>
+                    <h3 class="font-bold text-sm">Webサイト全般</h3>
+                </div>
+                <div class="card p-6 text-center hover:bg-figma-red hover:text-white group">
+                    <div class="text-4xl mb-3">🎨</div>
+                    <h3 class="font-bold text-sm">広告バナー</h3>
+                </div>
+                <div class="card p-6 text-center hover:bg-figma-orange hover:text-white group">
+                    <div class="text-4xl mb-3">📊</div>
+                    <h3 class="font-bold text-sm">プレゼン資料</h3>
+                </div>
+                <div class="card p-6 text-center hover:bg-figma-green hover:text-white group">
+                    <div class="text-4xl mb-3">📸</div>
+                    <h3 class="font-bold text-sm">SNS画像</h3>
+                </div>
+            </div>
+            <p class="text-center mt-6 text-gray-600 font-bold">結論：「画面に映るものなら、ほぼ全部いける」</p>
+        </section>
+
+        <!-- 3. Prototype -->
+        <section id="prototype" class="bg-gray-900 text-white rounded-3xl p-8 md:p-16 relative overflow-hidden">
+            <div
+                class="absolute top-0 right-0 w-64 h-64 bg-figma-purple opacity-20 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2">
+            </div>
+            <div class="relative z-10">
+                <h2 class="text-3xl font-bold mb-8 text-center text-white">最強機能「プロトタイプ」</h2>
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <p class="text-xl mb-6 leading-relaxed">
+                            デザインだけで<span class="text-figma-green font-bold">「動く紙芝居」</span>が作れます。<br>
+                            コードを書かずに、画面遷移やアニメーションを設定可能。
+                        </p>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <span
+                                    class="w-8 h-8 rounded-full bg-figma-green flex items-center justify-center mr-4 text-black font-bold">✓</span>
+                                <span>開発前の「検品」で手戻り激減</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span
+                                    class="w-8 h-8 rounded-full bg-figma-green flex items-center justify-center mr-4 text-black font-bold">✓</span>
+                                <span>スマホ実機で操作感をテスト</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span
+                                    class="w-8 h-8 rounded-full bg-figma-green flex items-center justify-center mr-4 text-black font-bold">✓</span>
+                                <span>ステークホルダーへの説得力UP</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
+                        <div class="flex justify-between items-center mb-4 border-b border-gray-700 pb-4">
+                            <span class="text-sm text-gray-400">Prototype Demo</span>
+                            <div class="flex space-x-2">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center items-center h-48 text-gray-500">
+                            <div class="animate-pulse flex flex-col items-center">
+                                <div class="w-12 h-12 border-4 border-figma-blue rounded-full mb-2"></div>
+                                <span class="text-xs">Click Interaction</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Dev Mode & FigJam -->
+        <section class="grid md:grid-cols-2 gap-8">
+            <div class="card p-8 border-t-4 border-figma-green">
+                <h3 class="text-2xl font-bold mb-4 flex items-center">
+                    <span class="mr-3">🛠️</span> Dev Mode (開発モード)
+                </h3>
+                <p class="text-gray-600 mb-4">デザイナーとエンジニアの共通言語。</p>
+                <ul class="space-y-2 text-sm text-gray-700">
+                    <li class="bg-gray-50 p-2 rounded">💻 CSS/SwiftUI/Composeコード自動生成</li>
+                    <li class="bg-gray-50 p-2 rounded">📏 スペック（色・余白）を自己確認</li>
+                    <li class="bg-gray-50 p-2 rounded">📦 画像アセットの自由な書き出し</li>
+                </ul>
+            </div>
+            <div class="card p-8 border-t-4 border-figma-orange">
+                <h3 class="text-2xl font-bold mb-4 flex items-center">
+                    <span class="mr-3">🧠</span> FigJam (フィグジャム)
+                </h3>
+                <p class="text-gray-600 mb-4">思考を広げるオンラインホワイトボード。</p>
+                <ul class="space-y-2 text-sm text-gray-700">
+                    <li class="bg-gray-50 p-2 rounded">💡 ブレインストーミング（付箋）</li>
+                    <li class="bg-gray-50 p-2 rounded">🔄 フローチャート・遷移図作成</li>
+                    <li class="bg-gray-50 p-2 rounded">🗳️ チームでの投票・意思決定</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 5. Manager Style -->
+        <section id="manager">
+            <h2 class="text-3xl font-bold mb-12 text-center section-title">まいける部長の推奨活用スタイル</h2>
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                <div class="p-8 md:p-12">
+                    <div class="text-center mb-10">
+                        <p class="text-lg text-gray-600">
+                            自分で作る必要はありません。<br>
+                            <strong class="text-2xl text-gray-900">「最強のレビュー＆指示出しツール」</strong>として使い倒してください。
+                        </p>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 p-3 rounded-full mr-4 text-blue-600 font-bold">1</div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2">レビュー</h4>
+                                <p class="text-gray-600 text-sm">URLをもらい、修正箇所に直接コメント。「ここ、もっと強調」など。</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 p-3 rounded-full mr-4 text-blue-600 font-bold">2</div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2">テキスト修正</h4>
+                                <p class="text-gray-600 text-sm">キャッチコピー等はチャット指示より、自分で打ち替えた方が100倍早い。</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 p-3 rounded-full mr-4 text-blue-600 font-bold">3</div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2">エンジニア連携</h4>
+                                <p class="text-gray-600 text-sm">仕様書作成より「動きはプロトタイプ見て」で通じます。</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 p-3 rounded-full mr-4 text-blue-600 font-bold">4</div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2">進捗確認</h4>
+                                <p class="text-gray-600 text-sm">「できたら見せて」ではなく、URLでリアルタイムな状況を確認。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-red-50 p-8 border-t border-red-100">
+                    <h4 class="text-red-600 font-bold mb-2 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        重要な注意点（ロジカルな理解）
+                    </h4>
+                    <p class="text-gray-700 text-sm">
+                        <strong>Figma ＝ 設計図・模型</strong> ／ <strong>プログラミング ＝ 建築工事</strong><br>
+                        Figmaはあくまで「イメージ」です。実際にアプリとして動かすにはエンジニアの実装が必須です。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center text-gray-500 text-sm">
+        <p>&copy; 2024 Zukai Library for Maikeru Bucho</p>
+    </footer>
+
+</body>
+
+</html>
