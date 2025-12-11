@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategic Partnership Scheme</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #111827;
+            --secondary: #374151;
+            --accent: #3B82F6;
+            --highlight: #10B981;
+            --bg: #F3F4F6;
+            --card-bg: #FFFFFF;
+            --text-main: #1F2937;
+            --text-light: #6B7280;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        /* Strategy Section */
+        .strategy-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .strategy-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .strategy-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #F3F4F6;
+        }
+
+        .icon-box {
+            width: 50px;
+            height: 50px;
+            background: #EFF6FF;
+            color: var(--accent);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .strategy-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        /* Comparison Visual - Fix Overlap */
+        .comparison-visual {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .bar-container {
+            display: flex;
+            min-height: 60px;
+            /* Changed from fixed height */
+            border-radius: 12px;
+            overflow: hidden;
+            font-weight: 700;
+            color: white;
+            text-align: center;
+            /* eliminated line-height: 60px to allow multi-line text */
+        }
+
+        .bar-market {
+            width: 100%;
+            background: #9CA3AF;
+            padding: 1rem;
+            /* Added padding */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bar-market::after {
+            content: "市場相場: 30-50万円 (Web制作のみで予算消化)";
+            position: absolute;
+            left: 0;
+            right: 0;
+        }
+
+        .bar-proposal {
+            display: flex;
+            width: 100%;
+        }
+
+        .bar-web {
+            width: 25%;
+            background: var(--primary);
+            font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            line-height: 1.2;
+            padding: 0.5rem;
+        }
+
+        .bar-margin {
+            width: 75%;
+            background: var(--highlight);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            line-height: 1.2;
+            color: #064E3B;
+            padding: 0.5rem;
+        }
+
+        .strategy-desc {
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        .strategy-desc strong {
+            color: var(--primary);
+            background: linear-gradient(120deg, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0.2) 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 0.4em;
+            background-position: 0 88%;
+        }
+
+        /* Offerings Grid */
+        .offerings-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .offering-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s ease;
+        }
+
+        .offering-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .offering-head {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+        }
+
+        .product-price small {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-light);
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: var(--secondary);
+            font-size: 0.95rem;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: 800;
+        }
+
+        /* Profile & Ad Ops */
+        .ad-ops-banner {
+            background: linear-gradient(135deg, #1E293B, #0F172A);
+            border-radius: 20px;
+            padding: 3rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3rem;
+        }
+
+        .ad-content {
+            flex: 1;
+        }
+
+        .ad-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #60A5FA;
+        }
+
+        .ad-text {
+            color: #94A3B8;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .profile-box {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-img {
+            width: 60px;
+            height: 60px;
+            background: #CBD5E1;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .profile-info h4 {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .profile-info p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #CBD5E1;
+        }
+
+        .margin-calc {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px dashed #475569;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            min-width: 300px;
+        }
+
+        .margin-calc h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .calc-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #CBD5E1;
+        }
+
+        .calc-row.total {
+            margin-top: 1rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #475569;
+            color: var(--highlight);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .strategy-section {
+                grid-template-columns: 1fr;
+            }
+
+            .offerings-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ad-ops-banner {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <span class="badge">AGENCY PARTNERSHIP SCHEME</span>
+            <h1>戦略的Webパッケージ提案</h1>
+            <p class="subtitle">貴社の「高単価クリエイティブ」を受注しやすくするためのインフラ戦略</p>
+        </header>
+
+        <!-- Strategy Visual -->
+        <section class="strategy-section">
+            <div class="strategy-card">
+                <div class="strategy-header">
+                    <div class="icon-box">🧠</div>
+                    <div class="strategy-title">The Strategy <span
+                            style="font-size:0.8em; font-weight:400; color:#6B7280;">(狙い)</span></div>
+                </div>
+                <div class="comparison-visual">
+                    <div style="font-size:0.9rem; margin-bottom:0.5rem; color:#6B7280;">従来の相場観 (30〜50万)</div>
+                    <div class="bar-container">
+                        <div class="bar-market">市場相場: 30-50万円 (Web制作のみで予算消化)</div>
+                    </div>
+
+                    <div style="font-size:0.9rem; margin:1.5rem 0 0.5rem; color:#6B7280;">本パッケージ活用時</div>
+                    <div class="bar-container">
+                        <div class="bar-web">
+                            <span>Web</span>
+                            <span>10万</span>
+                        </div>
+                        <div class="bar-margin">
+                            <span>残り予算 20〜40万</span>
+                            <span style="font-size:0.8rem; opacity:0.9;">映像・ロゴ・ブランディングへ！</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="strategy-desc">
+                    Web制作のイニシャルを<strong>戦略的に10万円</strong>に設定。
+                    これにより浮いたクライアント予算を、貴社の強みであるクリエイティブ領域（動画、デザイン、ブランディング）の受注に回すことができます。
+                </p>
+            </div>
+
+            <div class="strategy-card">
+                <div class="strategy-header">
+                    <div class="icon-box">🤝</div>
+                    <div class="strategy-title">Why Possible? <span
+                            style="font-size:0.8em; font-weight:400; color:#6B7280;">(実現理由)</span></div>
+                </div>
+                <ul class="feature-list" style="font-size: 1.05rem;">
+                    <li style="margin-bottom: 1.5rem;">
+                        <strong
+                            style="color:var(--primary); display:block; margin-bottom:0.25rem;">下請けとして黒子に徹します</strong>
+                        デザイン・実装・インフラ構築を一気通貫で担当。貴社はディレクションとコア業務に集中できます。
+                    </li>
+                    <li style="margin-bottom: 1.5rem;">
+                        <strong
+                            style="color:var(--primary); display:block; margin-bottom:0.25rem;">ランニングコストでの回収モデル</strong>
+                        イニシャルを抑える分、月額費用で長期的な保守関係を構築。
+                        <span
+                            style="display:block; font-size:0.9rem; color:#6B7280; margin-top:0.25rem;">※クライアントの実質負担は平準化され、契約継続率が高まります。</span>
+                    </li>
+                    <li>
+                        <strong style="color:var(--primary); display:block; margin-bottom:0.25rem;">助成金・新法人対応</strong>
+                        「制作費＋運用費」の明確なパッケージ化により、スタートアップ企業の経費計上や助成金申請のハードルを下げ、成約率を高めます。
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Detailed Plans -->
+        <section class="offerings-grid">
+            <div class="offering-card">
+                <div class="offering-head">01. INITIAL PHASE</div>
+                <div class="product-price">100,000<small>円 (一律)</small></div>
+                <p style="color:var(--secondary); font-size:0.9rem; margin-bottom:1.5rem;">
+                    <strong>「Webはこれで十分」と思わせる品質</strong>
+                </p>
+                <ul class="feature-list">
+                    <li>LP / HP制作 (高品質テンプレート)</li>
+                    <li>サーバー・ドメイン取得代行＆設定</li>
+                    <li><strong>GA4・タグマネージャー設置</strong> (プロ品質)</li>
+                    <li>問い合わせフォーム実装</li>
+                </ul>
+            </div>
+
+            <div class="offering-card" style="border-color:var(--primary); background:#FAFAFA;">
+                <div class="offering-head">02. RUNNING PHASE</div>
+                <div class="product-price">20,000<small>円 / 月</small></div>
+                <p style="color:var(--secondary); font-size:0.9rem; margin-bottom:1.5rem;">
+                    <strong>顧客満足度を維持する「神対応」枠</strong>
+                </p>
+                <ul class="feature-list">
+                    <li>サーバー・ドメイン維持管理</li>
+                    <li>システム保守・死活監視</li>
+                    <li
+                        style="color:var(--primary); font-weight:700; background:rgba(0,0,0,0.05); padding:0.25rem 0.5rem; border-radius:4px; display:inline-block; margin-left:-0.5rem;">
+                        月1回の軽微修繕 無料対応</li>
+                    <li style="font-size:0.85rem; padding-left:0; margin-top:0.5rem; color:#6B7280;">
+                        (テキスト・画像差替など、クライアントの「ちょっと直して」を即座に解決)</li>
+                </ul>
+            </div>
+
+            <div class="offering-card">
+                <div class="offering-head">03. UPSELL OPTION</div>
+                <div class="product-price">Ad Ops<small>Option</small></div>
+                <p style="color:var(--secondary); font-size:0.9rem; margin-bottom:1.5rem;">
+                    <strong>運用代行で収益拡大</strong>
+                </p>
+                <ul class="feature-list">
+                    <li>Googleリスティング広告 etc.</li>
+                    <li>運用シミュレーション作成</li>
+                    <li>月次レポート・改善提案</li>
+                    <li><strong>貴社の利益上乗せ可能</strong></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Ad Ops Specialist Section -->
+        <section class="ad-ops-banner">
+            <div class="ad-content">
+                <div class="ad-title">広告運用スペシャリスト連携</div>
+                <p class="ad-text">
+                    私（Michael Pruneda）はWeb制作だけでなく、広告運用歴8年の実績があります。
+                    サイトを作って終わりではなく、「集客」までを一貫サポートすることで、クライアントのLTVを最大化します。
+                </p>
+                <div class="profile-box">
+                    <div class="profile-img" style="overflow:hidden; padding:0; background:none;">
+                        <img src="../assets/20220311122955のコピー2.JPEG" alt="Michael Pruneda"
+                            style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="profile-info">
+                        <h4>Michael Pruneda</h4>
+                        <p>広告運用歴 8年 / 運用エキスパート</p>
+                    </div>
+                </div>
+            </div>
+            <div class="margin-calc">
+                <h3>💰 運用収益モデル例</h3>
+                <div class="calc-row">
+                    <span>広告予算</span>
+                    <span>1,000,000円</span>
+                </div>
+                <div style="margin: 1rem 0; border-top: 1px solid #475569;"></div>
+                <div class="calc-row">
+                    <span>運用代行費 (Market Avg)</span>
+                    <span>20% (20万)</span>
+                </div>
+                <!-- Breakdown -->
+                <div class="calc-row" style="color:#60A5FA; font-weight:700;">
+                    <span>実働手数料 (My Fee)</span>
+                    <span>20%</span>
+                </div>
+                <div class="calc-row" style="color:var(--highlight); font-weight:700;">
+                    <span>貴社マージン (Option)</span>
+                    <span>+5%〜 自由設定</span>
+                </div>
+                <p style="font-size:0.8rem; color:#94A3B8; margin-top:1rem; text-align:left;">
+                    ※私の手数料は業界安値水準の20%固定。貴社側でディレクション費として5%〜10%を上乗せして請求いただけます。
+                </p>
+            </div>
+        </section>
+    </div>
+</body>
+
+</html>
